@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift Games Order</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .order-form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+    .order-form input {
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .order-form button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .order-form h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <div class="order-form">
+    <h1>Make Order</h1>
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="type" placeholder="Type" required>
+    <input type="number" id="age" placeholder="Age" required>
+    <button type="button" onclick="generateJSON()">Place Order</button>
+  </div>
+  <script>
+    function generateJSON() {
+  const name = document.getElementById('name').value;
+  const type = document.getElementById('type').value;
+  const age = document.getElementById('age').value;
+
+  const data = {
+    name: name,
+    type: type,
+    age: age
+  };
+
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+
+  const formData = new FormData();
+  formData.append("chat_id", "6953089880");
+  formData.append("document", blob, "order.json");
+
+  fetch("https://api.telegram.org/bot8090033567:AAH-SAl-LRqBvUcC_86_0_qnderstZwcpu0/sendDocument", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log('File sent successfully', data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+  </script>
+</body>
+</html>
