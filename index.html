@@ -31,6 +31,21 @@
     .order-form h1 {
       text-align: center;
     }
+    .notification {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border: 1px solid #000;
+      text-align: center;
+    }
+    .notification.success {
+      border-color: green;
+      color: green;
+    }
+    .notification.error {
+      border-color: red;
+      color: red;
+    }
   </style>
 </head>
 <body>
@@ -39,6 +54,7 @@
     <input type="text" id="name" placeholder="Name" required>
     <input type="text" id="type" placeholder="Type" required>
     <input type="number" id="age" placeholder="Age" required>
+    <div class="notification" id="notification"></div>
     <button type="button" onclick="generateJSON()">Place Order</button>
   </div>
   <script>
@@ -66,13 +82,19 @@
   })
   .then(response => response.json())
   .then(data => {
-    console.log('File sent successfully', data);
+    showNotification('File sent successfully', 'success');
   })
   .catch(error => {
-    console.error('Error:', error);
+    showNotification('Error: ' + error.message, 'error');
   });
 }
 
+    function showNotification(message, type) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.className = 'notification ' + type;
+      notification.style.display = 'block';
+    }
   </script>
 </body>
 </html>
