@@ -599,7 +599,7 @@ function editImagePath(index) {
         const category = document.getElementById('selectedCategory').textContent.trim(); // Get the selected category
         if (file && category) {
             // Construct the file path with category
-            const filePath = `images/${category}/${file.name}`;
+            const filePath = `images/Catalog/${category}/${file.name}`;
             const imagesInput = document.getElementById('images');
             let currentImages = imagesInput.value ? imagesInput.value.split(', ').map(img => img.trim()) : [];
             currentImages[index] = filePath; // Update the image path at the specified index
