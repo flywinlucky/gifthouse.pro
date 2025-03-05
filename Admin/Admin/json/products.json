@@ -31,7 +31,8 @@
         ],
         "category": "Termusuri",
         "description": "wef",
-        "isTrending": true
+        "isTrending": true,
+        "isNew": true
     },
     {
         "id": "2.2",
