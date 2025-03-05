@@ -1,1 +1,22 @@
-[]
+[
+    {
+        "id": "1.1",
+        "name": "kot 1",
+        "price": "23 MDL",
+        "images": [
+            "images/Jucarii/kot1.jpg"
+        ],
+        "category": "Jucarii",
+        "description": ""
+    },
+    {
+        "id": "1.2",
+        "name": "gh",
+        "price": "3 MDL",
+        "images": [
+            "images/Jucarii/kot1.jpg"
+        ],
+        "category": "Jucarii",
+        "description": ""
+    }
+]
