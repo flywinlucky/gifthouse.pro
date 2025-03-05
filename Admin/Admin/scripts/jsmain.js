@@ -521,8 +521,17 @@ function addImagePath() {
     const category = document.getElementById('selectedCategory').textContent.trim(); // Get the selected category
 
     if (file && category) {
-        // Construct the file path with category
-        const filePath = `images/${category}/${file.name}`;
+        let filePath;
+        
+        // Check if webkitRelativePath is available (useful for directory uploads)
+        if (file.webkitRelativePath) {
+            filePath = file.webkitRelativePath;
+        } else {
+            // Manually construct the full path within 'images/'
+            let fileName = file.name;
+            let fullPath = fileInput.value.replace(/^.*[\\\/]/, ''); // Extracts the relative path
+            filePath = `images/Catalog/${category}/${fullPath}`;
+        }
 
         // Add to input only if not already present
         const currentImages = imagesInput.value ? imagesInput.value.split(', ').map(img => img.trim()) : [];

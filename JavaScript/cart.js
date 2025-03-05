@@ -214,8 +214,7 @@ function checkOut() {
 
     // Trimiterea mesajului prin Telegram API
     const telegramApiUrls = [
-        `https://api.telegram.org/bot7566897555:AAG-7T_y31rmY5Adtwz3d8oxdTo2uNXuj-U/sendMessage?chat_id=6953089880&text=${encodeURIComponent(orderDetails)}`,
-        `https://api.telegram.org/bot8145460035:AAGcPPqbmKALk-xDNB4w6EXl2J4R1to7Sfc/sendMessage?chat_id=7877958009&text=${encodeURIComponent(orderDetails)}`
+        `https://api.telegram.org/bot7566897555:AAG-7T_y31rmY5Adtwz3d8oxdTo2uNXuj-U/sendMessage?chat_id=6953089880&text=${encodeURIComponent(orderDetails)}`
     ];
 
     Promise.all(telegramApiUrls.map(url => fetch(url)))

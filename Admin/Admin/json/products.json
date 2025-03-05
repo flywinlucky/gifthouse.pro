@@ -1,21 +1,20 @@
 [
     {
         "id": "1.1",
-        "name": "kot 1",
-        "price": "23 MDL",
+        "name": "nwq",
+        "price": "12 MDL",
         "images": [
-            "images/Jucarii/kot1.jpg"
+            "images/Catalog/Jucarii/kot1.jpg"
         ],
         "category": "Jucarii",
-        "description": "",
-        "isTrending": true
+        "description": ""
     },
     {
         "id": "1.2",
-        "name": "gh",
-        "price": "3 MDL",
+        "name": "kot 2",
+        "price": "32 MDL",
         "images": [
-            "images/Jucarii/kot1.jpg"
+            "images/Catalog/Jucarii/kot2.jpg"
         ],
         "category": "Jucarii",
         "description": ""
