@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift Games Order</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="order-form">
+    <h1>Make Order</h1>
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="type" placeholder="Type" required>
+    <input type="number" id="age" placeholder="Age" required>
+    <div class="notification" id="notification"></div>
+    <div class="photo-preview" id="photoPreview"></div>
+    <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+    <button type="button" onclick="document.getElementById('photoInput').click()">Add Image</button>
+    <button type="button" onclick="generateJSON()">Place Order</button>
+  </div>
+  <script src="js/scripts.js"></script>
+</body>
+</html>

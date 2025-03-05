@@ -1,0 +1,49 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.order-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+.order-form input {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+.order-form button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.order-form h1 {
+  text-align: center;
+}
+.notification {
+  display: none;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #000;
+  text-align: center;
+}
+.notification.success {
+  border-color: green;
+  color: green;
+}
+.notification.error {
+  border-color: red;
+  color: red;
+}
+.photo-preview {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #000;
+  margin-bottom: 10px;
+  background-size: cover;
+  background-position: center;
+}
