@@ -8,6 +8,7 @@
         ],
         "category": "Jucarii",
         "description": "",
+        "isTrending": true,
         "old_price": "1600 MDL"
     },
     {
@@ -29,7 +30,8 @@
             "images/Catalog/Termusuri/fvewrvf.png"
         ],
         "category": "Termusuri",
-        "description": "wef"
+        "description": "wef",
+        "isTrending": true
     },
     {
         "id": "2.2",
@@ -40,6 +42,7 @@
         ],
         "category": "Termusuri",
         "description": "",
+        "isTrending": true,
         "old_price": "600 MDL"
     },
     {
@@ -50,6 +53,7 @@
             "images/Catalog/Jucarii/kot1.jpg"
         ],
         "category": "Jucarii",
-        "description": ""
+        "description": "",
+        "isTrending": true
     }
 ]
