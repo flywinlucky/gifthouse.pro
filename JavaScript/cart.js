@@ -291,6 +291,7 @@ window.processCardOrder = function() {
 
     document.body.appendChild(form);
     form.submit();
+    document.body.removeChild(form); // Remove the form after submission
 }
 
 function md5(string) {
