@@ -309,3 +309,48 @@ window.processCardOrder = function() {
 function md5(string) {
     return CryptoJS.MD5(string).toString();
 }
+
+let appliedPromoCodes = [];
+let currentDiscount = 0;
+
+function applyPromoCode() {
+    const promoCodeInput = document.querySelector('input[placeholder="PROMOCODE"]');
+    const promoCode = promoCodeInput.value.trim().toUpperCase();
+
+    if (appliedPromoCodes.includes(promoCode)) {
+        alert("Acest promo cod a fost deja folosit.");
+        return;
+    }
+
+    if (promoCode === "GIFTHOUSE10") {
+        currentDiscount = 0.10; // 10% discount
+    } else {
+        alert("Promo cod invalid.");
+        return;
+    }
+
+    appliedPromoCodes.push(promoCode);
+    updateTotalPriceWithDiscount();
+}
+
+async function updateTotalPriceWithDiscount() {
+    let total = cart.reduce((sum, product) => {
+        let price = parseFloat(product.price.replace('$', '')); // Eliminăm $
+        return sum + (price * product.quantity);
+    }, 0);
+
+    total = total - (total * currentDiscount);
+    totalPrice.innerHTML = `${total.toFixed(2)} MDL`;
+    localStorage.setItem("total price", total + 0); // Adaugă livrarea dacă e necesar
+
+    // Update the total order and converted price in USD
+    let subTotal = document.getElementById("Subtotal");
+    subTotal.innerHTML = `${total.toFixed(2)} MDL`;
+    let totalOrder = parseFloat(subTotal.innerHTML.replace('MDL', '')) + 0; // Adaugăm taxa de livrare
+    document.getElementById("total_order").innerHTML = `${totalOrder.toFixed(2)} MDL`;
+
+    const totalInUSD = await convertToUSD(totalOrder);
+    document.getElementById("total_order_usd").innerHTML = `${totalInUSD} USD`;
+
+    return total;
+}
