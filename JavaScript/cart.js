@@ -255,14 +255,13 @@ function processCashOrder() {
 
 window.processCardOrder = function() {
     const totalOrderPrice = updateTotalPrice().toFixed(2);
-    const amountInUSD = (parseFloat(totalOrderPrice) / 17.5).toFixed(2); // Assuming 1 USD = 17.5 MDL
 
     const merchantId = '60399';
     const secretWord1 = 'A2^NvFJm]c6]!m8';
     const orderId = new Date().getTime(); // Unique order ID
-    const signature = md5(`${merchantId}:${amountInUSD}:${secretWord1}:${orderId}`);
+    const signature = md5(`${merchantId}:${totalOrderPrice}:${secretWord1}:${orderId}`);
 
-    alert(`FreeKassa Parameters:\nMerchant ID: ${merchantId}\nAmount in USD: ${amountInUSD}\nOrder ID: ${orderId}\nSignature: ${signature}`);
+    alert(`FreeKassa Parameters:\nMerchant ID: ${merchantId}\nAmount in MDL: ${totalOrderPrice}\nOrder ID: ${orderId}\nSignature: ${signature}`);
 
     const form = document.createElement('form');
     form.method = 'POST';
@@ -271,7 +270,7 @@ window.processCardOrder = function() {
 
     const params = {
         m: merchantId,
-        oa: amountInUSD,
+        oa: totalOrderPrice,
         o: orderId,
         s: signature,
         currency: 'USD',
