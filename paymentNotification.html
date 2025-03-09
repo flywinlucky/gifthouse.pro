@@ -1,3 +1,4 @@
+@ -0,0 +1,40 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -7,36 +8,22 @@
 <body>
     <h1>Payment Notification</h1>
     <p id="status"></p>
-    <p id="payment-status"></p> <!-- Afișează statutul plății -->
 
     <script>
         // Simulăm un POST pentru notificările de la FreeKassa
         async function sendNotification(data) {
             console.log("Data trimisă:", data);  // Pentru debugging
 
-            try {
-                const response = await fetch('https://gifthouse.pro/paymentNotification', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams(data)
-                });
+            const response = await fetch('http://127.0.0.1:5000/paymentNotification', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams(data)
+            });
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json().catch(() => {
-                    throw new Error('Invalid JSON response');
-                });
-
-                document.getElementById("status").innerText = result.message;
-                document.getElementById("payment-status").innerText = `Order ID: ${data.order_id}, Amount: ${data.amount}, Status: ${data.status}`;
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById("status").innerText = 'Failed to send notification';
-            }
+            const result = await response.json();
+            document.getElementById("status").innerText = result.message;
         }
 
         // Exemplu de date (simulare)
@@ -44,7 +31,7 @@
             order_id: '12345',
             amount: '100.00',
             status: 'success',
-            signature: 'ea10652cb817e1d9c1bbdc0a6e70828f' // Semnătura calculată corectă
+            signature: 'calculated_signature_here' // Înlocuiește cu semnătura calculată reală
         };
 
         // Trimite notificarea
