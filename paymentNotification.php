@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);  // Afișează erorile pentru debugging
+
 // Detalii pentru Merchant
 $merchant_id = '60399';  // ID-ul tău de merchant
 $api_key = '7c919a108aa71a06fc09ef08e9edc9bf';  // Cheia ta API
