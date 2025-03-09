@@ -7,6 +7,11 @@ const cartTextElements = document.querySelectorAll(".cart_products");
 const btnControl = document.querySelector(".btn_control");
 const cartTotal = document.querySelector(".cart_total");
 
+// Include CryptoJS library
+const script = document.createElement('script');
+script.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
+document.head.appendChild(script);
+
 loadCart();
 getData();
 checkCart();
@@ -173,10 +178,21 @@ function checkOut() {
         return;
     }
 
+    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+    if (paymentMethod === 'cash') {
+        processCashOrder();
+    } else if (paymentMethod === 'card') {
+        processCardOrder();
+    } else {
+        alert("Vă rugăm să selectați o metodă de plată.");
+    }
+}
+
+function processCashOrder() {
     // Preluarea informațiilor de livrare
     let shippingInputs = document.querySelectorAll(".Shiping_Info input");
     let shippingInfo = {
-        Nume: shippingInputs[0].value, // Rămâne Nume
+        Nume: shippingInputs[0].value,
         Locatia: shippingInputs[1].value,
         Telefon: shippingInputs[2].value,
         Telegram: shippingInputs[3].value,
@@ -235,4 +251,48 @@ function checkOut() {
             // Redirecționează către pagina de eșec
             window.location.href = "paymenFailed.html";
         });
+}
+
+window.processCardOrder = function() {
+    const totalOrderPrice = updateTotalPrice().toFixed(2);
+    const amountInUSD = (parseFloat(totalOrderPrice) / 17.5).toFixed(2); // Assuming 1 USD = 17.5 MDL
+
+    const merchantId = '60399';
+    const secretWord1 = 'A2^NvFJm]c6]!m8';
+    const orderId = new Date().getTime(); // Unique order ID
+    const signature = md5(`${merchantId}:${amountInUSD}:${secretWord1}:${orderId}`);
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://pay.freekassa.ru/';
+    form.target = '_blank';
+
+    const params = {
+        m: merchantId,
+        oa: amountInUSD,
+        o: orderId,
+        s: signature,
+        currency: 'USD',
+        us_user: 'USER_ID',
+        lang: 'en',
+        i: 'USD',
+        debug: '1'
+    };
+
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = key;
+            hiddenField.value = params[key];
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function md5(string) {
+    return CryptoJS.MD5(string).toString();
 }
