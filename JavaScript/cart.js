@@ -165,11 +165,22 @@ function checkCartPage(total, totalQuantity) {
     }
 }
 
-function displayInCartPage(total) {
+async function displayInCartPage(total) {
     let subTotal = document.getElementById("Subtotal");
     subTotal.innerHTML = `${total.toFixed(2)} MDL`;
     let totalOrder = parseFloat(subTotal.innerHTML.replace('MDL', '')) + 0; // Adaugăm taxa de livrare
     document.getElementById("total_order").innerHTML = `${totalOrder.toFixed(2)} MDL`;
+
+    // Convert total order to USD and display
+    const totalInUSD = await convertToUSD(totalOrder);
+    document.getElementById("total_order_usd").innerHTML = `${totalInUSD} USD`;
+}
+
+async function convertToUSD(amountInMDL) {
+    const response = await fetch('https://api.exchangerate-api.com/v4/latest/MDL');
+    const data = await response.json();
+    const rate = data.rates.USD;
+    return (amountInMDL * rate).toFixed(2);
 }
 
 function checkOut() {
