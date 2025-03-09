@@ -5,45 +5,7 @@
     <title>Payment Notification</title>
 </head>
 <body>
-    <h1>Payment Notification</h1>
-    <p id="status"></p>
 
-    <script>
-        // Simulăm un POST pentru notificările de la FreeKassa
-        async function sendNotification(data) {
-            console.log("Data trimisă:", data);  // Pentru debugging
-
-            try {
-                const response = await fetch('http://127.0.0.1:5000/paymentNotification', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: new URLSearchParams(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const result = await response.json();
-                document.getElementById("status").innerText = result.message;
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById("status").innerText = 'Failed to send notification';
-            }
-        }
-
-        // Exemplu de date (simulare)
-        const paymentData = {
-            order_id: '12345',
-            amount: '100.00',
-            status: 'success',
-            signature: 'calculated_signature_here' // Înlocuiește cu semnătura calculată reală
-        };
-
-        // Trimite notificarea
-        sendNotification(paymentData);
-    </script>
+   
 </body>
 </html>
