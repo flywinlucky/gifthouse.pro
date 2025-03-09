@@ -146,3 +146,18 @@ h2 {
     background-color: #222222; /* Darker grey */
     transform: translateY(-2px); /* Lift effect on hover */
 }
+
+/* Styles for the Payment Method section */
+.payment-method {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between elements */
+}
+
+.text-message-center {
+    text-align: center;
+}
+
+.center-text {
+    text-align: center;
+}
