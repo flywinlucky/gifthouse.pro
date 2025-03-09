@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 import hashlib
+from flask_cors import CORS  # Import CORS
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS
 
 # Cheia secretă pe care o ai în contul FreeKassa
 SECRET_KEY = "A2^NvFJm]c6]!m8"  # Folosește Secret word 1
