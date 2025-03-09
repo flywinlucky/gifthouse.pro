@@ -27,7 +27,10 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const result = await response.json();
+                const result = await response.json().catch(() => {
+                    throw new Error('Invalid JSON response');
+                });
+
                 document.getElementById("status").innerText = result.message;
                 document.getElementById("payment-status").innerText = `Order ID: ${data.order_id}, Amount: ${data.amount}, Status: ${data.status}`;
             } catch (error) {

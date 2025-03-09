@@ -39,6 +39,9 @@ def payment_notification():
     else:
         return jsonify({"status": "error", "message": "Invalid signature!"}), 400
 
+    # Return a default JSON response in case of unexpected issues
+    return jsonify({"status": "error", "message": "Unexpected error occurred!"}), 500
+
 if __name__ == '__main__':
     # Rulează serverul pe IP-ul 0.0.0.0 pentru acces extern
     app.run(host='0.0.0.0', port=5000)
