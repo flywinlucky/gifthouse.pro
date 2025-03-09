@@ -224,10 +224,10 @@ function checkOut() {
                 saveCart();
                 checkCart(); // Actualizează interfața
                 // Redirecționează către pagina de succes
-                window.location.href = "paymenSuccesful.html";
+                window.location.href = "paymentSuccessful.html";
             } else {
                 // Redirecționează către pagina de eșec
-                window.location.href = "paymenFailed.html";
+                window.location.href = "paymentFailed.html";
             }
         })
         .catch(error => {
