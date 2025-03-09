@@ -40,5 +40,5 @@ def payment_notification():
         return jsonify({"status": "error", "message": "Invalid signature!"}), 400
 
 if __name__ == '__main__':
-    # Rulează serverul pe domeniul gifthouse.pro pentru acces extern
-    app.run(host='gifthouse.pro', port=5000)
+    # Rulează serverul pe IP-ul 0.0.0.0 pentru acces extern
+    app.run(host='0.0.0.0', port=5000)
