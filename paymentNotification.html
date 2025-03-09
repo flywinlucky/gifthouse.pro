@@ -7,13 +7,14 @@
 <body>
     <h1>Payment Notification</h1>
     <p id="status"></p>
+    <p id="payment-status"></p> <!-- Afișează statutul plății -->
 
     <script>
         // Simulăm un POST pentru notificările de la FreeKassa
         async function sendNotification(data) {
             console.log("Data trimisă:", data);  // Pentru debugging
 
-            const response = await fetch('http://127.0.0.1:5000/paymentNotification', {
+            const response = await fetch('http://gifthouse.pro/paymentNotification', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,6 +24,7 @@
 
             const result = await response.json();
             document.getElementById("status").innerText = result.message;
+            document.getElementById("payment-status").innerText = `Order ID: ${data.order_id}, Amount: ${data.amount}, Status: ${data.status}`;
         }
 
         // Exemplu de date (simulare)
@@ -30,7 +32,7 @@
             order_id: '12345',
             amount: '100.00',
             status: 'success',
-            signature: 'calculated_signature_here' // Înlocuiește cu semnătura calculată reală
+            signature: 'ea10652cb817e1d9c1bbdc0a6e70828f' // Semnătura calculată corectă
         };
 
         // Trimite notificarea
