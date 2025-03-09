@@ -1,60 +1,12 @@
 [
     {
         "id": "1.1",
-        "name": "kat 1",
-        "price": "1200 MDL",
-        "images": [
-            "images/Catalog/Jucarii/kot1.jpg"
-        ],
-        "category": "Jucarii",
-        "description": "",
-        "isTrending": true,
-        "old_price": "1600 MDL"
-    },
-    {
-        "id": "1.2",
-        "name": "kat 2",
-        "price": "1500 MDL",
+        "name": "sd",
+        "price": "2323 MDL",
         "images": [
             "images/Catalog/Jucarii/kot2.jpg"
         ],
         "category": "Jucarii",
-        "description": "mda",
-        "isNew": true
-    },
-    {
-        "id": "2.1",
-        "name": "term 1",
-        "price": "233 MDL",
-        "images": [
-            "images/Catalog/Termusuri/fvewrvf.png"
-        ],
-        "category": "Termusuri",
-        "description": "wef",
-        "isTrending": true,
-        "isNew": true
-    },
-    {
-        "id": "2.2",
-        "name": "term 2",
-        "price": "433 MDL",
-        "images": [
-            "images/Catalog/Termusuri/termus2.jpg"
-        ],
-        "category": "Termusuri",
-        "description": "",
-        "isTrending": true,
-        "old_price": "600 MDL"
-    },
-    {
-        "id": "1.3",
-        "name": "wef",
-        "price": "2 MDL",
-        "images": [
-            "images/Catalog/Jucarii/kot1.jpg"
-        ],
-        "category": "Jucarii",
-        "description": "",
-        "isTrending": true
+        "description": "wed"
     }
 ]

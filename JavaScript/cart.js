@@ -264,15 +264,16 @@ function processCashOrder() {
         });
 }
 
-window.processCardOrder = function() {
-    const totalOrderPrice = updateTotalPrice().toFixed(2);
+window.processCardOrder = async function() {
+    const totalOrderPriceMDL = updateTotalPrice().toFixed(2);
+    const totalOrderPriceUSD = await convertToUSD(totalOrderPriceMDL);
 
     const merchantId = '60399';
     const secretWord1 = 'A2^NvFJm]c6]!m8';
     const orderId = new Date().getTime(); // Unique order ID
-    const signature = md5(`${merchantId}:${totalOrderPrice}:${secretWord1}:${orderId}`);
+    const signature = md5(`${merchantId}:${totalOrderPriceUSD}:${secretWord1}:${orderId}`);
 
-    alert(`FreeKassa Parameters:\nMerchant ID: ${merchantId}\nAmount in MDL: ${totalOrderPrice}\nOrder ID: ${orderId}\nSignature: ${signature}`);
+    alert(`FreeKassa Parameters:\nMerchant ID: ${merchantId}\nAmount in USD: ${totalOrderPriceUSD}\nOrder ID: ${orderId}\nSignature: ${signature}`);
 
     const form = document.createElement('form');
     form.method = 'POST';
@@ -281,7 +282,7 @@ window.processCardOrder = function() {
 
     const params = {
         m: merchantId,
-        oa: totalOrderPrice,
+        oa: totalOrderPriceUSD,
         o: orderId,
         s: signature,
         currency: 'USD',
