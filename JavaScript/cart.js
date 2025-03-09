@@ -262,6 +262,8 @@ window.processCardOrder = function() {
     const orderId = new Date().getTime(); // Unique order ID
     const signature = md5(`${merchantId}:${amountInUSD}:${secretWord1}:${orderId}`);
 
+    alert(`FreeKassa Parameters:\nMerchant ID: ${merchantId}\nAmount in USD: ${amountInUSD}\nOrder ID: ${orderId}\nSignature: ${signature}`);
+
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = 'https://pay.freekassa.ru/';
