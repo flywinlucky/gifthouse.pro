@@ -94,5 +94,65 @@
         "description": "Juc\u0103rie de plu\u0219, Material de umplere bumbac",
         "isTrending": true,
         "isNew": true
+    },
+    {
+        "id": "2.1",
+        "name": "Floarea soarelui",
+        "price": "250 MDL",
+        "images": [
+            "images/Catalog/Plante/plan_1.jpg"
+        ],
+        "category": "Plante",
+        "description": "Juc\u0103rii de plus floarea-soarelu, 32*10 cm",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "2.2",
+        "name": "Dovleac de plush",
+        "price": "450 MDL",
+        "images": [
+            "images/Catalog/Plante/plan_2.jpg"
+        ],
+        "category": "Plante",
+        "description": "Dovleac de plush, Decorare pentru cas\u0103",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "2.3",
+        "name": "Banana de plu\u0219",
+        "price": "150 MDL",
+        "images": [
+            "images/Catalog/Plante/ban_1.jpg"
+        ],
+        "category": "Plante",
+        "description": "Aceast\u0103 juc\u0103rie adorabil\u0103 de plu\u0219 este un plus \u00eenc\u00e2nt\u0103tor pentru orice camer\u0103, oferind un design juc\u0103u\u0219 \u0219i dr\u0103g\u0103la\u0219 care aduce un z\u00e2mbet pe fa\u021b\u0103 oricui.. \u00cen form\u0103 de banan\u0103, are o fa\u021b\u0103 expresiv\u0103 care adaug\u0103 personalitate \u0219i farmec.",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "2.4",
+        "name": "Vinete Moale de Plu\u0219",
+        "price": "550 MDL",
+        "images": [
+            "images/Catalog/Plante/img_.jpg"
+        ],
+        "category": "Plante",
+        "description": "40/55cm Vinete Moale de Plu\u0219, 18 ani \u0219i peste, 14 ani \u0219i pes",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "2.5",
+        "name": "Morcov de plu\u0219",
+        "price": "350 MDL",
+        "images": [
+            "images/Catalog/Plante/morc_1.jpg"
+        ],
+        "category": "Plante",
+        "description": "Morcov de plu\u0219, M\u0103rime 45CM",
+        "isTrending": true,
+        "isNew": true
     }
 ]
