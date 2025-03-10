@@ -1,12 +1,26 @@
 [
     {
         "id": "1.1",
-        "name": "sd",
-        "price": "2323 MDL",
+        "name": "Capybara de plu\u0219",
+        "price": "150 MDL",
         "images": [
-            "images/Catalog/Jucarii/kot2.jpg"
+            "images/Catalog/Animale/cap_1.jpg"
         ],
-        "category": "Jucarii",
-        "description": "wed"
+        "category": "Animale",
+        "description": "Capybara de plu\u0219 moale. 25 cm",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "1.2",
+        "name": "Caracati\u021b\u0103 de plu\u0219",
+        "price": "100 MDL",
+        "images": [
+            "images/Catalog/Animale/car_1.jpg"
+        ],
+        "category": "Animale",
+        "description": "Caracati\u021b\u0103 de plu\u0219, Flip reversibil\u0103 amuzant\u0103, Juc\u0103rii din via\u021ba marin\u0103.",
+        "isTrending": true,
+        "isNew": true
     }
 ]
