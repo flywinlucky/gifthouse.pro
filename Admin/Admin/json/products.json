@@ -21,7 +21,7 @@
         "category": "Animale",
         "description": "Produsul este sigur \u0219i non-toxic, nu este u\u0219or s\u0103 \u00eendep\u0103rta\u021bi p\u0103rul, culoarea este plin\u0103 \u0219i senza\u021bia este confortabil\u0103. P\u0103pu\u0219\u0103 de plu\u0219 dr\u0103gu\u021b\u0103 \u0219i moale, cu expresie realist\u0103, vedere de ansamblu clar\u0103 \u0219i realist\u0103",
         "isTrending": true,
-        "isNew": true
+        "old_price": "1300 MDL"
     },
     {
         "id": "1.3",
@@ -32,8 +32,7 @@
         ],
         "category": "Animale",
         "description": "Stare 100% nou-nou\u021b\u0103 \u0219i de \u00eenalt\u0103 calitate Inaltime Aproximativ 40 cm (inclusiv urechea)\nCuloarea alb\u0103",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "1.4",
@@ -56,8 +55,7 @@
         ],
         "category": "Animale",
         "description": "Aceast\u0103 p\u0103pu\u0219\u0103 adorabil\u0103 cu pern\u0103 de plu\u0219 este perfect\u0103 pentru iubitorii de pisici \u0219i ofer\u0103 confort \u0219i companie. Conceput cu picioare foarte lungi, acest prieten felin moale \u0219i dr\u0103g\u0103la\u0219 este realizat din materiale de \u00eenalt\u0103 calitate",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "1.6",
@@ -81,7 +79,7 @@
         "category": "Animale",
         "description": "Aceast\u0103 juc\u0103rie adorabil\u0103 de plus este cadoul perfect pentru copiii care iubesc animalele dr\u0103gu\u021be \u0219i dr\u0103g\u0103la\u0219e. Cu designul s\u0103u fermec\u0103tor de avocado \u0219i materialul moale, care se \u00eembr\u0103\u021bi\u0219eaz\u0103, acest plus de capibara va deveni cu siguran\u021b\u0103 un \u00eenso\u021bitor iubit",
         "isTrending": true,
-        "isNew": true
+        "old_price": "300 MDL"
     },
     {
         "id": "1.8",
@@ -92,8 +90,7 @@
         ],
         "category": "Animale",
         "description": "Juc\u0103rie de plu\u0219, Material de umplere bumbac",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "2.1",
@@ -104,8 +101,7 @@
         ],
         "category": "Plante",
         "description": "Juc\u0103rii de plus floarea-soarelu, 32*10 cm",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "2.2",
@@ -116,8 +112,7 @@
         ],
         "category": "Plante",
         "description": "Dovleac de plush, Decorare pentru cas\u0103",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "2.3",
@@ -128,8 +123,7 @@
         ],
         "category": "Plante",
         "description": "Aceast\u0103 juc\u0103rie adorabil\u0103 de plu\u0219 este un plus \u00eenc\u00e2nt\u0103tor pentru orice camer\u0103, oferind un design juc\u0103u\u0219 \u0219i dr\u0103g\u0103la\u0219 care aduce un z\u00e2mbet pe fa\u021b\u0103 oricui.. \u00cen form\u0103 de banan\u0103, are o fa\u021b\u0103 expresiv\u0103 care adaug\u0103 personalitate \u0219i farmec.",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "2.4",
@@ -141,7 +135,7 @@
         "category": "Plante",
         "description": "40/55cm Vinete Moale de Plu\u0219, 18 ani \u0219i peste, 14 ani \u0219i pes",
         "isTrending": true,
-        "isNew": true
+        "old_price": "750 MDL"
     },
     {
         "id": "2.5",
@@ -152,8 +146,7 @@
         ],
         "category": "Plante",
         "description": "Morcov de plu\u0219, M\u0103rime 45CM",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "3.1",
@@ -164,8 +157,7 @@
         ],
         "category": "Puzzle-uri",
         "description": "Ocean din lemn puzzle 3D, M\u0103rimea produsului 14,5*14,5*0,7CM, Interval de v\u00e2rst\u0103 3 ani",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "3.2",
@@ -176,8 +168,7 @@
         ],
         "category": "Puzzle-uri",
         "description": "Rigl\u0103 magic\u0103 din plastic, 24 de pene, cub de \u0219arpe magic, puzzle-uri r\u0103sucite pentru copii, juc\u0103rie educa\u021bional\u0103 pliabil\u0103.",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "3.3",
@@ -201,7 +192,7 @@
         "category": "Puzzle-uri",
         "description": "ocul de origine: CN (Origine)\nMaterial: lemn\nPentru tine: Lungime: aproximativ 11 cm latime: aproximativ 11 cm \u00een\u0103l\u021bime: aproximativ 0,4 cm\n(M\u0103rimea este m\u0103surat\u0103 manual, iar eroarea de 1-2 cm este normal\u0103)",
         "isTrending": true,
-        "isNew": true
+        "old_price": "100 MDL"
     },
     {
         "id": "3.5",
@@ -212,8 +203,7 @@
         ],
         "category": "Puzzle-uri",
         "description": "De \u00eenalt\u0103 calitate\nMaterial: lemn\nCuloare: ca imagine\nDimensiune: 3,5 * 3,5 * 3,5 cm (dimensiunea unei piese)\n1 inch = 2,54 cm",
-        "isTrending": true,
-        "isNew": true
+        "isTrending": true
     },
     {
         "id": "3.6",
@@ -225,6 +215,6 @@
         "category": "Puzzle-uri",
         "description": "Montessori Juc\u0103rii de \u00eenv\u0103\u021bare Puzzle de potrivire a formelor Potrivirea culorilor \u0219i formelor Teaseruri de creier Joc de logic\u0103 Juc\u0103rii educa\u021bionale pre\u0219colare pentru copii B\u0103ie\u021bi Fete Cadouri de aniversare pentru copii",
         "isTrending": true,
-        "isNew": true
+        "old_price": "200 MDL"
     }
 ]
