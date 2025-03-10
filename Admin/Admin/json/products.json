@@ -154,5 +154,77 @@
         "description": "Morcov de plu\u0219, M\u0103rime 45CM",
         "isTrending": true,
         "isNew": true
+    },
+    {
+        "id": "3.1",
+        "name": "Ocean din lemn puzzle 3D",
+        "price": "150 MDL",
+        "images": [
+            "images/Catalog/Puzzle-uri/fish_1.jpg"
+        ],
+        "category": "Puzzle-uri",
+        "description": "Ocean din lemn puzzle 3D, M\u0103rimea produsului 14,5*14,5*0,7CM, Interval de v\u00e2rst\u0103 3 ani",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "3.2",
+        "name": "Twist Puzzles",
+        "price": "50 MDL",
+        "images": [
+            "images/Catalog/Puzzle-uri/magic_1.jpg"
+        ],
+        "category": "Puzzle-uri",
+        "description": "Rigl\u0103 magic\u0103 din plastic, 24 de pene, cub de \u0219arpe magic, puzzle-uri r\u0103sucite pentru copii, juc\u0103rie educa\u021bional\u0103 pliabil\u0103.",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "3.3",
+        "name": "Animale din h\u00e2rtie",
+        "price": "70 MDL",
+        "images": [
+            "images/Catalog/Puzzle-uri/anim_1.jpg"
+        ],
+        "category": "Puzzle-uri",
+        "description": "Fabricat din h\u00e2rtie ecologic\u0103 \u0219i reciclabil\u0103, non-toxic\u0103 \u0219i inofensiv\u0103.\nAceast\u0103 juc\u0103rie este perfect\u0103 pentru adolescen\u021bii \u0219i tinerii adul\u021bi c\u0103rora le place activit\u0103\u021bile de construc\u021bie \u0219i me\u0219te\u0219uguri.",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "3.4",
+        "name": "Puzzle din lemn pentru copii",
+        "price": "80 MDL",
+        "images": [
+            "images/Catalog/Puzzle-uri/puz_1.jpg"
+        ],
+        "category": "Puzzle-uri",
+        "description": "ocul de origine: CN (Origine)\nMaterial: lemn\nPentru tine: Lungime: aproximativ 11 cm latime: aproximativ 11 cm \u00een\u0103l\u021bime: aproximativ 0,4 cm\n(M\u0103rimea este m\u0103surat\u0103 manual, iar eroarea de 1-2 cm este normal\u0103)",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "3.5",
+        "name": "Ferm\u0103 puzzle",
+        "price": "180 MDL",
+        "images": [
+            "images/Catalog/Puzzle-uri/farm_1.jpg"
+        ],
+        "category": "Puzzle-uri",
+        "description": "De \u00eenalt\u0103 calitate\nMaterial: lemn\nCuloare: ca imagine\nDimensiune: 3,5 * 3,5 * 3,5 cm (dimensiunea unei piese)\n1 inch = 2,54 cm",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "3.6",
+        "name": "puzzle 3D pentru copii",
+        "price": "140 MDL",
+        "images": [
+            "images/Catalog/Puzzle-uri/juc_1.jpg"
+        ],
+        "category": "Puzzle-uri",
+        "description": "Montessori Juc\u0103rii de \u00eenv\u0103\u021bare Puzzle de potrivire a formelor Potrivirea culorilor \u0219i formelor Teaseruri de creier Joc de logic\u0103 Juc\u0103rii educa\u021bionale pre\u0219colare pentru copii B\u0103ie\u021bi Fete Cadouri de aniversare pentru copii",
+        "isTrending": true,
+        "isNew": true
     }
 ]
