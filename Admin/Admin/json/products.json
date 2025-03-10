@@ -22,5 +22,41 @@
         "description": "Caracati\u021b\u0103 de plu\u0219, Flip reversibil\u0103 amuzant\u0103, Juc\u0103rii din via\u021ba marin\u0103.",
         "isTrending": true,
         "isNew": true
+    },
+    {
+        "id": "1.3",
+        "name": "Iepura\u0219 de plu\u0219",
+        "price": "150 MDL",
+        "images": [
+            "images/Catalog/Animale/iep_1.jpg"
+        ],
+        "category": "Animale",
+        "description": "40 cm iepura\u0219 de plu\u0219",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "1.4",
+        "name": "Inchworm Moale",
+        "price": "200 MDL",
+        "images": [
+            "images/Catalog/Animale/worm_1.jpg"
+        ],
+        "category": "Animale",
+        "description": "50 cm Colorat Inchworm, Caterpillar Pern\u0103 Juc\u0103rie de dezvoltare pentru bebelu\u0219i",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "1.5",
+        "name": "Pisic\u0103 pern\u0103 de plu\u0219",
+        "price": "150 MDL",
+        "images": [
+            "images/Catalog/Animale/cat_1.jpg"
+        ],
+        "category": "Animale",
+        "description": "Aceast\u0103 p\u0103pu\u0219\u0103 adorabil\u0103 cu pern\u0103 de plu\u0219 este perfect\u0103 pentru iubitorii de pisici \u0219i ofer\u0103 confort \u0219i companie. Conceput cu picioare foarte lungi, acest prieten felin moale \u0219i dr\u0103g\u0103la\u0219 este realizat din materiale de \u00eenalt\u0103 calitate",
+        "isTrending": true,
+        "isNew": true
     }
 ]
