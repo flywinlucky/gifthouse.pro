@@ -7,7 +7,7 @@
             "images/Catalog/Animale/cap_1.jpg"
         ],
         "category": "Animale",
-        "description": "Capybara de plu\u0219 moale. 25 cm",
+        "description": "Descriere produs:\nNumele produsului: Perna capibara\nCuloare: Maro\nPentru tine: 25cm\nanimale : capibara\nTip : P\u0103pu\u0219\u0103 de plu\u0219/Nano\nUmplere : PP bumbac\nMaterial : plus",
         "isTrending": true,
         "isNew": true
     },
@@ -19,7 +19,7 @@
             "images/Catalog/Animale/car_1.jpg"
         ],
         "category": "Animale",
-        "description": "Caracati\u021b\u0103 de plu\u0219, Flip reversibil\u0103 amuzant\u0103, Juc\u0103rii din via\u021ba marin\u0103.",
+        "description": "Produsul este sigur \u0219i non-toxic, nu este u\u0219or s\u0103 \u00eendep\u0103rta\u021bi p\u0103rul, culoarea este plin\u0103 \u0219i senza\u021bia este confortabil\u0103. P\u0103pu\u0219\u0103 de plu\u0219 dr\u0103gu\u021b\u0103 \u0219i moale, cu expresie realist\u0103, vedere de ansamblu clar\u0103 \u0219i realist\u0103",
         "isTrending": true,
         "isNew": true
     },
@@ -31,7 +31,7 @@
             "images/Catalog/Animale/iep_1.jpg"
         ],
         "category": "Animale",
-        "description": "40 cm iepura\u0219 de plu\u0219",
+        "description": "Stare 100% nou-nou\u021b\u0103 \u0219i de \u00eenalt\u0103 calitate Inaltime Aproximativ 40 cm (inclusiv urechea)\nCuloarea alb\u0103",
         "isTrending": true,
         "isNew": true
     },
@@ -56,6 +56,42 @@
         ],
         "category": "Animale",
         "description": "Aceast\u0103 p\u0103pu\u0219\u0103 adorabil\u0103 cu pern\u0103 de plu\u0219 este perfect\u0103 pentru iubitorii de pisici \u0219i ofer\u0103 confort \u0219i companie. Conceput cu picioare foarte lungi, acest prieten felin moale \u0219i dr\u0103g\u0103la\u0219 este realizat din materiale de \u00eenalt\u0103 calitate",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "1.6",
+        "name": "Pisic\u0103 dr\u0103gu\u021b\u0103",
+        "price": "250 MDL",
+        "images": [
+            "images/Catalog/Animale/cat_2.jpg"
+        ],
+        "category": "Animale",
+        "description": "De \u00eenalt\u0103 calitate, din plu\u0219 moale \u0219i bumbac pp, 25cm",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "1.7",
+        "name": "Avocado Capybara",
+        "price": "250 MDL",
+        "images": [
+            "images/Catalog/Animale/capavocado_1.jpg"
+        ],
+        "category": "Animale",
+        "description": "Aceast\u0103 juc\u0103rie adorabil\u0103 de plus este cadoul perfect pentru copiii care iubesc animalele dr\u0103gu\u021be \u0219i dr\u0103g\u0103la\u0219e. Cu designul s\u0103u fermec\u0103tor de avocado \u0219i materialul moale, care se \u00eembr\u0103\u021bi\u0219eaz\u0103, acest plus de capibara va deveni cu siguran\u021b\u0103 un \u00eenso\u021bitor iubit",
+        "isTrending": true,
+        "isNew": true
+    },
+    {
+        "id": "1.8",
+        "name": "Bear Tiktok Boom",
+        "price": "250 MDL",
+        "images": [
+            "images/Catalog/Animale/iep_2.jpg"
+        ],
+        "category": "Animale",
+        "description": "Juc\u0103rie de plu\u0219, Material de umplere bumbac",
         "isTrending": true,
         "isNew": true
     }
