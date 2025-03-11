@@ -264,7 +264,7 @@ function processCashOrder() {
         });
 }
 
-window.processCardOrder = async function() {
+window.processCardOrder = async function () {
     const totalOrderPriceMDL = updateTotalPrice().toFixed(2);
     const totalOrderPriceUSD = await convertToUSD(totalOrderPriceMDL);
 

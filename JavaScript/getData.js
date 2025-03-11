@@ -21,7 +21,7 @@ async function getData(category = "") {
 
         // Dacă categoria este "Toate Produsele", afișăm toate produsele
         const filteredProducts = category && category !== "Toate Produsele" ? products.filter(product => product.category === category) : products;
-        
+
         displayProducts(filteredProducts, category);
     } catch (error) {
         console.error("Eroare la încărcarea datelor:", error);

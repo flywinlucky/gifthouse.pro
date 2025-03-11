@@ -102,9 +102,9 @@ function saveProduct() {
         products.push(product);
     }
 
-    saveProductsToJSON();  
+    saveProductsToJSON();
     displayAllProducts(); // Refresh UI without refresh  
-    resetProductForm();  
+    resetProductForm();
 
     if (category) {
         filterProductsByCategory(category);
@@ -131,25 +131,25 @@ function saveProductsToJSON() {
         },
         body: JSON.stringify(products)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            showNotification("Produse salvate cu succes în JSON.", "success");
-            displayAllProducts(); // Refresh products without refresh  
-            updateCategories(); // Update category product counts
-            updateProductCount(); // Ensure product count is updated
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                showNotification("Produse salvate cu succes în JSON.", "success");
+                displayAllProducts(); // Refresh products without refresh  
+                updateCategories(); // Update category product counts
+                updateProductCount(); // Ensure product count is updated
 
-            // Ensure the selected category remains selected
-            const selectedCategory = localStorage.getItem('selectedCategory');
-            if (selectedCategory) {
-                filterProductsByCategory(selectedCategory);
-                document.getElementById('filterDropdown').value = selectedCategory;
+                // Ensure the selected category remains selected
+                const selectedCategory = localStorage.getItem('selectedCategory');
+                if (selectedCategory) {
+                    filterProductsByCategory(selectedCategory);
+                    document.getElementById('filterDropdown').value = selectedCategory;
+                }
+            } else {
+                showNotification("Eroare la salvarea produselor: " + data.message, "error");
             }
-        } else {
-            showNotification("Eroare la salvarea produselor: " + data.message, "error");
-        }
-    })
-    .catch(error => showNotification('Eroare: ' + error, "error"));
+        })
+        .catch(error => showNotification('Eroare: ' + error, "error"));
 }
 
 function editProduct(productId) {

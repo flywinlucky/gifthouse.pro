@@ -20,5 +20,5 @@ function updateTotalPrice() {
 }
 
 function backHome() {
-    window.location.href = "index.html"; 
+    window.location.href = "index.html";
 }

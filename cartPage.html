@@ -39,7 +39,7 @@
                     <ul class="nav-buttons">
                         <li><a href="index.html">Acasa</a></li>
                         <li><a href="products.html">Produse</a></li>
-                         <!-- <li><a href="reviews.html">Recenzii</a></li>-->
+                        <!-- <li><a href="reviews.html">Recenzii</a></li>-->
                     </ul>
                 </menu>
             </nav>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <div class="summary">
-                 
+
                         <div class="summary_price">
                             <h2 class="center-text">Rezumatul comenzii</h2>
                             <div>
@@ -130,8 +130,10 @@
                                 <span id="total_order_usd">0 USD</span>
                             </div>
                         </div>
-                        <button class="checkout" id="checkoutButton" onclick="checkOut();" disabled>PLASEAZA COMANDA</button>
-                        <button class="checkout" id="freekassaButton" style="display: none;" onclick="processCardOrder();">Plateste cu FREEKASA</button>
+                        <button class="checkout" id="checkoutButton" onclick="checkOut();" disabled>PLASEAZA
+                            COMANDA</button>
+                        <button class="checkout" id="freekassaButton" style="display: none;"
+                            onclick="processCardOrder();">Plateste cu FREEKASA</button>
                     </div>
                 </div>
             </div>
@@ -166,18 +168,18 @@
         <div class="footer-top">
             <div class="footer-list">
 
-                 <div class="list">
+                <div class="list">
                     <h4>INFORMATII</h4>
                     <ul>
-                        <li><a href="desprenoi.html">Despre noi</a></li>
-                        <li><a href="contact.html">Contacte</a></li>
+                        <li><a href="despre-noi.html">Despre noi</a></li>
+                        <li><a href="contacte.html">Contacte</a></li>
                     </ul>
                 </div>
                 <div class="list">
                     <h4>RELATII CLIENTI</h4>
                     <ul>
-                        <li><a href="termenisiconditii.html">Termeni si conditii</a></li>
-                        <li><a href="politicadeconfidentialitate.html">Politica de confidentialitate</a></li>
+                        <li><a href="termeni-si-conditii.html">Termeni si conditii</a></li>
+                        <li><a href="politica-de-confidentialitate.html">Politica de confidentialitate</a></li>
                     </ul>
                 </div>
 
@@ -238,20 +240,20 @@
     <script src="JavaScript/cart.js"></script>
     <script src="JavaScript/chatBotCore.js"></script>
     <script>
-    function togglePaymentButton() {
-        const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-        const checkoutButton = document.getElementById('checkoutButton');
-        const freekassaButton = document.getElementById('freekassaButton');
+        function togglePaymentButton() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const checkoutButton = document.getElementById('checkoutButton');
+            const freekassaButton = document.getElementById('freekassaButton');
 
-        if (paymentMethod === 'cash') {
-            checkoutButton.style.display = 'block';
-            checkoutButton.disabled = false;
-            freekassaButton.style.display = 'none';
-        } else if (paymentMethod === 'card') {
-            checkoutButton.style.display = 'none';
-            freekassaButton.style.display = 'block';
+            if (paymentMethod === 'cash') {
+                checkoutButton.style.display = 'block';
+                checkoutButton.disabled = false;
+                freekassaButton.style.display = 'none';
+            } else if (paymentMethod === 'card') {
+                checkoutButton.style.display = 'none';
+                freekassaButton.style.display = 'block';
+            }
         }
-    }
     </script>
 </body>
 

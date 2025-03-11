@@ -121,15 +121,15 @@ function saveCategoriesToJSON() {
         },
         body: JSON.stringify(categories) // Send updated categories list
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            showNotification("Categorii salvate cu succes în JSON.", "success");
-        } else {
-            showNotification("Eroare la salvarea categoriilor: " + data.message, "error");
-        }
-    })
-    .catch(error => showNotification('Eroare: ' + error, "error"));
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                showNotification("Categorii salvate cu succes în JSON.", "success");
+            } else {
+                showNotification("Eroare la salvarea categoriilor: " + data.message, "error");
+            }
+        })
+        .catch(error => showNotification('Eroare: ' + error, "error"));
 }
 
 function loadCategories() {
@@ -250,9 +250,9 @@ function saveProduct() {
         products.push(product);
     }
 
-    saveProductsToJSON();  
+    saveProductsToJSON();
     displayAllProducts(); // Refresh UI without refresh  
-    resetProductForm();  
+    resetProductForm();
 
     if (category) {
         filterProductsByCategory(category);
@@ -421,25 +421,25 @@ function saveProductsToJSON() {
         },
         body: JSON.stringify(products)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            showNotification("Produse salvate cu succes în JSON.", "success");
-            displayAllProducts(); // Refresh products without refresh  
-            updateCategories(); // Update category product counts
-            updateProductCount(); // Ensure product count is updated
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                showNotification("Produse salvate cu succes în JSON.", "success");
+                displayAllProducts(); // Refresh products without refresh  
+                updateCategories(); // Update category product counts
+                updateProductCount(); // Ensure product count is updated
 
-            // Ensure the selected category remains selected
-            const selectedCategory = localStorage.getItem('selectedCategory');
-            if (selectedCategory) {
-                filterProductsByCategory(selectedCategory);
-                document.getElementById('filterDropdown').value = selectedCategory;
+                // Ensure the selected category remains selected
+                const selectedCategory = localStorage.getItem('selectedCategory');
+                if (selectedCategory) {
+                    filterProductsByCategory(selectedCategory);
+                    document.getElementById('filterDropdown').value = selectedCategory;
+                }
+            } else {
+                showNotification("Eroare la salvarea produselor: " + data.message, "error");
             }
-        } else {
-            showNotification("Eroare la salvarea produselor: " + data.message, "error");
-        }
-    })
-    .catch(error => showNotification('Eroare: ' + error, "error"));
+        })
+        .catch(error => showNotification('Eroare: ' + error, "error"));
 }
 
 function populateFilterDropdown() {
@@ -500,8 +500,8 @@ function searchProducts(query) {
 
     const filteredProducts = products.filter(product => {
         return product.name.toLowerCase().includes(query) ||
-               product.id.toLowerCase().includes(query) ||
-               product.price.toString().includes(query);
+            product.id.toLowerCase().includes(query) ||
+            product.price.toString().includes(query);
     });
 
     filteredProducts.forEach(product => {
@@ -522,7 +522,7 @@ function addImagePath() {
 
     if (file && category) {
         let filePath;
-        
+
         // Check if webkitRelativePath is available (useful for directory uploads)
         if (file.webkitRelativePath) {
             filePath = file.webkitRelativePath;

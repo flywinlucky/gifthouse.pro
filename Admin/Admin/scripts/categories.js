@@ -96,15 +96,15 @@ function saveCategoriesToJSON() {
         },
         body: JSON.stringify(categories) // Send updated categories list
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            showNotification("Categorii salvate cu succes în JSON.", "success");
-        } else {
-            showNotification("Eroare la salvarea categoriilor: " + data.message, "error");
-        }
-    })
-    .catch(error => showNotification('Eroare: ' + error, "error"));
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                showNotification("Categorii salvate cu succes în JSON.", "success");
+            } else {
+                showNotification("Eroare la salvarea categoriilor: " + data.message, "error");
+            }
+        })
+        .catch(error => showNotification('Eroare: ' + error, "error"));
 }
 
 function loadCategories() {

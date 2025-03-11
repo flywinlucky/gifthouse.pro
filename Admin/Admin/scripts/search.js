@@ -12,8 +12,8 @@ function searchProducts(query) {
 
     const filteredProducts = products.filter(product => {
         return product.name.toLowerCase().includes(query) ||
-               product.id.toLowerCase().includes(query) ||
-               product.price.toString().includes(query);
+            product.id.toLowerCase().includes(query) ||
+            product.price.toString().includes(query);
     });
 
     filteredProducts.forEach(product => {

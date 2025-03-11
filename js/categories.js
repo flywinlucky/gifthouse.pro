@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     fetch('Admin/Admin/json/categories.json')
         .then(response => response.json())
         .then(categories => {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Add event listeners to category links
             const categoryLinks = document.querySelectorAll('.categories_link');
             categoryLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
+                link.addEventListener('click', function (event) {
                     event.preventDefault();
                     const category = this.getAttribute('productCategory');
                     markActiveCategory(category);

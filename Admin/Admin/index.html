@@ -17,60 +17,79 @@
             display: none;
             z-index: 1000;
         }
+
         #notification.success {
             background-color: #4CAF50;
             color: white;
         }
+
         #notification.error {
             background-color: #f44336;
             color: white;
         }
+
         #filterSearchContainer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-top: 15px;
         }
-        #filterContainer, #searchContainer {
+
+        #filterContainer,
+        #searchContainer {
             display: flex;
             align-items: center;
         }
-        #filterContainer label, #searchContainer label {
+
+        #filterContainer label,
+        #searchContainer label {
             margin-right: 10px;
         }
+
         #addCategoryContainer {
             display: flex;
             align-items: center;
             justify-content: flex-end;
             gap: 10px;
         }
-        .categoryButton, .deleteCategoryButton {
+
+        .categoryButton,
+        .deleteCategoryButton {
             padding: 5px 10px;
             font-size: 12px;
             border-radius: 4px;
             border: none;
             cursor: pointer;
         }
+
         .categoryButton {
             background-color: #28a745;
             color: white;
         }
+
         .categoryButton:hover {
             background-color: #218838;
         }
+
         .deleteCategoryButton {
             background-color: #dc3545;
             color: white;
         }
+
         .deleteCategoryButton:hover {
             background-color: #c82333;
         }
-        #newCategoryName, #confirmAddCategoryButton, #cancelAddCategoryButton {
+
+        #newCategoryName,
+        #confirmAddCategoryButton,
+        #cancelAddCategoryButton {
             display: none;
         }
+
         #cancelAddCategoryButton {
             background-color: #dc3545;
         }
+
         #cancelAddCategoryButton:hover {
             background-color: #c82333;
         }
@@ -80,12 +99,13 @@
 <body>
     <div id="adminHeader">
         <h1>
-            <a href="#" onclick="location.reload(); return false;">Admin Panel</a> | 
+            <a href="#" onclick="location.reload(); return false;">Admin Panel</a> |
             <a href="http://gifthouse.pro" target="_blank">www.gifthouse.pro</a>
         </h1>
-        
+
         <div id="addCategoryContainer">
-            <button id="showAddCategoryButton" class="categoryButton" onclick="showAddCategoryInput()">Adaugă Categorie Noua</button>
+            <button id="showAddCategoryButton" class="categoryButton" onclick="showAddCategoryInput()">Adaugă Categorie
+                Noua</button>
             <input type="text" id="newCategoryName" placeholder="Nume categorie">
             <button id="confirmAddCategoryButton" class="categoryButton" onclick="addCategory()">Adaugă</button>
             <button id="cancelAddCategoryButton" class="cancelButton" onclick="cancelAddCategory()">Anulează</button>
@@ -95,7 +115,7 @@
     <div id="categoriesContainer">
         <!-- Categoriile vor fi adăugate aici -->
     </div>
-    
+
     <div id="filterSearchContainer">
         <div id="filterContainer">
             <label for="filterDropdown">Filtrează după categorie:</label>
@@ -103,13 +123,13 @@
                 <!-- Options will be populated dynamically -->
             </select>
         </div>
-        
+
         <div id="searchContainer">
             <label for="searchInput">Caută produs:</label>
             <input type="text" id="searchInput" placeholder="Caută după nume, ID sau preț">
         </div>
     </div>
-    
+
     <h2>Produse</h2>
     <div id="overlay"></div> <!-- Overlay for dimming background -->
 
@@ -126,7 +146,8 @@
             <input type="text" id="price" required>
 
             <label for="images">ImaginiImagini</label>
-            <input type="text" id="images" placeholder="images/Inele/ring22.jpg, images/Inele/ring2.jpg" required readonly style="display: none;">
+            <input type="text" id="images" placeholder="images/Inele/ring22.jpg, images/Inele/ring2.jpg" required
+                readonly style="display: none;">
             <button type="button" onclick="document.getElementById('imageFileInput').click()">Adaugă o poză</button>
             <input type="file" id="imageFileInput" style="display: none;" accept="image/*" onchange="addImagePath()">
             <div id="imagePathsContainer"></div> <!-- Container for image paths with delete icons -->
