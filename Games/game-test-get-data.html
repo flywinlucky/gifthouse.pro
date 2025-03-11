@@ -45,7 +45,7 @@
         document.getElementById('initializeButton').addEventListener('click', function() {
             const folderName = document.getElementById('jsonFilename').value;
             if (folderName) {
-                fetch(`profiles/${folderName}/game data.json`)
+                fetch(`profiles/${folderName}/game_data.json`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('File not found');
