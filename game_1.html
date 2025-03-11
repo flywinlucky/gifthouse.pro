@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Platformer</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #gameCanvas {
+            display: block;
+            background-color: #87CEEB;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        .button {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div class="controls">
+        <div class="button" id="leftButton">←</div>
+        <div class="button" id="upButton">↑</div>
+        <div class="button" id="rightButton">→</div>
+    </div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const player = {
+            x: 50,
+            y: canvas.height - 150,
+            width: 50,
+            height: 50,
+            color: 'red',
+            speed: 5,
+            dx: 0,
+            dy: 0,
+            gravity: 0.5,
+            jumpPower: -10,
+            isJumping: false
+        };
+
+        const keys = {
+            right: false,
+            left: false,
+            up: false
+        };
+
+        const platforms = [
+            { x: 0, y: canvas.height - 50, width: canvas.width, height: 50 },
+            { x: 200, y: canvas.height - 150, width: 100, height: 20 },
+            { x: 400, y: canvas.height - 250, width: 100, height: 20 },
+            { x: 600, y: canvas.height - 350, width: 100, height: 20 }
+        ];
+
+        const camera = {
+            x: 0,
+            y: 0,
+            width: canvas.width,
+            height: canvas.height,
+            follow(player) {
+                this.x += (player.x - this.x - this.width / 2) * 0.05;
+                this.y += (player.y - this.y - this.height / 2) * 0.05;
+            }
+        };
+
+        function drawPlayer() {
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x - camera.x, player.y - camera.y, player.width, player.height);
+        }
+
+        function drawPlatforms() {
+            ctx.fillStyle = 'green';
+            platforms.forEach(platform => {
+                ctx.fillRect(platform.x - camera.x, platform.y - camera.y, platform.width, platform.height);
+            });
+        }
+
+        function clear() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function newPos() {
+            player.dy += player.gravity;
+            player.x += player.dx;
+            player.y += player.dy;
+
+            platforms.forEach(platform => {
+                if (player.x < platform.x + platform.width &&
+                    player.x + player.width > platform.x &&
+                    player.y < platform.y + platform.height &&
+                    player.y + player.height > platform.y) {
+                    player.y = platform.y - player.height;
+                    player.dy = 0;
+                    player.isJumping = false;
+                }
+            });
+
+            if (player.y + player.height > canvas.height) {
+                player.y = canvas.height - player.height;
+                player.dy = 0;
+                player.isJumping = false;
+            }
+        }
+
+        function update() {
+            clear();
+            camera.follow(player);
+            drawPlatforms();
+            drawPlayer();
+            newPos();
+            requestAnimationFrame(update);
+        }
+
+        function moveRight() {
+            player.dx = player.speed;
+        }
+
+        function moveLeft() {
+            player.dx = -player.speed;
+        }
+
+        function jump() {
+            if (!player.isJumping) {
+                player.dy = player.jumpPower;
+                player.isJumping = true;
+            }
+        }
+
+        function keyDown(e) {
+            if (e.key === 'ArrowRight' || e.key === 'Right') {
+                keys.right = true;
+                moveRight();
+            } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+                keys.left = true;
+                moveLeft();
+            } else if (e.key === 'ArrowUp' || e.key === 'Up') {
+                keys.up = true;
+                jump();
+            }
+        }
+
+        function keyUp(e) {
+            if (e.key === 'ArrowRight' || e.key === 'Right') {
+                keys.right = false;
+                player.dx = 0;
+            } else if (e.key === 'ArrowLeft' || e.key === 'Left') {
+                keys.left = false;
+                player.dx = 0;
+            } else if (e.key === 'ArrowUp' || e.key === 'Up') {
+                keys.up = false;
+            }
+        }
+
+        document.addEventListener('keydown', keyDown);
+        document.addEventListener('keyup', keyUp);
+
+        // Mobile controls
+        document.getElementById('leftButton').addEventListener('touchstart', () => {
+            keys.left = true;
+            moveLeft();
+        });
+        document.getElementById('leftButton').addEventListener('touchend', () => {
+            keys.left = false;
+            player.dx = 0;
+        });
+
+        document.getElementById('rightButton').addEventListener('touchstart', () => {
+            keys.right = true;
+            moveRight();
+        });
+        document.getElementById('rightButton').addEventListener('touchend', () => {
+            keys.right = false;
+            player.dx = 0;
+        });
+
+        document.getElementById('upButton').addEventListener('touchstart', () => {
+            keys.up = true;
+            jump();
+        });
+        document.getElementById('upButton').addEventListener('touchend', () => {
+            keys.up = false;
+        });
+
+        update();
+    </script>
+</body>
+</html>
