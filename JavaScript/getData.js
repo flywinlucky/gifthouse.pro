@@ -141,5 +141,5 @@ Array.from(document.getElementsByClassName("categories_link")).forEach(element =
 });
 
 function displayDetails(productId) {
-    window.location.href = `ProductDetails.html?productId=${productId}`;
+    window.location.href = `product-details.html?productId=${productId}`;
 }
