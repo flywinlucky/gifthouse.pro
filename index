@@ -51,6 +51,12 @@
             padding: 0 5px;
         }
     </style>
+    
+    <meta property="og:title" content="Gift House">
+    <meta property="og:description" content="Gift House este un magazin online specializat în cadouri, jucării și accesorii. Descoperă cele mai frumoase idei de cadouri pentru toate ocaziile!">
+    <meta property="og:image" content="images/logowhite.jpg">
+    <meta property="og:url" content="https://www.gifthouse.pro">
+    <meta property="og:type" content="website">
 </head>
 
 <body>
