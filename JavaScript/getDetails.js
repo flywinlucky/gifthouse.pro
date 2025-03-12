@@ -67,11 +67,12 @@ function displayDetails(product) {
     }
 
     const sizeDropdownContainer = document.getElementById('sizeDropdownContainer');
+    const sizeSelectionContainer = document.getElementById('sizeSelectionContainer');
     if (product.product_sizes && product.product_sizes.length > 0) {
         sizeDropdownContainer.innerHTML = generateSizeDropdown(product.product_sizes);
-        sizeDropdownContainer.style.display = 'block';
+        sizeSelectionContainer.style.display = 'flex';
     } else {
-        sizeDropdownContainer.style.display = 'none';
+        sizeSelectionContainer.style.display = 'none';
     }
 
     loadProductImages(product.images);
