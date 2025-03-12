@@ -5,21 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
-  <!-- Open Graph meta tags pentru Facebook, Telegram, WhatsApp -->
-<meta property="og:title" content="Gift House - Cadouri, Jucării și Accesorii">
-<meta property="og:description" content="Descoperă cele mai frumoase idei de cadouri, jucării și accesorii pentru orice ocazie.">
-<meta property="og:image" content="https://gifthouse.pro/images/logowhite.jpg">
-<meta property="og:image:width" content="600">
-<meta property="og:image:height" content="315">
-<meta property="og:url" content="https://gifthouse.pro">
-<meta property="og:type" content="website">
-
-<!-- Twitter Card meta tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Gift House - Cadouri, Jucării și Accesorii">
-<meta name="twitter:description" content="Descoperă cele mai frumoase idei de cadouri pentru toate ocaziile!">
-<meta name="twitter:image" content="https://gifthouse.pro/images/logowhite.jpg">
-
+    <meta name="keywords" content="cadouri, jucării, accesorii, idei de cadouri, gift house, produse pentru cadouri, decorațiuni, surprize, seturi cadou, articole pentru ocazii speciale">
+    <meta name="author" content="Gift House">
+    <meta name="description" content="Gift House este un magazin online specializat în cadouri, jucării și accesorii. Descoperă cele mai frumoase idei de cadouri pentru toate ocaziile!">
+    
     <link rel="icon" href="images/logowhite.jpg" type="image/x-icon">
     <!-- css -->
     <link rel="stylesheet" href="Style/style.css">
