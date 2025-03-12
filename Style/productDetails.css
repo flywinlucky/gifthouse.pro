@@ -456,3 +456,15 @@ main .container {
         font-size: 14px;
     }
 }
+
+.price-container {
+    display: flex;
+    align-items: normal;
+    gap: 10px;
+}
+
+.old-price {
+    font-size: 18px;
+    text-decoration: line-through;
+    color: red;
+}

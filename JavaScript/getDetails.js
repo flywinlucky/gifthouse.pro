@@ -60,10 +60,10 @@ function displayDetails(product) {
     productDesElement.innerHTML = product.description.replace(/\n/g, '<br>');
 
     if (product.old_price) {
-        const oldPriceElement = document.createElement('p');
+        const oldPriceElement = document.createElement('span');
         oldPriceElement.className = 'old-price';
         oldPriceElement.textContent = product.old_price;
-        document.querySelector(".product_price").insertAdjacentElement('afterend', oldPriceElement);
+        document.querySelector(".price-container").appendChild(oldPriceElement);
     }
 
     const sizeDropdownContainer = document.getElementById('sizeDropdownContainer');
