@@ -54,7 +54,10 @@ function displayDetails(product) {
     document.querySelector(".category_name").innerHTML = product.category;
     document.querySelector(".product_name").innerHTML = product.name;
     document.querySelector(".product_price").innerHTML = product.price;
-    document.querySelector(".product_des").innerHTML = product.description;
+
+    // Ensure the description retains its format
+    const productDesElement = document.querySelector(".product_des");
+    productDesElement.innerHTML = product.description.replace(/\n/g, '<br>');
 
     if (product.old_price) {
         const oldPriceElement = document.createElement('p');
