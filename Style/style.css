@@ -49,7 +49,7 @@
 .info .info-icon img {
     width: 80px;
     margin-right: 20px;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+    /*box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);*/
     /* Shadow mai accentuat la hover */
     border-radius: 10px;
     /* Ajustează valoarea pentru a modifica gradul de rotunjire */
