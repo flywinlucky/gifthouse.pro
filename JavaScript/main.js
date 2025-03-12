@@ -52,5 +52,5 @@ closeCart.addEventListener('click', () => {
 });
 
 function viewCart() {
-    window.location.href = "cartPage.html";
+    window.location.href = "cart-page.html";
 }
