@@ -184,18 +184,28 @@ async function convertToUSD(amountInMDL) {
 }
 
 function checkOut() {
-    if (cart.length === 0) {
-        alert("Vă rugăm să adăugați articole înainte de checkout.");
+    const paymentMethod = document.querySelector('input[name="payment"]:checked');
+    const shippingName = document.getElementById('shippingName').value.trim();
+    const shippingLocation = document.getElementById('shippingLocation').value.trim();
+    const shippingPhone = document.getElementById('shippingPhone').value.trim();
+    const shippingTelegram = document.getElementById('shippingTelegram').value.trim();
+    const shippingPostalCode = document.getElementById('shippingPostalCode').value.trim();
+    const shippingEmail = document.getElementById('shippingEmail').value.trim();
+
+    if (!shippingName || !shippingLocation || !shippingPhone || !shippingTelegram || !shippingPostalCode || !shippingEmail) {
+        alert("Vă rugăm să completați toate câmpurile de livrare.");
         return;
     }
 
-    const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-    if (paymentMethod === 'cash') {
-        processCashOrder();
-    } else if (paymentMethod === 'card') {
-        processCardOrder();
-    } else {
+    if (!paymentMethod) {
         alert("Vă rugăm să selectați o metodă de plată.");
+        return;
+    }
+
+    if (paymentMethod.value === 'cash') {
+        processCashOrder();
+    } else if (paymentMethod.value === 'card') {
+        processCardOrder();
     }
 }
 
