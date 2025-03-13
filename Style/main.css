@@ -615,7 +615,7 @@ body.showCart .cart-overlay {
 .cart_total #total_price {
     font-size: 16px;
     font-weight: 600;
-    color: red;
+    color: #51c942;
 }
 
 .buttom_card {
@@ -674,7 +674,7 @@ body.showCart .cart-overlay {
     font-size: 14px;
     color: #000;
     text-align: center;
-    margin-left: 0 !important;
+
 }
 
 .buttom_card .product_count:focus {
