@@ -1358,14 +1358,14 @@ input[type=number] {
     position: absolute;
     bottom: 0;
     right: 0;
-     /*width: 50px;*/
+    width: 50px;
     height: 40px;
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0), rgb(255, 255, 255));
+    background: linear-gradient(to bottom right, rgb(255, 255, 255), rgb(255, 255, 255));
     /* Gradient din colțul din jos, spre sus */
 
     overflow: hidden;
     /* Ascunde orice parte a imaginii care depășește pătrățelul */
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.489);
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.403);
     /* Adaugă o umbră subtilă pe fundal */
     pointer-events: none;
     /* Face elementul transparent pentru clicuri, lăsând clicurile să treacă prin el */
