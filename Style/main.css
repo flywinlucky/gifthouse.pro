@@ -597,7 +597,6 @@ body.showCart .cart-overlay {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    padding-left: 1px;
 }
 
 .cart_total {
