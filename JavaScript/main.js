@@ -42,6 +42,7 @@ function scrollHandler() {
 const closeCart = document.querySelector('.closeCart');
 const iconCart = document.querySelector('.icon-cart');
 const body = document.querySelector('body');
+const cartOverlay = document.querySelector('.cart-overlay'); // Select the cart overlay
 
 iconCart.addEventListener('click', () => {
     body.classList.toggle('showCart');
@@ -49,6 +50,10 @@ iconCart.addEventListener('click', () => {
 
 closeCart.addEventListener('click', () => {
     body.classList.toggle('showCart');
+});
+
+cartOverlay.addEventListener('click', () => {
+    body.classList.toggle('showCart'); // Close the cart when overlay is clicked
 });
 
 function viewCart() {
