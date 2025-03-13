@@ -76,23 +76,13 @@
                         </div>
 
                         <div class="Shiping_Info">
-                            <input type="text" placeholder="Nume">
-                            <input type="text" placeholder="Locatia">
-                            <input type="text" placeholder="Telefon">
-                            <input type="text" placeholder="Telegram">
-                            <input type="text" placeholder="Codul Postal">
+                            <input type="text" placeholder="Nume" id="shippingName">
+                            <input type="text" placeholder="Locatia" id="shippingLocation">
+                            <input type="text" placeholder="Telefon" id="shippingPhone">
+                            <input type="text" placeholder="Telegram" id="shippingTelegram">
+                            <input type="text" placeholder="Codul Postal" id="shippingPostalCode">
+                            <input type="email" placeholder="Email" id="shippingEmail">
                         </div>
-
-
-                        <!--<div class="text-message-center">
-                            <h1>Promocod</h1>
-                            <h2>Aplicati promocodul si primiti reducere</h2>
-                        </div>
-
-                        <div class="Shiping_Info">
-                            <input type="text" placeholder="PROMOCODE">
-                            <button onclick="applyPromoCode()">APLICA PROMOCODUL</button>
-                        </div>-->
 
                         <div class="text-message-center">
                             <h1>Metoda de plată</h1>
@@ -252,6 +242,132 @@
                 checkoutButton.style.display = 'none';
                 freekassaButton.style.display = 'block';
             }
+        }
+
+        function checkOut() {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked');
+            if (!paymentMethod) {
+                alert("Vă rugăm să selectați o metodă de plată.");
+                return;
+            }
+
+            const shippingName = document.getElementById('shippingName').value.trim();
+            const shippingLocation = document.getElementById('shippingLocation').value.trim();
+            const shippingPhone = document.getElementById('shippingPhone').value.trim();
+            const shippingTelegram = document.getElementById('shippingTelegram').value.trim();
+            const shippingPostalCode = document.getElementById('shippingPostalCode').value.trim();
+            const shippingEmail = document.getElementById('shippingEmail').value.trim();
+
+            if (!shippingName || !shippingLocation || !shippingPhone || !shippingTelegram || !shippingPostalCode || !shippingEmail) {
+                alert("Vă rugăm să completați toate câmpurile de livrare.");
+                return;
+            }
+
+            if (paymentMethod.value === 'cash') {
+                processCashOrder();
+            } else if (paymentMethod.value === 'card') {
+                processCardOrder();
+            }
+        }
+
+        function processCashOrder() {
+            // Preluarea informațiilor de livrare
+            let shippingInfo = {
+                Nume: document.getElementById('shippingName').value,
+                Locatia: document.getElementById('shippingLocation').value,
+                Telefon: document.getElementById('shippingPhone').value,
+                Telegram: document.getElementById('shippingTelegram').value,
+                CodulPostal: document.getElementById('shippingPostalCode').value,
+                Email: document.getElementById('shippingEmail').value
+            };
+
+            // Generarea timestamp-ului
+            let currentDate = new Date();
+            let formattedDate = `${currentDate.toLocaleDateString()} | ${currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+
+            // Crearea mesajului de comandă
+            let orderDetails = `Detalii Comandă:\nItemi:\nData ${formattedDate}\n\n`;
+            cart.forEach((product, index) => {
+                orderDetails += `${index + 1}) ${product.name} | Cantitate x${product.quantity} | ${product.size && product.size !== "Mărime necunoscută" ? `Mărime ${product.size}` : ''}\nImagine: ${product.images[0]}\n\n`;
+            });
+
+            let totalOrderPrice = `${updateTotalPrice().toFixed(2)} MDL`;
+            orderDetails += `Total: ${totalOrderPrice}\n\n`;
+            orderDetails += `Nume: ${shippingInfo.Nume}\n`;
+            orderDetails += `Locatia: ${shippingInfo.Locatia}\n`;
+            orderDetails += `Telefon: ${shippingInfo.Telefon}\n`;
+            orderDetails += `Telegram: ${shippingInfo.Telegram}\n`;
+            orderDetails += `Codul Postal: ${shippingInfo.CodulPostal}\n`;
+            orderDetails += `Email: ${shippingInfo.Email}`;
+
+            // Save order details to localStorage
+            localStorage.setItem("orderDetails", orderDetails);
+
+            // Trimiterea mesajului prin Telegram API
+            const telegramApiUrls = [
+                `https://api.telegram.org/bot7566897555:AAG-7T_y31rmY5Adtwz3d8oxdTo2uNXuj-U/sendMessage?chat_id=6953089880&text=${encodeURIComponent(orderDetails)}`
+            ];
+
+            Promise.all(telegramApiUrls.map(url => fetch(url)))
+                .then(responses => {
+                    if (responses.every(response => response.ok)) {
+                         //alert("Comanda a fost plasată cu succes!");
+                        window.location.href = "payment-successful.html";
+                    } else {
+                         //alert("Eroare la plasarea comenzii. Vă rugăm să încercați din nou.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Eroare la trimiterea detaliilor comenzii:", error);
+                    window.location.href = "payment-failed.html";
+                });
+        }
+
+        async function processCardOrder() {
+            const totalOrderPriceMDL = updateTotalPrice().toFixed(2);
+            const totalOrderPriceUSD = await convertToUSD(totalOrderPriceMDL);
+
+            const merchantId = '60399';
+            const secretWord1 = 'A2^NvFJm]c6]!m8';
+            const orderId = new Date().getTime(); // Unique order ID
+            const signature = md5(`${merchantId}:${totalOrderPriceUSD}:${secretWord1}:${orderId}`);
+
+            alert(`FreeKassa Parameters:\nMerchant ID: ${merchantId}\nAmount in USD: ${totalOrderPriceUSD}\nOrder ID: ${orderId}\nSignature: ${signature}`);
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'https://pay.freekassa.ru/';
+            form.target = '_blank';
+
+            const params = {
+                m: merchantId,
+                oa: totalOrderPriceUSD,
+                o: orderId,
+                s: signature,
+                currency: 'USD',
+                us_user: 'USER_ID',
+                lang: 'en',
+                i: 'USD',
+                debug: '1'
+            };
+
+            for (const key in params) {
+                if (params.hasOwnProperty(key)) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = params[key];
+                    form.appendChild(input);
+                }
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form); // Remove the form after submission
+        }
+
+        function md5(string) {
+            return CryptoJS.MD5(string).toString();
         }
     </script>
 </body>
