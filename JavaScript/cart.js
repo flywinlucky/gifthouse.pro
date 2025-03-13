@@ -186,13 +186,15 @@ async function convertToUSD(amountInMDL) {
 function checkOut() {
     const paymentMethod = document.querySelector('input[name="payment"]:checked');
     const shippingName = document.getElementById('shippingName').value.trim();
-    const shippingLocation = document.getElementById('shippingLocation').value.trim();
     const shippingPhone = document.getElementById('shippingPhone').value.trim();
-    const shippingTelegram = document.getElementById('shippingTelegram').value.trim();
-    const shippingPostalCode = document.getElementById('shippingPostalCode').value.trim();
     const shippingEmail = document.getElementById('shippingEmail').value.trim();
+    const shippingTelegram = document.getElementById('shippingTelegram').value.trim();
+    const shippingRaion = document.getElementById('shippingRaion').value.trim();
+    const shippingOras = document.getElementById('shippingOras').value.trim();
+    const shippingAdresa = document.getElementById('shippingAdresa').value.trim();
+    const shippingPostalCode = document.getElementById('shippingPostalCode').value.trim();
 
-    if (!shippingName || !shippingLocation || !shippingPhone || !shippingTelegram || !shippingPostalCode || !shippingEmail) {
+    if (!shippingName || !shippingPhone || !shippingEmail || !shippingTelegram || !shippingRaion || !shippingOras || !shippingAdresa || !shippingPostalCode) {
         alert("Vă rugăm să completați toate câmpurile de livrare.");
         return;
     }
@@ -211,22 +213,16 @@ function checkOut() {
 
 function processCashOrder() {
     // Preluarea informațiilor de livrare
-    let shippingInputs = document.querySelectorAll(".Shiping_Info input");
     let shippingInfo = {
-        Nume: shippingInputs[0].value,
-        Locatia: shippingInputs[1].value,
-        Telefon: shippingInputs[2].value,
-        Telegram: shippingInputs[3].value,
-        CodulPostal: shippingInputs[4].value
+        Nume: document.getElementById('shippingName').value,
+        Telefon: document.getElementById('shippingPhone').value,
+        Email: document.getElementById('shippingEmail').value,
+        Telegram: document.getElementById('shippingTelegram').value,
+        Raion: document.getElementById('shippingRaion').value,
+        Oras: document.getElementById('shippingOras').value,
+        Adresa: document.getElementById('shippingAdresa').value,
+        CodulPostal: document.getElementById('shippingPostalCode').value
     };
-
-    // Validare informații utilizator
-    for (let key in shippingInfo) {
-        if (!shippingInfo[key]) {
-            alert(`Vă rugăm să completați câmpul ${key}.`);
-            return;
-        }
-    }
 
     // Generarea timestamp-ului
     let currentDate = new Date();
@@ -241,9 +237,12 @@ function processCashOrder() {
     let totalOrderPrice = `${updateTotalPrice().toFixed(2)} MDL`;
     orderDetails += `Total: ${totalOrderPrice}\n\n`;
     orderDetails += `Nume: ${shippingInfo.Nume}\n`;
-    orderDetails += `Locatia: ${shippingInfo.Locatia}\n`;
     orderDetails += `Telefon: ${shippingInfo.Telefon}\n`;
+    orderDetails += `Email: ${shippingInfo.Email}\n`;
     orderDetails += `Telegram: ${shippingInfo.Telegram}\n`;
+    orderDetails += `Raion: ${shippingInfo.Raion}\n`;
+    orderDetails += `Oras: ${shippingInfo.Oras}\n`;
+    orderDetails += `Adresa: ${shippingInfo.Adresa}\n`;
     orderDetails += `Codul Postal: ${shippingInfo.CodulPostal}`;
 
     // Save order details to localStorage
@@ -270,7 +269,7 @@ function processCashOrder() {
         .catch(error => {
             console.error("Eroare la trimiterea detaliilor comenzii:", error);
             // Redirecționează către pagina de eșec
-            window.location.href = "paymenFailed.html";
+            window.location.href = "payment-failed.html";
         });
 }
 

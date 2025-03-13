@@ -81,9 +81,9 @@
 
                         <div class="Shiping_Info">
                             <h2>Opţiuni de livrare</h2>
-                            <input type="text" placeholder="Raion" id="shippingLocation">
-                            <input type="text" placeholder="Oras" id="shippingLocation">
-                            <input type="text" placeholder="Adresa" id="shippingLocation">
+                            <input type="text" placeholder="Raion" id="shippingRaion">
+                            <input type="text" placeholder="Oras" id="shippingOras">
+                            <input type="text" placeholder="Adresa" id="shippingAdresa">
                             <input type="text" placeholder="Codul Postal" id="shippingPostalCode">
                         </div>
 
@@ -254,13 +254,15 @@
             }
 
             const shippingName = document.getElementById('shippingName').value.trim();
-            const shippingLocation = document.getElementById('shippingLocation').value.trim();
             const shippingPhone = document.getElementById('shippingPhone').value.trim();
-            const shippingTelegram = document.getElementById('shippingTelegram').value.trim();
-            const shippingPostalCode = document.getElementById('shippingPostalCode').value.trim();
             const shippingEmail = document.getElementById('shippingEmail').value.trim();
+            const shippingTelegram = document.getElementById('shippingTelegram').value.trim();
+            const shippingRaion = document.getElementById('shippingRaion').value.trim();
+            const shippingOras = document.getElementById('shippingOras').value.trim();
+            const shippingAdresa = document.getElementById('shippingAdresa').value.trim();
+            const shippingPostalCode = document.getElementById('shippingPostalCode').value.trim();
 
-            if (!shippingName || !shippingLocation || !shippingPhone || !shippingTelegram || !shippingPostalCode || !shippingEmail) {
+            if (!shippingName || !shippingPhone || !shippingEmail || !shippingTelegram || !shippingRaion || !shippingOras || !shippingAdresa || !shippingPostalCode) {
                 alert("Vă rugăm să completați toate câmpurile de livrare.");
                 return;
             }
@@ -276,11 +278,13 @@
             // Preluarea informațiilor de livrare
             let shippingInfo = {
                 Nume: document.getElementById('shippingName').value,
-                Locatia: document.getElementById('shippingLocation').value,
                 Telefon: document.getElementById('shippingPhone').value,
+                Email: document.getElementById('shippingEmail').value,
                 Telegram: document.getElementById('shippingTelegram').value,
-                CodulPostal: document.getElementById('shippingPostalCode').value,
-                Email: document.getElementById('shippingEmail').value
+                Raion: document.getElementById('shippingRaion').value,
+                Oras: document.getElementById('shippingOras').value,
+                Adresa: document.getElementById('shippingAdresa').value,
+                CodulPostal: document.getElementById('shippingPostalCode').value
             };
 
             // Generarea timestamp-ului
@@ -296,11 +300,13 @@
             let totalOrderPrice = `${updateTotalPrice().toFixed(2)} MDL`;
             orderDetails += `Total: ${totalOrderPrice}\n\n`;
             orderDetails += `Nume: ${shippingInfo.Nume}\n`;
-            orderDetails += `Locatia: ${shippingInfo.Locatia}\n`;
             orderDetails += `Telefon: ${shippingInfo.Telefon}\n`;
+            orderDetails += `Email: ${shippingInfo.Email}\n`;
             orderDetails += `Telegram: ${shippingInfo.Telegram}\n`;
-            orderDetails += `Codul Postal: ${shippingInfo.CodulPostal}\n`;
-            orderDetails += `Email: ${shippingInfo.Email}`;
+            orderDetails += `Raion: ${shippingInfo.Raion}\n`;
+            orderDetails += `Oras: ${shippingInfo.Oras}\n`;
+            orderDetails += `Adresa: ${shippingInfo.Adresa}\n`;
+            orderDetails += `Codul Postal: ${shippingInfo.CodulPostal}`;
 
             // Save order details to localStorage
             localStorage.setItem("orderDetails", orderDetails);

@@ -124,7 +124,7 @@
                 let shippingInfoHtml = "";
 
                 orderLines.forEach((line, index) => {
-                    if (line.startsWith("Nume:") || line.startsWith("Locatia:") || line.startsWith("Telefon:") || line.startsWith("Telegram:") || line.startsWith("Codul Postal:")) {
+                    if (line.startsWith("Nume:") || line.startsWith("Telefon:") || line.startsWith("Email:") || line.startsWith("Telegram:") || line.startsWith("Raion:") || line.startsWith("Oras:") || line.startsWith("Adresa:") || line.startsWith("Codul Postal:")) {
                         // Dacă este informație de livrare, o adăugăm în `general-order-details`
                         shippingInfoHtml += line + "<br>";
                     } else if (line.startsWith("Total:") || line.startsWith("Detalii Comandă:") || line.startsWith("Data")) {
@@ -188,7 +188,7 @@
 
         .product-container {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             margin-right: 20px;
             border: 1px solid #ddd;
