@@ -43,7 +43,7 @@ function generateProductCard(product, sizeDropdown) {
                 <img src="${product.images[0]}" onclick="displayDetails('${product.id}');">
                 <div class="card-watermark-logo">
                     <a href="link_catre_imagine.html">
-                        <img src="images/logo_block.png" alt="Image description">
+                        <img src="images/logowatermarckiocn.jpg" alt="Image description">
                     </a>
                 </div>
                 <a href="#" class="addToCart">
