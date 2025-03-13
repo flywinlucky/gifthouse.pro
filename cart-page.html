@@ -70,27 +70,29 @@
                 </div>
                 <div class="right_side_cart">
                     <div class="Promotional_code">
-                        <div class="text-message-center">
-                            <p>.</p>
-                            <h1>Livrare</h1>
-                            <h2>Detalii de expediere prin posta</h2>
+
+                        <div class="Shiping_Info">
+                            <h2>Informații de contact</h2>
+                            <input type="text" placeholder="Nume / Prenume" id="shippingName">
+                            <input type="text" placeholder="Telefon" id="shippingPhone">
+                            <input type="email" placeholder="E-mail" id="shippingEmail">
+                            <input type="text" placeholder="Telegram / Viber / Whatsapp" id="shippingTelegram">
                         </div>
 
                         <div class="Shiping_Info">
-                            <input type="text" placeholder="Nume" id="shippingName">
-                            <input type="text" placeholder="Locatia" id="shippingLocation">
-                            <input type="text" placeholder="Telefon" id="shippingPhone">
-                            <input type="text" placeholder="Telegram" id="shippingTelegram">
+                            <h2>Opţiuni de livrare</h2>
+                            <input type="text" placeholder="Raion" id="shippingLocation">
+                            <input type="text" placeholder="Oras" id="shippingLocation">
+                            <input type="text" placeholder="Adresa" id="shippingLocation">
                             <input type="text" placeholder="Codul Postal" id="shippingPostalCode">
-                            <input type="email" placeholder="Email" id="shippingEmail">
                         </div>
 
                         <div class="text-message-center">
-                            <h1>Metoda de plată</h1>
+                            <h1>Metode de plată</h1>
                             <div class="payment-method">
                                 <label>
                                     <input type="radio" name="payment" value="cash" onclick="togglePaymentButton();">
-                                    Achitare cash
+                                    Achitare numerar
                                 </label>
                                 <label>
                                     <input type="radio" name="payment" value="card" onclick="togglePaymentButton();">
@@ -109,20 +111,20 @@
                             </div>
                             <div class="Delivery">
                                 <h4>Livrare</h4>
-                                <span id="Delivery">MDL 0</span>
+                                <span id="Delivery">0 MDL</span>
                             </div>
                             <div>
                                 <h4>Comanda totală</h4>
                                 <span id="total_order"></span>
                             </div>
                             <div>
-                                <h4>Plata Convertita In USD</h4>
+                                <h4>Subtotal In USD</h4>
                                 <span id="total_order_usd">0 USD</span>
                             </div>
                         </div>
                         <button class="checkout" id="checkoutButton" onclick="checkOut();">PLASEAZA COMANDA</button>
                         <button class="checkout" id="freekassaButton" style="display: none;"
-                            onclick="processCardOrder();">Plateste cu FREEKASA</button>
+                            onclick="processCardOrder();">Plateste cu FREEKASSA</button>
                     </div>
                 </div>
             </div>
