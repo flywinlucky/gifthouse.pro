@@ -46,19 +46,40 @@
         .contact-content form {
             display: flex;
             flex-direction: column;
+            gap: 15px;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .contact-content input,
         .contact-content textarea {
-            margin-bottom: 10px;
             padding: 10px;
             font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         .contact-content button {
             padding: 10px;
             font-size: 1em;
             cursor: pointer;
+            background-color: #51c942;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .contact-content button:hover {
+            background-color: #48b03a;
+        }
+
+        .success-message {
+            color: green;
+            margin-top: 10px;
+            display: none;
         }
     </style>
 </head>
@@ -94,6 +115,28 @@
                 <h2>Informații de contact</h2>
                 <p>Email: <a href="mailto:contact@jewelryady.com">contact@jewelryady.com</a></p>
                 <p>Telefon: +373 069 956 253</p>
+                <p>Adresa: Strada Exemplu, Nr. 123, Chișinău, Moldova</p>
+                <p>Program de lucru: Luni - Vineri: 9:00 - 18:00</p>
+                <p>Sâmbătă: 10:00 - 14:00</p>
+                <p>Duminică: Închis</p>
+                
+                <h2>Formular de contact</h2>
+                <form id="contactForm">
+                    <label for="name">Nume:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="phone">Telefon:</label>
+                    <input type="tel" id="phone" name="phone">
+                    
+                    <label for="message">Mesaj:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+                    
+                    <button type="submit">Trimite</button>
+                </form>
+                <p class="success-message" id="successMessage">Mesajul a fost trimis cu succes! Operatorul vă va contacta în cel mai scurt timp.</p>
             </div>
         </div>
     </section>
@@ -136,6 +179,33 @@
                 © 2025 Toate drepturile rezervate.
             </p>
     </footer>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            const orderDetails = `Formular de contact:\nNume: ${name}\nEmail: ${email}\nTelefon: ${phone}\nMesaj: ${message}`;
+            const telegramUrl = `https://api.telegram.org/bot7566897555:AAG-7T_y31rmY5Adtwz3d8oxdTo2uNXuj-U/sendMessage?chat_id=6953089880&text=${encodeURIComponent(orderDetails)}`;
+
+            fetch(telegramUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        document.getElementById('contactForm').reset();
+                        document.getElementById('successMessage').style.display = 'block';
+                    } else {
+                        alert('Eroare la trimiterea mesajului. Vă rugăm să încercați din nou.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Eroare la trimiterea mesajului. Vă rugăm să încercați din nou.');
+                });
+        });
+    </script>
 </body>
 
 </html>
