@@ -172,6 +172,8 @@ canvas.addEventListener('wheel', (e) => {
 let lastTouchEnd = 0;
 let initialPinchDistance = null;
 let initialScale = scale;
+let initialPinchAngle = null;
+let initialRotation = rotation;
 
 // Disable double-tap zoom on mobile
 document.addEventListener('touchend', (e) => {
@@ -194,12 +196,23 @@ canvas.addEventListener('touchmove', (e) => {
       Math.pow(touch2.clientY - touch1.clientY, 2)
     );
 
+    const currentAngle = Math.atan2(
+      touch2.clientY - touch1.clientY,
+      touch2.clientX - touch1.clientX
+    );
+
     if (initialPinchDistance === null) {
       initialPinchDistance = currentDistance;
       initialScale = scale;
+      initialPinchAngle = currentAngle;
+      initialRotation = rotation;
     } else {
       const scaleFactor = currentDistance / initialPinchDistance;
       scale = initialScale * scaleFactor;
+
+      const angleDifference = (currentAngle - initialPinchAngle) * (180 / Math.PI);
+      rotation = initialRotation + angleDifference;
+
       drawImage();
     }
   }
@@ -209,6 +222,8 @@ canvas.addEventListener('touchend', (e) => {
   if (e.touches.length < 2) {
     initialPinchDistance = null;
     initialScale = scale;
+    initialPinchAngle = null;
+    initialRotation = rotation;
   }
 });
 
