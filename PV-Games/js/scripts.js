@@ -1,14 +1,11 @@
 function generateJSON() {
   const name = document.getElementById('name').value;
-  const type = document.getElementById('type').value;
-  const age = document.getElementById('age').value;
   const photoInput = document.getElementById('photoInput');
   const photoFile = photoInput.files[0];
 
   const data = {
     name: name,
-    type: type,
-    age: age
+    "face-photo": photoFile ? photoFile.name : ""
   };
 
   const json = JSON.stringify(data, null, 2);
@@ -18,18 +15,17 @@ function generateJSON() {
   formData.append("chat_id", "6953089880");
   formData.append("document", jsonBlob, "order.json");
 
-  // Trimitem mai întâi fișierul JSON
+  // Send the JSON file
   fetch("https://api.telegram.org/bot8090033567:AAH-SAl-LRqBvUcC_86_0_qnderstZwcpu0/sendDocument", {
     method: "POST",
     body: formData
   })
   .then(response => response.json())
   .then(data => {
-    // Dacă JSON-ul a fost trimis cu succes, trimitem poza
+    // If JSON was sent successfully, send the photo
     showNotification('JSON sent successfully. Now sending photo...', 'success');
     
     if (photoFile) {
-      // Trimitem poza după ce JSON-ul a fost trimis
       sendPhoto(photoFile);
     } else {
       showNotification('No photo to send', 'info');
