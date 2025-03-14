@@ -17,20 +17,45 @@ function generateJSON() {
   const formData = new FormData();
   formData.append("chat_id", "6953089880");
   formData.append("document", jsonBlob, "order.json");
-  if (photoFile) {
-    formData.append("photo", photoFile, "photo.jpg");
-  }
 
+  // Trimitem mai întâi fișierul JSON
   fetch("https://api.telegram.org/bot8090033567:AAH-SAl-LRqBvUcC_86_0_qnderstZwcpu0/sendDocument", {
     method: "POST",
     body: formData
   })
   .then(response => response.json())
   .then(data => {
-    showNotification('File sent successfully', 'success');
+    // Dacă JSON-ul a fost trimis cu succes, trimitem poza
+    showNotification('JSON sent successfully. Now sending photo...', 'success');
+    
+    if (photoFile) {
+      // Trimitem poza după ce JSON-ul a fost trimis
+      sendPhoto(photoFile);
+    } else {
+      showNotification('No photo to send', 'info');
+    }
   })
   .catch(error => {
     showNotification('Error: ' + error.message, 'error');
+  });
+}
+
+function sendPhoto(photoFile) {
+  const formData = new FormData();
+  formData.append("chat_id", "6953089880");
+  formData.append("photo", photoFile, "photo.jpg");
+
+  // Trimitem imaginea
+  fetch("https://api.telegram.org/bot8090033567:AAH-SAl-LRqBvUcC_86_0_qnderstZwcpu0/sendPhoto", {
+    method: "POST",
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    showNotification('Photo sent successfully', 'success');
+  })
+  .catch(error => {
+    showNotification('Error sending photo: ' + error.message, 'error');
   });
 }
 
