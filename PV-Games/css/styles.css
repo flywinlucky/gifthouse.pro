@@ -66,6 +66,8 @@ body {
   width: 380px; /* Fixed width */
   height: 380px; /* Fixed height */
   touch-action: none; /* Disable default touch gestures */
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.30); /* Add shadow */
+ 
 }
 #overlayImage {
   position: absolute;
