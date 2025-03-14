@@ -7,16 +7,30 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="order-form">
-    <h1>Make Order</h1>
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="text" id="type" placeholder="Type" required>
-    <input type="number" id="age" placeholder="Age" required>
-    <div class="notification" id="notification"></div>
-    <div class="photo-preview" id="photoPreview"></div>
-    <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
-    <button type="button" onclick="document.getElementById('photoInput').click()">Add Image</button>
-    <button type="button" onclick="generateJSON()">Place Order</button>
+ 
+  <div class="photo-editor">
+    <h1>Player Face</h1>
+    <canvas id="photoCanvas"></canvas>
+    <div class="controls">
+      <button onclick="rotateImage(-10)">Rotate Left</button>
+      <button onclick="rotateImage(10)">Rotate Right</button>
+      <button onclick="zoomImage(1.1)">Zoom In</button>
+      <button onclick="zoomImage(0.9)">Zoom Out</button>
+      <button onclick="flipPhoto()">Flip Photo</button>
+      <button onclick="resetTransformations()">Reset</button>
+      <button type="button" onclick="document.getElementById('photoInput').click()">Add Image</button>
+    </div>
+    <div class="debug-info" id="debugInfo">Debug Info: </div>
+    <div class="order-form">
+      <h1>Make Order</h1>
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="text" id="type" placeholder="Type" required>
+      <input type="number" id="age" placeholder="Age" required>
+      <div class="notification" id="notification"></div>
+ 
+      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+      <button type="button" onclick="generateJSON()">Place Order</button>
+    </div>
   </div>
   <script src="js/scripts.js"></script>
 </body>

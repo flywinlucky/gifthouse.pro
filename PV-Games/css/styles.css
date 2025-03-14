@@ -1,10 +1,12 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start; /* Align content to the top for scrolling */
+  height: auto; /* Allow height to grow for scrolling */
+  min-height: 100vh;
   margin: 0;
   font-family: Arial, sans-serif;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 .order-form {
   display: flex;
@@ -46,4 +48,72 @@ body {
   margin-bottom: 10px;
   background-size: cover;
   background-position: center;
+}
+.photo-editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 400px;
+  gap: 15px;
+  padding: 10px; /* Add padding for better spacing */
+  box-sizing: border-box; /* Include padding in width calculations */
+}
+#photoCanvas {
+  border: 1px solid #000;
+  width: 100%;
+  height: auto;
+  touch-action: none; /* Disable default touch gestures */
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+.controls button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.controls button:hover {
+  background-color: #0056b3;
+}
+.controls button img {
+  width: 24px;
+  height: 24px;
+}
+.controls button:hover img {
+  filter: brightness(1.2);
+}
+.debug-info {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+@media (max-width: 600px) {
+  .photo-editor {
+    max-width: 100%;
+  }
+  .controls button {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+  .controls button img {
+    width: 20px;
+    height: 20px;
+  }
 }
