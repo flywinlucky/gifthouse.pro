@@ -53,18 +53,28 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* Center content vertically */
   margin-top: 20px;
   width: 100%;
   max-width: 400px;
   gap: 15px;
   padding: 10px; /* Add padding for better spacing */
   box-sizing: border-box; /* Include padding in width calculations */
+  position: relative; /* Enable absolute positioning for children */
 }
 #photoCanvas {
-  border: 1px solid #000;
-  width: 100%;
-  height: auto;
+  width: 380px; /* Fixed width */
+  height: 380px; /* Fixed height */
   touch-action: none; /* Disable default touch gestures */
+}
+#overlayImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px; /* Match canvas width */
+  height: 380px; /* Match canvas height */
+  pointer-events: none; /* Allow interactions with the canvas below */
+  z-index: 2; /* Ensure it is above the canvas */
 }
 .controls {
   display: flex;

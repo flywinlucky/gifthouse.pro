@@ -65,8 +65,21 @@ let isDragging = false;
 let startX, startY;
 let flipHorizontal = false;
 
-canvas.width = 300;
-canvas.height = 300;
+canvas.width = 380;
+canvas.height = 380;
+
+// Adjust overlay image size and position to match canvas dimensions
+const overlayImage = document.getElementById('overlayImage');
+function updateOverlaySize() {
+  overlayImage.style.width = `${canvas.width}px`;
+  overlayImage.style.height = `${canvas.height}px`;
+  overlayImage.style.top = `${canvas.offsetTop}px`;
+  overlayImage.style.left = `${canvas.offsetLeft}px`;
+}
+updateOverlaySize();
+
+// Call updateOverlaySize whenever the canvas size or position changes
+window.addEventListener('resize', updateOverlaySize);
 
 function previewPhoto() {
   const file = document.getElementById('photoInput').files[0];
@@ -89,6 +102,10 @@ function drawImage() {
   ctx.drawImage(img, -img.width / 2, -img.height / 2);
   ctx.restore();
   updateDebugInfo();
+
+  // Ensure the overlay image is visible above the canvas
+  const overlayImage = document.getElementById('overlayImage');
+  overlayImage.style.display = 'block';
 }
 
 function rotateImage(angle) {
