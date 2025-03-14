@@ -169,6 +169,49 @@ canvas.addEventListener('wheel', (e) => {
   zoomImage(zoomFactor);
 });
 
+let lastTouchEnd = 0;
+let initialPinchDistance = null;
+let initialScale = scale;
+
+// Disable double-tap zoom on mobile
+document.addEventListener('touchend', (e) => {
+  const now = new Date().getTime();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+// Handle pinch-to-zoom gestures
+canvas.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2) {
+    e.preventDefault();
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+
+    const currentDistance = Math.sqrt(
+      Math.pow(touch2.clientX - touch1.clientX, 2) +
+      Math.pow(touch2.clientY - touch1.clientY, 2)
+    );
+
+    if (initialPinchDistance === null) {
+      initialPinchDistance = currentDistance;
+      initialScale = scale;
+    } else {
+      const scaleFactor = currentDistance / initialPinchDistance;
+      scale = initialScale * scaleFactor;
+      drawImage();
+    }
+  }
+});
+
+canvas.addEventListener('touchend', (e) => {
+  if (e.touches.length < 2) {
+    initialPinchDistance = null;
+    initialScale = scale;
+  }
+});
+
 function showNotification(message, type) {
   const notification = document.getElementById('notification');
   notification.textContent = message;
