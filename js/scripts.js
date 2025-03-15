@@ -25,13 +25,14 @@ function generateJSON() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    return response.json(); // Ensure the response is valid JSON
+    // Check if the response has content before parsing
+    return response.text().then(text => text ? JSON.parse(text) : {});
   })
   .then(serverResponse => {
     if (serverResponse.message) {
       showNotification(serverResponse.message, 'success');
     } else {
-      showNotification('Error: ' + serverResponse.error, 'error');
+      showNotification('Error: ' + (serverResponse.error || 'Unknown error'), 'error');
     }
   })
   .catch(error => {
