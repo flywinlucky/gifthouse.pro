@@ -1,65 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gift Games Order</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <div class="photo-editor">
-    <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
-    <canvas id="photoCanvas"></canvas>
-    <div class="controls">
-      <button onclick="rotateImage(-10)">Rotate Left</button>
-      <button onclick="rotateImage(10)">Rotate Right</button>
-      <button onclick="zoomImage(1.1)">Zoom In</button>
-      <button onclick="zoomImage(0.9)">Zoom Out</button>
-      <button onclick="flipPhoto()">Flip Photo</button>
-      <button onclick="resetTransformations()">Reset</button>
-      <button type="button" onclick="document.getElementById('photoInput').click()">Add Image</button>
-    </div>
-    <div class="debug-info" id="debugInfo">Debug Info: </div>
-    <div class="order-form">
-      <h1>Make Order</h1>
-      <form id="orderForm">
-        <input type="text" id="name" name="name" placeholder="Name" required>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="file" id="photoInput" name="photo" accept="image/*" style="display: none;" onchange="previewPhoto()">
-        <button type="submit">Place Order</button>
-      </form>
-      <div class="notification" id="notification"></div>
-    </div>
-  </div>
-  <script>
-    document.getElementById('orderForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-
-      try {
-        const response = await fetch('https://gifthouse.pro/place-order', {
-          method: 'POST',
-          body: formData
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          showNotification(result.message, 'success');
-        } else {
-          showNotification(result.error || 'An error occurred.', 'error');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-      } catch (error) {
-        console.error('Error:', error);
-        showNotification('Failed to place order. Please try again.', 'error');
-      }
-    });
 
-    function showNotification(message, type) {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      notification.className = `notification ${type}`;
-      notification.style.display = 'block';
-    }
-  </script>
+        .container {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <h1>Ref Code: <span id="ref-code">No Ref</span></h1>
+        <h1>Server URL: <span id="server-url"></span></h1> <!-- Added server URL span -->
+        <button onclick="goToBuyPage()">To Home Page</button>
+    </div>
+
+    <script>
+        // Salvarea codului de referință în localStorage
+        const currentUrl = window.location.href;
+        const refCode = new URLSearchParams(window.location.search).get('code');
+
+        if (refCode) {
+            localStorage.setItem('referralCode', refCode); // Salvează codul de referință
+        }
+
+        // Afișează codul de referință
+        document.getElementById('ref-code').textContent = refCode ? refCode : 'No Ref';
+
+        // Obține URL-ul serverului și afișează-l
+        const serverUrl = window.location.origin; // Obține URL-ul serverului (ex: http://127.0.0.1:5000)
+        document.getElementById('server-url').textContent = serverUrl; // Afișează server URL
+       
+        // Redirect to the buy page
+        function goToBuyPage() {
+            window.location.href = "home.html";
+        }
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>buypage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .notification {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            /* Initially hidden */
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>1 Ref Code: <span id="ref-code">No Ref</span></h1>
+        <input type="number" id="amount" placeholder="Enter amount in $" min="1" required>
+        <button onclick="buy(document.getElementById('amount').value)">Buy</button>
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script>
+        // Obține codul de referință din localStorage
+        const refCode = localStorage.getItem('referralCode');
+        document.getElementById('ref-code').textContent = refCode ? refCode : 'No Ref';
+
+        // Funcția pentru a afișa notificări
+        function displayNotification(message, isSuccess) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${isSuccess ? 'success' : 'error'}`;
+            notification.style.display = 'block';
+        }
+
+        // Funcția de cumpărare
+        async function buy(value) {
+            if (!value || value <= 0) {
+                displayNotification("Please enter a valid amount.", false);
+                return;
+            }
+
+            // Construiește URL-ul pentru achiziție
+            const purchaseUrl = `https://gifthouse.pro/purchase${refCode ? refCode : ''}income${value}`;
+
+            try {
+                // Trimite cererea GET la server
+                const response = await fetch(purchaseUrl, { method: 'GET' });
+                if (response.ok) {
+                    displayNotification("Purchase successful!", true);
+                } else {
+                    throw new Error('Purchase failed.');
+                }
+            } catch (error) {
+                console.error("Error processing purchase:", error);
+                displayNotification("Purchase failed. Please try again.", false);
+            }
+        }
+    </script>
+</body>
+</html>
