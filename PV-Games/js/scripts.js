@@ -11,8 +11,13 @@ function generateJSON() {
     formData.append("photo", photoFile);
   }
 
+  // Determine the server URL based on the environment
+  const serverUrl = window.location.hostname === "localhost"
+    ? "http://localhost:5000/place-order"
+    : "https://gifthouse.pro/PV-Games/place-order";
+
   // Send the data directly to the server
-  fetch("http://localhost:5000/place-order", {
+  fetch(serverUrl, {
     method: "POST",
     body: formData
   })

@@ -5,13 +5,15 @@ import random
 import string
 from werkzeug.utils import secure_filename
 from colorama import Fore, Style, init
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS
 
 # Initialize colorama for colored output
 init(autoreset=True)
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+
+# Enable CORS for localhost and the production domain
+CORS(app, resources={r"/*": {"origins": ["http://localhost", "https://gifthouse.pro"]}})
 
 # Create a directory to store orders if it doesn't exist
 ORDERS_DIR = "orders"
@@ -67,5 +69,5 @@ def place_order():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Run the server on localhost
+    # Run the server on localhost and allow external access
     app.run(host='0.0.0.0', port=5000)
