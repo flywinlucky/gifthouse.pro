@@ -12,8 +12,8 @@ init(autoreset=True)
 
 app = Flask(__name__)
 
-# Enable CORS for localhost and the production domain
-CORS(app, resources={r"/*": {"origins": ["http://localhost", "https://gifthouse.pro"]}})
+# Enable CORS for the production domain
+CORS(app, resources={r"/*": {"origins": "https://gifthouse.pro"}})
 
 # Create a directory to store orders if it doesn't exist
 ORDERS_DIR = "orders"
@@ -69,5 +69,5 @@ def place_order():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    # Run the server on localhost and allow external access
+    # Run the server on all available interfaces
     app.run(host='0.0.0.0', port=5000)

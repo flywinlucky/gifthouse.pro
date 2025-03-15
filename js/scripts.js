@@ -11,10 +11,8 @@ function generateJSON() {
     formData.append("photo", photoFile);
   }
 
-  // Determine the server URL based on the environment
-  const serverUrl = window.location.hostname === "localhost"
-    ? "http://localhost:5000/place-order"
-    : "https://gifthouse.pro/PV-Games/place-order";
+  // Use the production domain for the server URL
+  const serverUrl = "https://gifthouse.pro/place-order";
 
   // Send the data directly to the server
   fetch(serverUrl, {
