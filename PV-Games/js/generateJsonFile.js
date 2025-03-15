@@ -15,10 +15,10 @@ async function generateAndSendJSON() {
 
   // Create the JSON object
   const orderData = {
-    id: orderId,
     name: name,
-    "delivery-email": email,
-    "player-face-image": photoFile ? photoFile.name : null // Include the photo name and extension
+    type: "game",
+    age: "34 age", // Example static value
+    url: photoFile ? photoFile.name : "N/A" // Include the photo name and extension or "N/A"
   };
 
   // Convert the canvas image to a Blob
@@ -29,11 +29,11 @@ async function generateAndSendJSON() {
     }
 
     try {
-      // Prepare FormData to send the photo and message
+      // Prepare FormData to send the photo and JSON message
       const formData = new FormData();
       formData.append("chat_id", "6953089880"); // Provided chat ID
       formData.append("photo", blob, `${orderId}.png`); // Attach the image as a file
-      formData.append("caption", `New Order Received:\nID: ${orderId}\nName: ${name}\nEmail: ${email}\nPlayer Face Image: ${orderData["player-face-image"]}`);
+      formData.append("caption", JSON.stringify(orderData, null, 2)); // Send JSON as caption
 
       // Send the FormData to the Telegram bot API
       const telegramApiUrl = "https://api.telegram.org/bot7707999818:AAEuH4i7-wOCgCZ6sK_a9zvMvjOiZ67bR1M/sendPhoto";
