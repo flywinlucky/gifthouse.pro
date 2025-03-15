@@ -26,10 +26,11 @@ def place_order():
     try:
         # Retrieve form data
         name = request.form.get("name")
+        email = request.form.get("email")  # Retrieve email
         photo = request.files.get("photo")
 
-        if not name:
-            return jsonify({"error": "Name is required"}), 400
+        if not name or not email:
+            return jsonify({"error": "Name and email are required"}), 400
 
         # Generate a unique ID for the order
         order_id = generate_unique_id()
@@ -37,14 +38,20 @@ def place_order():
         os.makedirs(order_folder, exist_ok=True)
 
         # Save JSON data
-        order_data = {"id": order_id, "name": name}
+        photo_filename = secure_filename(photo.filename) if photo else None  # Get the photo filename
+        order_data = {
+            "id": order_id,
+            "name": name,
+            "delivery-email": email,
+            "player-face-image": photo_filename  # Add photo filename to JSON
+        }
         order_file_path = os.path.join(order_folder, f"{order_id}.json")  # Rename file to match folder ID
         with open(order_file_path, "w") as json_file:
             json.dump(order_data, json_file, indent=4)
 
         # Save the photo if provided
         if photo:
-            photo_file_path = os.path.join(order_folder, secure_filename(photo.filename))
+            photo_file_path = os.path.join(order_folder, photo_filename)
             photo.save(photo_file_path)
 
         # Log the order details with colors

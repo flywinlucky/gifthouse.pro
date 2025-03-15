@@ -1,10 +1,12 @@
 function generateJSON() {
   const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value; // Get email value
   const photoInput = document.getElementById('photoInput');
   const photoFile = photoInput.files[0];
 
   const formData = new FormData();
   formData.append("name", name);
+  formData.append("email", email); // Add email to form data
   if (photoFile) {
     formData.append("photo", photoFile);
   }
