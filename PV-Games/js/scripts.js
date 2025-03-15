@@ -3,55 +3,27 @@ function generateJSON() {
   const photoInput = document.getElementById('photoInput');
   const photoFile = photoInput.files[0];
 
-  const data = {
-    name: name,
-    "face-photo": photoFile ? photoFile.name : ""
-  };
-
-  const json = JSON.stringify(data, null, 2);
-  const jsonBlob = new Blob([json], { type: 'application/json' });
-
   const formData = new FormData();
-  formData.append("chat_id", "6953089880");
-  formData.append("document", jsonBlob, "order.json");
+  formData.append("name", name);
+  if (photoFile) {
+    formData.append("photo", photoFile);
+  }
 
-  // Send the JSON file
-  fetch("https://api.telegram.org/bot8090033567:AAH-SAl-LRqBvUcC_86_0_qnderstZwcpu0/sendDocument", {
+  // Send the data directly to the server
+  fetch("http://localhost:5000/place-order", {
     method: "POST",
     body: formData
   })
   .then(response => response.json())
-  .then(data => {
-    // If JSON was sent successfully, send the photo
-    showNotification('JSON sent successfully. Now sending photo...', 'success');
-    
-    if (photoFile) {
-      sendPhoto(photoFile);
+  .then(serverResponse => {
+    if (serverResponse.message) {
+      showNotification(serverResponse.message, 'success');
     } else {
-      showNotification('No photo to send', 'info');
+      showNotification('Error: ' + serverResponse.error, 'error');
     }
   })
   .catch(error => {
     showNotification('Error: ' + error.message, 'error');
-  });
-}
-
-function sendPhoto(photoFile) {
-  const formData = new FormData();
-  formData.append("chat_id", "6953089880");
-  formData.append("photo", photoFile, "photo.jpg");
-
-  // Trimitem imaginea
-  fetch("https://api.telegram.org/bot8090033567:AAH-SAl-LRqBvUcC_86_0_qnderstZwcpu0/sendPhoto", {
-    method: "POST",
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    showNotification('Photo sent successfully', 'success');
-  })
-  .catch(error => {
-    showNotification('Error sending photo: ' + error.message, 'error');
   });
 }
 
