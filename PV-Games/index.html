@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
+  <script src="js/generateJsonFile.js"></script>
 </head>
 <body>
  
@@ -28,7 +29,7 @@
       <input type="email" id="email" placeholder="Email" required> <!-- New email input field -->
       <div class="notification" id="notification"></div>
       <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
-      <button type="button" onclick="generateJSON()">Place Order</button>
+      <button type="button" onclick="generateAndSendJSON()">Place Order</button>
     </div>
   </div>
   <script src="js/scripts.js"></script>

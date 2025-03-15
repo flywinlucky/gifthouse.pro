@@ -11,22 +11,26 @@ function generateJSON() {
     formData.append("photo", photoFile);
   }
 
-  // Determine the server URL based on the environment
-  const serverUrl = window.location.hostname === "localhost"
-    ? "http://localhost:5000/place-order"
-    : "https://gifthouse.pro/PV-Games/place-order";
+  // Send the data to the Telegram bot API
+  const telegramApiUrl = "https://api.telegram.org/bot7707999818:AAEuH4i7-wOCgCZ6sK_a9zvMvjOiZ67bR1M/sendMessage";
+  const message = `Name: ${name}\nEmail: ${email}`;
 
-  // Send the data directly to the server
-  fetch(serverUrl, {
+  fetch(telegramApiUrl, {
     method: "POST",
-    body: formData
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: "6953089880", // Provided chat ID
+      text: message
+    })
   })
   .then(response => response.json())
   .then(serverResponse => {
-    if (serverResponse.message) {
-      showNotification(serverResponse.message, 'success');
+    if (serverResponse.ok) {
+      showNotification('Order sent successfully!', 'success');
     } else {
-      showNotification('Error: ' + serverResponse.error, 'error');
+      showNotification('Error: ' + serverResponse.description, 'error');
     }
   })
   .catch(error => {
