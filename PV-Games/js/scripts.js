@@ -14,14 +14,19 @@ function generateJSON() {
   // Determine the server URL based on the environment
   const serverUrl = window.location.hostname === "localhost"
     ? "http://localhost:5000/place-order"
-    : "https://gifthouse.pro/PV-Games/place-order";
+    : "https://gifthouse.pro/PV-Games/place-order"; // Ensure the correct production URL
 
   // Send the data directly to the server
   fetch(serverUrl, {
     method: "POST",
     body: formData
   })
-  .then(response => response.json())
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json(); // Ensure the response is valid JSON
+  })
   .then(serverResponse => {
     if (serverResponse.message) {
       showNotification(serverResponse.message, 'success');
@@ -30,6 +35,7 @@ function generateJSON() {
     }
   })
   .catch(error => {
+    console.error('Fetch error:', error); // Log the error for debugging
     showNotification('Error: ' + error.message, 'error');
   });
 }

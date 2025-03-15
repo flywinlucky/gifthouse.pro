@@ -66,7 +66,8 @@ def place_order():
         return jsonify({"message": f"Order received successfully with ID {order_id}"}), 200
     except Exception as e:
         print(Fore.RED + f"Error: {str(e)}")
-        return jsonify({"error": str(e)}), 500
+        # Return a generic error message to the client
+        return jsonify({"error": "An unexpected error occurred on the server. Please try again later."}), 500
 
 if __name__ == '__main__':
     # Run the server on localhost and allow external access
