@@ -24,13 +24,25 @@
     <div class="debug-info" id="debugInfo">Debug Info: </div>
     <div class="order-form">
       <h1>Make Order</h1>
-      <input type="text" id="name" placeholder="Name" required>
-      <input type="email" id="email" placeholder="Email" required> <!-- New email input field -->
+      <form id="orderForm" action="https://gifthouse.pro/place-order" method="GET" enctype="application/x-www-form-urlencoded">
+        <input type="text" name="name" id="name" placeholder="Name" required>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="file" name="photo" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+        <button type="button" onclick="document.getElementById('photoInput').click()">Add Image</button>
+        <button type="submit">Place Order</button>
+      </form>
       <div class="notification" id="notification"></div>
-      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
-      <button type="button" onclick="generateJSON()">Place Order</button>
     </div>
   </div>
   <script src="js/scripts.js"></script>
+  <script>
+    function previewPhoto() {
+      const fileInput = document.getElementById('photoInput');
+      if (fileInput.files.length > 0) {
+        const fileName = fileInput.files[0].name;
+        document.getElementById('notification').textContent = `Selected file: ${fileName}`;
+      }
+    }
+  </script>
 </body>
 </html>
