@@ -20,6 +20,7 @@ async function generateAndSendJSON() {
     name: name,
     type: "game",
     "game-name": selectedGame, // Include the selected game
+    age: "34 age", // Example static value
     url: photoFile ? photoFile.name : "N/A" // Include the photo name and extension or "N/A"
   };
 
