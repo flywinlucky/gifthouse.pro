@@ -6,6 +6,7 @@ from telethon.tl.types import MessageMediaPhoto
 from werkzeug.utils import secure_filename
 import random
 import string
+from git import Repo  # Import GitPython for Git operations
 
 # Telegram API credentials
 api_id = '23597052'  # Replace with your api_id
@@ -20,6 +21,31 @@ os.makedirs(RESOURCES_DIR, exist_ok=True)
 # Function to generate a unique ID for each order
 def generate_unique_id():
     return ''.join(random.choices(string.digits, k=15))
+
+# Function to push the order folder to GitHub
+def push_to_github(order_folder):
+    try:
+        repo_path = r"C:\xampp\htdocs\Web Host Port\gifthouse.pro"  # Local repository path
+        repo = Repo(repo_path)
+
+        if repo.bare:
+            print("❌ Repository is invalid!")
+            return
+
+        # Add the new order folder to Git
+        repo.git.add(order_folder)
+
+        # Commit the changes
+        commit_message = f"📤 New Order: {os.path.basename(order_folder)}"
+        repo.index.commit(commit_message)
+
+        # Push the changes to the remote repository
+        origin = repo.remotes.origin
+        origin.push()
+
+        print(f"🚀 Order folder '{order_folder}' has been pushed to GitHub!")
+    except Exception as e:
+        print(f"⚠️ Error while pushing to GitHub: {e}")
 
 # Main function to keep the script running as a server
 def main():
@@ -59,6 +85,9 @@ def main():
                 print(f"New Order Received: ID {order_id}")
                 print(json.dumps(order_data, indent=4))
                 print(f"Order successfully saved in folder: {order_folder}")
+
+                # Push the order folder to GitHub
+                push_to_github(order_folder)
 
             except Exception as e:
                 # Log failure
