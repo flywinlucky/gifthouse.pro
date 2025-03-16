@@ -1,73 +1,71 @@
-from flask import Flask, request, jsonify
 import os
 import json
+from telethon.sync import TelegramClient
+from telethon import events
+from telethon.tl.types import MessageMediaPhoto
+from werkzeug.utils import secure_filename
 import random
 import string
-from werkzeug.utils import secure_filename
-from colorama import Fore, Style, init
-from flask_cors import CORS
 
-# Initialize colorama for colored output
-init(autoreset=True)
+# Telegram API credentials
+api_id = '23597052'  # Replace with your api_id
+api_hash = 'd3481a88223f602c6cb3f0757daff693'  # Replace with your api_hash
+phone_number = '+37360535689'  # Replace with your phone number
+bot_username = '@gamegiftorders_bot'  # Replace with your bot's username
 
-app = Flask(__name__)
+# Directory to store orders
+RESOURCES_DIR = "Resources"
+os.makedirs(RESOURCES_DIR, exist_ok=True)
 
-# Enable CORS for localhost and the production domain
-CORS(app, resources={r"/*": {"origins": ["http://localhost", "https://gifthouse.pro"]}})
-
-# Create a directory to store orders if it doesn't exist
-ORDERS_DIR = "orders"
-os.makedirs(ORDERS_DIR, exist_ok=True)
-
+# Function to generate a unique ID for each order
 def generate_unique_id():
-    """Generate a unique ID for each order."""
-    return ''.join(random.choices(string.digits, k=8))
+    return ''.join(random.choices(string.digits, k=15))
 
-@app.route('/place-order', methods=['POST'])
-def place_order():
-    try:
-        # Retrieve form data
-        name = request.form.get("name")
-        email = request.form.get("email")  # Retrieve email
-        photo = request.files.get("photo")
+# Main function to keep the script running as a server
+def main():
+    # Connect to Telegram
+    with TelegramClient('session_name', api_id, api_hash) as client:
+        client.start(phone_number)
 
-        if not name or not email:
-            return jsonify({"error": "Name and email are required"}), 400
+        print("Telegram client is running. Listening for events...")
 
-        # Generate a unique ID for the order
-        order_id = generate_unique_id()
-        order_folder = os.path.join(ORDERS_DIR, f"GID_{order_id}")  # Prepend GID_ to folder name
-        os.makedirs(order_folder, exist_ok=True)
+        # Event handler for new messages in the bot
+        @client.on(events.NewMessage(chats=bot_username))
+        async def handle_new_message(event):
+            try:
+                # Extract JSON data from the message text
+                message_text = event.message.text
+                order_data = json.loads(message_text)
 
-        # Save JSON data
-        photo_filename = secure_filename(photo.filename) if photo else None  # Get the photo filename
-        order_data = {
-            "id": order_id,
-            "name": name,
-            "delivery-email": email,
-            "player-face-image": photo_filename  # Add photo filename to JSON
-        }
-        order_file_path = os.path.join(order_folder, f"{order_id}.json")  # Rename file to match folder ID
-        with open(order_file_path, "w") as json_file:
-            json.dump(order_data, json_file, indent=4)
+                # Generate a unique ID for the order
+                order_id = generate_unique_id()
+                order_folder = os.path.join(RESOURCES_DIR, f"GID_{order_id}")
+                os.makedirs(order_folder, exist_ok=True)
 
-        # Save the photo if provided
-        if photo:
-            photo_file_path = os.path.join(order_folder, photo_filename)
-            photo.save(photo_file_path)
+                # Save the JSON data to a file
+                order_data["id"] = order_id  # Add the generated ID to the JSON data
+                json_file_path = os.path.join(order_folder, f"{order_id}.json")
+                with open(json_file_path, "w") as json_file:
+                    json.dump(order_data, json_file, indent=4)
 
-        # Log the order details with colors
-        print(Fore.GREEN + f"New Order Received: ID {order_id}")
-        print(Fore.CYAN + json.dumps(order_data, indent=4))
-        if photo:
-            print(Fore.YELLOW + f"Photo saved at: {photo_file_path}")
+                # Save the photo if it exists
+                if event.message.media and isinstance(event.message.media, MessageMediaPhoto):
+                    photo_filename = secure_filename(order_data["url"])
+                    photo_file_path = os.path.join(order_folder, photo_filename)
+                    await client.download_media(event.message.media, file=photo_file_path)
+                    print(f"Photo saved at: {photo_file_path}")
 
-        # Respond with a success message
-        return jsonify({"message": f"Order received successfully with ID {order_id}"}), 200
-    except Exception as e:
-        print(Fore.RED + f"Error: {str(e)}")
-        return jsonify({"error": str(e)}), 500
+                # Log success
+                print(f"New Order Received: ID {order_id}")
+                print(json.dumps(order_data, indent=4))
+                print(f"Order successfully saved in folder: {order_folder}")
+
+            except Exception as e:
+                # Log failure
+                print(f"Failed to process the order: {e}")
+
+        # Keep the client running
+        client.run_until_disconnected()
 
 if __name__ == '__main__':
-    # Run the server on localhost and allow external access
-    app.run(host='0.0.0.0', port=5000)
+    main()
