@@ -18,7 +18,7 @@ async function generateAndSendJSON() {
   // Create the JSON object
   const orderData = {
     name: name,
-    type: "game",
+    email: email, // Replace "type: 'game'" with the email value
     "game-name": selectedGame, // Include the selected game
     "player-face-image": photoFile ? photoFile.name : "N/A" // Renamed from "url" to "player-face-image"
   };

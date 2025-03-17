@@ -59,7 +59,7 @@ def main():
         @client.on(events.NewMessage(chats=bot_username))
         async def handle_new_message(event):
             # Variabila git_push care controlează dacă se face push pe GitHub
-            git_push = False  # Setează la False pentru a salva doar local, True pentru a trimite și pe GitHub
+            git_push = True  # Setează la False pentru a salva doar local, True pentru a trimite și pe GitHub
 
             try:
                 # Extrage datele JSON din mesajul text
