@@ -8,6 +8,7 @@ import random
 import string
 from git import Repo  # Import GitPython for Git operations
 import subprocess
+import time
 
 # Telegram API credentials
 api_id = '23597052'  # Replace with your api_id
@@ -115,16 +116,20 @@ def main():
                 receiver_email = order_data.get("email", None)
                 game_link = order_data["game-link"]
 
-                # Send email if a valid email is provided
-                if receiver_email:
-                    send_email(receiver_email, game_link)
-
-                # Verifică dacă variabila git_push este True
+                # Push to GitHub if git_push is True
                 if git_push:
+                    print("⏳ Waiting 5 seconds before pushing to GitHub...")
+                    time.sleep(5)  # Delay for 5 seconds
                     push_to_github(order_folder)
                     print(f"Comanda a fost trimisă pe GitHub: {order_folder}")
                 else:
                     print(f"Comanda a fost salvată doar local: {order_folder}")
+
+                # Send email if a valid email is provided
+                if receiver_email:
+                    print("⏳ Waiting 30 seconds before sending the email...")
+                    time.sleep(30)  # Delay for 30 seconds
+                    send_email(receiver_email, game_link)
 
             except Exception as e:
                 # Log pentru eșec
