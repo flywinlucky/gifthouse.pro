@@ -58,45 +58,52 @@ def main():
         # Event handler for new messages in the bot
         @client.on(events.NewMessage(chats=bot_username))
         async def handle_new_message(event):
+            # Variabila git_push care controlează dacă se face push pe GitHub
+            git_push = True  # Setează la False pentru a salva doar local, True pentru a trimite și pe GitHub
+
             try:
-                # Extract JSON data from the message text
+                # Extrage datele JSON din mesajul text
                 message_text = event.message.text
                 order_data = json.loads(message_text)
 
-                # Generate a unique ID for the order
+                # Generează un ID unic pentru comandă
                 order_id = generate_unique_id()
                 order_folder = os.path.join(RESOURCES_DIR, f"GID_{order_id}")
                 os.makedirs(order_folder, exist_ok=True)
 
-                # Generate the game link
-                game_name = order_data.get("game-name", "unknown-game")  # Default to "unknown-game" if not provided
+                # Generează link-ul jocului
+                game_name = order_data.get("game-name", "unknown-game")  # Implicit "unknown-game" dacă nu este furnizat
                 game_link = f"https://gifthouse.pro/Games/{game_name}/?GID={order_id}"
-                order_data["game-link"] = game_link  # Add the game link to the JSON data
+                order_data["game-link"] = game_link  # Adăugăm link-ul jocului la datele JSON
 
-                # Save the JSON data to a file
-                order_data["id"] = order_id  # Add the generated ID to the JSON data
+                # Salvează datele JSON într-un fișier
+                order_data["id"] = order_id  # Adăugăm ID-ul generat la datele JSON
                 json_file_path = os.path.join(order_folder, f"{order_id}.json")
                 with open(json_file_path, "w") as json_file:
                     json.dump(order_data, json_file, indent=4)
 
-                # Save the photo if it exists
+                # Salvează fotografia, dacă există
                 if event.message.media and isinstance(event.message.media, MessageMediaPhoto):
-                    photo_filename = secure_filename(order_data["player-face-image"])  # Updated key
+                    photo_filename = secure_filename(order_data["player-face-image"])  # Cheia actualizată
                     photo_file_path = os.path.join(order_folder, photo_filename)
                     await client.download_media(event.message.media, file=photo_file_path)
-                    print(f"Photo saved at: {photo_file_path}")
+                    print(f"Foto salvată la: {photo_file_path}")
 
-                # Log success
-                print(f"New Order Received: ID {order_id}")
+                # Log pentru succes
+                print(f"Nouă comandă primită: ID {order_id}")
                 print(json.dumps(order_data, indent=4))
-                print(f"Order successfully saved in folder: {order_folder}")
+                print(f"Comanda a fost salvată cu succes în folderul: {order_folder}")
 
-                # Push the order folder to GitHub
-                push_to_github(order_folder)
+                # Verifică dacă variabila git_push este True
+                if git_push:
+                    push_to_github(order_folder)
+                    print(f"Comanda a fost trimisă pe GitHub: {order_folder}")
+                else:
+                    print(f"Comanda a fost salvată doar local: {order_folder}")
 
             except Exception as e:
-                # Log failure
-                print(f"Failed to process the order: {e}")
+                # Log pentru eșec
+                print(f"Nu s-a reușit procesarea comenzii: {e}")
 
         # Keep the client running
         client.run_until_disconnected()
