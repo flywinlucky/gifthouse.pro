@@ -26,7 +26,8 @@
     <div class="order-form">
       <h1>Make Order</h1>
       <input type="text" id="name" placeholder="Name" required>
-      <input type="email" id="email" placeholder="Email" required>
+      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
+      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
       <select id="gameSelect" required>
         <option value="" disabled selected>Select Game</option>
         <option value="G1">G1</option>
@@ -38,5 +39,18 @@
     </div>
   </div>
   <script src="js/scripts.js"></script>
+  <script>
+    function validateEmail() {
+      const emailInput = document.getElementById('email');
+      const emailError = document.getElementById('emailError');
+      const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+
+      if (emailInput.value && !emailPattern.test(emailInput.value)) {
+        emailError.style.display = 'block';
+      } else {
+        emailError.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
