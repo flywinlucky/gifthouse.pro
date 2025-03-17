@@ -68,6 +68,11 @@ def main():
                 order_folder = os.path.join(RESOURCES_DIR, f"GID_{order_id}")
                 os.makedirs(order_folder, exist_ok=True)
 
+                # Generate the game link
+                game_name = order_data.get("game-name", "unknown-game")  # Default to "unknown-game" if not provided
+                game_link = f"https://gifthouse.pro/Games/{game_name}/?GID={order_id}"
+                order_data["game-link"] = game_link  # Add the game link to the JSON data
+
                 # Save the JSON data to a file
                 order_data["id"] = order_id  # Add the generated ID to the JSON data
                 json_file_path = os.path.join(order_folder, f"{order_id}.json")
