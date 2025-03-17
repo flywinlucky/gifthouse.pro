@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 import random
 import string
 from git import Repo  # Import GitPython for Git operations
+import subprocess
 
 # Telegram API credentials
 api_id = '23597052'  # Replace with your api_id
@@ -46,6 +47,22 @@ def push_to_github(order_folder):
         print(f"🚀 Order folder '{order_folder}' has been pushed to GitHub!")
     except Exception as e:
         print(f"⚠️ Error while pushing to GitHub: {e}")
+
+def send_email(receiver_email, game_link):
+    try:
+        # Call the emailsender.py script with the receiver email and game link as arguments
+        subprocess.run(
+            [
+                "python", 
+                "emailsender.py", 
+                receiver_email, 
+                game_link
+            ], 
+            check=True
+        )
+        print(f"📧 Email sent successfully to {receiver_email}!")
+    except Exception as e:
+        print(f"⚠️ Error sending email: {e}")
 
 # Main function to keep the script running as a server
 def main():
@@ -93,6 +110,14 @@ def main():
                 print(f"Nouă comandă primită: ID {order_id}")
                 print(json.dumps(order_data, indent=4))
                 print(f"Comanda a fost salvată cu succes în folderul: {order_folder}")
+
+                # Extract the email and game link from orderData
+                receiver_email = order_data.get("email", None)
+                game_link = order_data["game-link"]
+
+                # Send email if a valid email is provided
+                if receiver_email:
+                    send_email(receiver_email, game_link)
 
                 # Verifică dacă variabila git_push este True
                 if git_push:
