@@ -20,7 +20,7 @@ async function generateAndSendJSON() {
     name: name,
     type: "game",
     "game-name": selectedGame, // Include the selected game
-    url: photoFile ? photoFile.name : "N/A" // Include the photo name and extension or "N/A"
+    "player-face-image": photoFile ? photoFile.name : "N/A" // Renamed from "url" to "player-face-image"
   };
 
   // Convert the canvas image to a Blob

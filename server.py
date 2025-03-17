@@ -76,7 +76,7 @@ def main():
 
                 # Save the photo if it exists
                 if event.message.media and isinstance(event.message.media, MessageMediaPhoto):
-                    photo_filename = secure_filename(order_data["url"])
+                    photo_filename = secure_filename(order_data["player-face-image"])  # Updated key
                     photo_file_path = os.path.join(order_folder, photo_filename)
                     await client.download_media(event.message.media, file=photo_file_path)
                     print(f"Photo saved at: {photo_file_path}")
