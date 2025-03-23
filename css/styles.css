@@ -148,3 +148,108 @@ body {
     height: 20px;
   }
 }
+
+.steps-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  padding: 0 10px;
+}
+
+.step-card {
+  flex: 1 1 calc(33.333% - 20px); /* 3 cards per row on larger screens */
+  max-width: 300px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.step-card h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #007BFF;
+}
+
+.step-card p {
+  font-size: 14px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .step-card {
+    flex: 1 1 calc(50% - 20px); /* 2 cards per row on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .step-card {
+    flex: 1 1 100%; /* 1 card per row on mobile */
+  }
+}
+
+.featured-games {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.game-card {
+  flex: 1 1 calc(33.333% - 20px); /* 3 cards per row on larger screens */
+  max-width: 312px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.game-card img {
+  width: 312px;
+  height: 312px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.game-card h3 {
+  font-size: 18px;
+  color: #007BFF;
+  margin-bottom: 5px;
+}
+
+.game-card p {
+  font-size: 14px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .game-card {
+    flex: 1 1 calc(50% - 20px); /* 2 cards per row on tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .game-card {
+    flex: 1 1 100%; /* 1 card per row on mobile */
+  }
+}
