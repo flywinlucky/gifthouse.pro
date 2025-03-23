@@ -229,3 +229,8 @@ function showNotification(message, type) {
   notification.className = 'notification ' + type;
   notification.style.display = 'block';
 }
+
+document.getElementById('gameSelect').addEventListener('change', function () {
+  const selectedGame = this.options[this.selectedIndex].text;
+  document.getElementById('selectedGame').textContent = selectedGame || 'None';
+});
