@@ -77,8 +77,9 @@ def main():
         @client.on(events.NewMessage(chats=bot_username))
         async def handle_new_message(event):
             # Variabila git_push care controlează dacă se face push pe GitHub
-            git_push = True  # Setează la False pentru a salva doar local, True pentru a trimite și pe GitHub
-
+            git_push = False  # Setează la False pentru a salva doar local, True pentru a trimite și pe GitHub
+            email_push = False
+            
             try:
                 # Extrage datele JSON din mesajul text
                 message_text = event.message.text
@@ -127,9 +128,12 @@ def main():
 
                 # Send email if a valid email is provided
                 if receiver_email:
-                    print("⏳ Waiting 30 seconds before sending the email...")
-                    time.sleep(30)  # Delay for 30 seconds
-                    send_email(receiver_email, game_link)
+                    if email_push:
+                        print("⏳ Waiting 30 seconds before sending the email...")
+                        time.sleep(30)  # Delay for 30 seconds
+                        send_email(receiver_email, game_link)
+                    else:
+                        print("📭 Email was not sent because email_push is set to False.")
 
             except Exception as e:
                 # Log pentru eșec
