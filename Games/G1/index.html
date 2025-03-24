@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
     <title>Gift Games Unity Core</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
@@ -60,30 +60,26 @@
         return false;
       }());
 
+      // Check if the user is on a mobile device and adjust settings accordingly
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-
+        // Mobile device detected: configure canvas size and DPI
         var meta = document.createElement('meta');
         meta.name = 'viewport';
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
-         container.className = "unity-mobile";
-        // Avoid draining fillrate performance on mobile devices,
-        // and default/override low DPI mode on mobile browsers.
-        // config.devicePixelRatio = 1;
-
-        // To lower canvas resolution on mobile devices to gain some
-        // performance, uncomment the following line:
-        // config.devicePixelRatio = 1;
-
+        
+        // Set the canvas size to fill the entire viewport
         canvas.style.width = window.innerWidth + 'px';
         canvas.style.height = window.innerHeight + 'px';
 
-         mobileWarning.style.display = "block";
-         setTimeout(() => {
-           mobileWarning.style.display = "none";
-         }, 5000);
-      loadingCover.style.display = "";
+        container.className = "unity-mobile";
+
+        // We don't need to manually set devicePixelRatio = 1 to avoid blurry output
+        // Let Unity handle DPI scaling automatically for better clarity
+
+        loadingCover.style.display = "";
+      }
+
 
       const script = document.createElement("script");
       script.src = loaderUrl;
