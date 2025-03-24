@@ -73,9 +73,26 @@
 
         // Mobile specific high DPI rendering without scaling down
         loadingCover.style.display = "";
+
+        // Update canvas on orientation change
+        window.addEventListener('orientationchange', function() {
+          adjustCanvasSize();
+        });
+        
       } else {
         // Ensure loading screen is shown on PC as well
         loadingCover.style.display = "";
+
+        // Update canvas on window resize
+        window.addEventListener('resize', function() {
+          adjustCanvasSize();
+        });
+      }
+
+      // Function to adjust canvas size based on window dimensions
+      function adjustCanvasSize() {
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
       }
 
 
