@@ -69,87 +69,92 @@
     }
 
     function start2CheckoutPayment() {
-      console.log('Etapa 1: start2CheckoutPayment apelat');
+  console.log('Etapa 1: start2CheckoutPayment apelat');
 
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const ccNo = document.getElementById('ccNo').value;
-      const expMonth = document.getElementById('expMonth').value;
-      const expYear = document.getElementById('expYear').value;
-      const cvv = document.getElementById('cvv').value;
-      const gameCode = document.getElementById('gameSelect').value;
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const ccNo = document.getElementById('ccNo').value;
+  const expMonth = document.getElementById('expMonth').value;
+  const expYear = document.getElementById('expYear').value;
+  const cvv = document.getElementById('cvv').value;
+  const gameCode = document.getElementById('gameSelect').value;
 
-      if (!name || !email || !ccNo || !expMonth || !expYear || !cvv || !gameCode || 
-          document.getElementById('emailError').style.display === 'block') {
-        console.log('Etapa 2: Validare eșuată - câmpuri incomplete sau email invalid');
-        alert('Please fill in all required fields with valid data.');
-        return;
-      }
+  if (!name || !email || !ccNo || !expMonth || !expYear || !cvv || !gameCode || 
+      document.getElementById('emailError').style.display === 'block') {
+    console.log('Etapa 2: Validare eșuată - câmpuri incomplete sau email invalid');
+    alert('Please fill in all required fields with valid data.');
+    return;
+  }
 
-      console.log('Etapa 2: Validare trecută - datele sunt complete');
-      document.getElementById('notification').innerText = 'Processing payment...';
+  console.log('Etapa 2: Validare trecută - datele sunt complete');
+  document.getElementById('notification').innerText = 'Processing payment...';
 
-      try {
-        if (typeof TCO === 'undefined') {
-          console.error('Etapa 3: Eroare - TCO nu este definit');
-          document.getElementById('notification').innerText = 'Error: 2Checkout library not loaded.';
-          return;
-        }
-
-        console.log('Etapa 3: TCO este definit, încărcăm cheia publică');
-        TCO.loadPubKey('sandbox', function() {
-          console.log('Etapa 4: Cheia publică sandbox încărcată cu succes');
-
-          const paymentDetails = {
-            ccNo: ccNo,
-            expMonth: expMonth,
-            expYear: expYear,
-            cvv: cvv
-          };
-
-          console.log('Etapa 5: Cerem token-ul de plată');
-          TCO.requestToken(function(data) {
-            console.log('Etapa 6: Token obținut cu succes', data.response.token.token);
-            document.getElementById('notification').innerText = 'Token received! Finalizing payment...';
-
-            const token = data.response.token.token;
-
-            // Trimit token-ul către serverul Python
-            console.log('Etapa 7: Trimit token-ul către server');
-            $.ajax({
-              url: 'https://twocheckout-buy-server.onrender.com/process_payment',  
-              type: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify({ 
-                token: token,  
-                name: name,
-                email: email,
-                gameCode: gameCode  
-              }),
-              success: function(response) {
-                console.log('Etapa 8: Răspuns server - succes', response);
-                if (response.status === 'success') {
-                  document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
-                  generateAndSendJSON();
-                } else {
-                  document.getElementById('notification').innerText = 'Payment failed: ' + response.message;
-                }
-              },
-              error: function(xhr, status, error) {
-                console.error('Etapa 8: Eroare la cererea către server', error);
-                document.getElementById('notification').innerText = 'Payment failed: Server error';
-              }
-            });
-          }, function(error) {
-            console.error('Etapa 6: Eroare la obținerea token-ului', error);
-            document.getElementById('notification').innerText = 'Payment failed: ' + error.errorMsg;
-          }, paymentDetails);
-        });
-      } catch (e) {
-        console.error('Etapa 4: Eroare la încărcarea cheii publice sau configurare', e);
-        document.getElementById('notification').innerText = 'Error initializing payment system: ' + e.message;
-      }
+  try {
+    if (typeof TCO === 'undefined') {
+      console.error('Etapa 3: Eroare - TCO nu este definit');
+      document.getElementById('notification').innerText = 'Error: 2Checkout library not loaded.';
+      return;
     }
+
+    console.log('Etapa 3: TCO este definit, încărcăm cheia publică');
+
+    // Încărcăm cheia publică din SANDBOX sau LIVE (schimbă în "production" dacă e live)
+    TCO.loadPubKey('sandbox', function() {
+      console.log('Etapa 4: Cheia publică sandbox încărcată cu succes');
+
+      const args = {
+        sellerId: "255465911997",   // ID-ul tău de vânzător 2Checkout
+        publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8",  // Cheia ta publică
+        ccNo: ccNo,
+        cvv: cvv,
+        expMonth: expMonth,
+        expYear: expYear
+      };
+
+      console.log('Etapa 5: Cerem token-ul de plată', args);
+
+      TCO.requestToken(function(data) {
+        console.log('Etapa 6: Token obținut cu succes', data.response.token.token);
+        document.getElementById('notification').innerText = 'Token received! Finalizing payment...';
+
+        const token = data.response.token.token;
+
+        console.log('Etapa 7: Trimit token-ul către server');
+        $.ajax({
+          url: 'https://twocheckout-buy-server.onrender.com/process_payment',
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({ 
+            token: token,  
+            name: name,
+            email: email,
+            gameCode: gameCode  
+          }),
+          success: function(response) {
+            console.log('Etapa 8: Răspuns server - succes', response);
+            if (response.status === 'success') {
+              document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
+              generateAndSendJSON();
+            } else {
+              document.getElementById('notification').innerText = 'Payment failed: ' + response.message;
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error('Etapa 8: Eroare la cererea către server', error);
+            document.getElementById('notification').innerText = 'Payment failed: Server error';
+          }
+        });
+      }, function(error) {
+        console.error('Etapa 6: Eroare la obținerea token-ului', error);
+        document.getElementById('notification').innerText = 'Payment failed: ' + error.errorMsg;
+      }, args);
+    });
+  } catch (e) {
+    console.error('Etapa 4: Eroare la încărcarea cheii publice sau configurare', e);
+    document.getElementById('notification').innerText = 'Error initializing payment system: ' + e.message;
+  }
+}
+
   </script>
 </body>
 </html>
