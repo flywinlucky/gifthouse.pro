@@ -28,13 +28,15 @@
       <input type="text" id="name" placeholder="Name" required>
       <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
       <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
+      
       <select id="gameSelect" required>
         <option value="" disabled selected>Select Game</option>
-        <option value="G1">G1</option>
-        <option value="G2">G2</option>
+        <option value="YZC2TXJIDS">Gift Video Game</option>
       </select>
+
       <div class="notification" id="notification"></div>
       <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+      
       <div class="payment-details">
         <h2>Payment Details</h2>
         <input type="text" id="ccNo" placeholder="Card Number" required>
@@ -42,6 +44,7 @@
         <input type="text" id="expYear" placeholder="YYYY" required maxlength="4">
         <input type="text" id="cvv" placeholder="CVV" required maxlength="4">
       </div>
+
       <div class="order-summary">
         <h1>Payment Summary</h1>
         <div class="summary-details">
@@ -51,7 +54,7 @@
       </div>
     </div>
   </div>
-  <script src="js/scripts.js"></script>
+
   <script>
     function validateEmail() {
       const emailInput = document.getElementById('email');
@@ -74,8 +77,10 @@
       const expMonth = document.getElementById('expMonth').value;
       const expYear = document.getElementById('expYear').value;
       const cvv = document.getElementById('cvv').value;
+      const gameCode = document.getElementById('gameSelect').value;
 
-      if (!name || !email || !ccNo || !expMonth || !expYear || !cvv || document.getElementById('emailError').style.display === 'block') {
+      if (!name || !email || !ccNo || !expMonth || !expYear || !cvv || !gameCode || 
+          document.getElementById('emailError').style.display === 'block') {
         console.log('Etapa 2: Validare eșuată - câmpuri incomplete sau email invalid');
         alert('Please fill in all required fields with valid data.');
         return;
@@ -96,8 +101,6 @@
           console.log('Etapa 4: Cheia publică sandbox încărcată cu succes');
 
           const paymentDetails = {
-            sellerId: '255465911997',
-            publishableKey: '5A776A86-06E5-41C5-8607-39A54BA6F3A8',
             ccNo: ccNo,
             expMonth: expMonth,
             expYear: expYear,
@@ -114,10 +117,15 @@
             // Trimit token-ul către serverul Python
             console.log('Etapa 7: Trimit token-ul către server');
             $.ajax({
-              url: 'https://twocheckout-buy-server.onrender.com/process_payment',  // Actualizează cu URL-ul serverului tău
+              url: 'https://twocheckout-buy-server.onrender.com/process_payment',  
               type: 'POST',
               contentType: 'application/json',
-              data: JSON.stringify({ token: token, name: name, email: email }),
+              data: JSON.stringify({ 
+                token: token,  
+                name: name,
+                email: email,
+                gameCode: gameCode  
+              }),
               success: function(response) {
                 console.log('Etapa 8: Răspuns server - succes', response);
                 if (response.status === 'success') {
