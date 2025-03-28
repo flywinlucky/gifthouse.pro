@@ -6,8 +6,8 @@
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/generateJsonFile.js"></script>
-  <!-- Adăugăm jQuery pentru $.getScript -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
 </head>
 <body>
   <div class="photo-editor">
@@ -35,6 +35,13 @@
       </select>
       <div class="notification" id="notification"></div>
       <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+      <div class="payment-details">
+        <h2>Payment Details</h2>
+        <input type="text" id="ccNo" placeholder="Card Number" required>
+        <input type="text" id="expMonth" placeholder="MM" required maxlength="2">
+        <input type="text" id="expYear" placeholder="YYYY" required maxlength="4">
+        <input type="text" id="cvv" placeholder="CVV" required maxlength="4">
+      </div>
       <div class="order-summary">
         <h1>Payment Summary</h1>
         <div class="summary-details">
@@ -59,66 +66,81 @@
     }
 
     function start2CheckoutPayment() {
+      console.log('Etapa 1: start2CheckoutPayment apelat');
+
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
+      const ccNo = document.getElementById('ccNo').value;
+      const expMonth = document.getElementById('expMonth').value;
+      const expYear = document.getElementById('expYear').value;
+      const cvv = document.getElementById('cvv').value;
 
-      if (!name || !email || document.getElementById('emailError').style.display === 'block') {
+      if (!name || !email || !ccNo || !expMonth || !expYear || !cvv || document.getElementById('emailError').style.display === 'block') {
+        console.log('Etapa 2: Validare eșuată - câmpuri incomplete sau email invalid');
         alert('Please fill in all required fields with valid data.');
         return;
       }
 
-      document.getElementById('notification').innerText = 'Loading payment system...';
+      console.log('Etapa 2: Validare trecută - datele sunt complete');
+      document.getElementById('notification').innerText = 'Processing payment...';
 
-      // Încărcăm script-ul 2Checkout cu jQuery
-      $.getScript('https://www.2checkout.com/checkout/api/2co.min.js', function() {
-        try {
-          // Încărcăm cheia publică pentru sandbox
-          TCO.loadPubKey('sandbox', function() {
-            document.getElementById('notification').innerText = 'Payment system ready. Processing...';
-
-            // Configurăm TwoCoInlineCart după ce cheia este încărcată
-            if (typeof TwoCoInlineCart === 'undefined') {
-              document.getElementById('notification').innerText = 'Error: 2Checkout library not fully loaded.';
-              return;
-            }
-
-            TwoCoInlineCart.setup({
-              sellerId: '255465911997',
-              publishableKey: '5A776A86-06E5-41C5-8607-39A54BA6F3A8',
-              mode: 'inline',
-              successCallback: function (response) {
-                document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
-                generateAndSendJSON();
-              },
-              errorCallback: function (error) {
-                document.getElementById('notification').innerText = 'Payment failed: ' + error.message;
-              }
-            });
-
-            // Configurăm coșul
-            TwoCoInlineCart.cart({
-              products: [{
-                code: 'YZC2TXJIDS',
-                quantity: 1,
-                price: 20.00
-              }],
-              billing: {
-                name: name,
-                email: email
-              }
-            });
-
-            // Deschidem checkout-ul
-            TwoCoInlineCart.checkout();
-          });
-        } catch (e) {
-          alert('Error loading 2Checkout: ' + e.message);
-          document.getElementById('notification').innerText = 'Error initializing payment system.';
+      try {
+        if (typeof TCO === 'undefined') {
+          console.error('Etapa 3: Eroare - TCO nu este definit');
+          document.getElementById('notification').innerText = 'Error: 2Checkout library not loaded.';
+          return;
         }
-      }).fail(function(jqxhr, settings, exception) {
-        document.getElementById('notification').innerText = 'Failed to load 2Checkout script.';
-        console.error('Failed to load 2Checkout script:', exception);
-      });
+
+        console.log('Etapa 3: TCO este definit, încărcăm cheia publică');
+        TCO.loadPubKey('sandbox', function() {
+          console.log('Etapa 4: Cheia publică sandbox încărcată cu succes');
+
+          const paymentDetails = {
+            sellerId: '255465911997',
+            publishableKey: '5A776A86-06E5-41C5-8607-39A54BA6F3A8',
+            ccNo: ccNo,
+            expMonth: expMonth,
+            expYear: expYear,
+            cvv: cvv
+          };
+
+          console.log('Etapa 5: Cerem token-ul de plată');
+          TCO.requestToken(function(data) {
+            console.log('Etapa 6: Token obținut cu succes', data.response.token.token);
+            document.getElementById('notification').innerText = 'Token received! Finalizing payment...';
+
+            const token = data.response.token.token;
+
+            // Trimit token-ul către serverul Python
+            console.log('Etapa 7: Trimit token-ul către server');
+            $.ajax({
+              url: 'http://localhost:5000/process_payment',
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify({ token: token, name: name, email: email }),
+              success: function(response) {
+                console.log('Etapa 8: Răspuns server - succes', response);
+                if (response.status === 'success') {
+                  document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
+                  generateAndSendJSON();
+                } else {
+                  document.getElementById('notification').innerText = 'Payment failed: ' + response.message;
+                }
+              },
+              error: function(xhr, status, error) {
+                console.error('Etapa 8: Eroare la cererea către server', error);
+                document.getElementById('notification').innerText = 'Payment failed: Server error';
+              }
+            });
+          }, function(error) {
+            console.error('Etapa 6: Eroare la obținerea token-ului', error);
+            document.getElementById('notification').innerText = 'Payment failed: ' + error.errorMsg;
+          }, paymentDetails);
+        });
+      } catch (e) {
+        console.error('Etapa 4: Eroare la încărcarea cheii publice sau configurare', e);
+        document.getElementById('notification').innerText = 'Error initializing payment system: ' + e.message;
+      }
     }
   </script>
 </body>
