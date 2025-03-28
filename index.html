@@ -6,8 +6,8 @@
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/generateJsonFile.js"></script>
-  <!-- Adaugăm script-ul 2Checkout -->
-  <script src="https://2checkout.com/checkout/api/2co.min.js"></script>
+  <!-- Adăugăm jQuery pentru $.getScript -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
   <div class="photo-editor">
@@ -58,7 +58,6 @@
       }
     }
 
-    // Configurare 2Checkout
     function start2CheckoutPayment() {
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
@@ -68,37 +67,58 @@
         return;
       }
 
-      // Inițializăm 2Checkout
-      TwoCoInlineCart.setup({
-        sellerId: '255465911997', // Merchant Code
-        publishableKey: '5A776A86-06E5-41C5-8607-39A54BA6F3A8', // Publishable Key
-        mode: 'inline', // Checkout inline
-        successCallback: function (response) {
-          // Plata a fost procesată cu succes
-          document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
-          generateAndSendJSON(); // Apelăm funcția după succes
-        },
-        errorCallback: function (error) {
-          // Eroare la procesarea plății
-          document.getElementById('notification').innerText = 'Payment failed: ' + error.message;
-        }
-      });
+      document.getElementById('notification').innerText = 'Loading payment system...';
 
-      // Configurăm coșul cu produsul
-      TwoCoInlineCart.cart({
-        products: [{
-          code: 'YZC2TXJIDS', // Product Code
-          quantity: 1,
-          price: 20.00 // Prețul fix de 20$
-        }],
-        billing: {
-          name: name,
-          email: email
-        }
-      });
+      // Încărcăm script-ul 2Checkout cu jQuery
+      $.getScript('https://www.2checkout.com/checkout/api/2co.min.js', function() {
+        try {
+          // Încărcăm cheia publică pentru sandbox
+          TCO.loadPubKey('sandbox', function() {
+            document.getElementById('notification').innerText = 'Payment system ready. Processing...';
 
-      // Deschidem checkout-ul
-      TwoCoInlineCart.checkout();
+            // Configurăm TwoCoInlineCart după ce cheia este încărcată
+            if (typeof TwoCoInlineCart === 'undefined') {
+              document.getElementById('notification').innerText = 'Error: 2Checkout library not fully loaded.';
+              return;
+            }
+
+            TwoCoInlineCart.setup({
+              sellerId: '255465911997',
+              publishableKey: '5A776A86-06E5-41C5-8607-39A54BA6F3A8',
+              mode: 'inline',
+              successCallback: function (response) {
+                document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
+                generateAndSendJSON();
+              },
+              errorCallback: function (error) {
+                document.getElementById('notification').innerText = 'Payment failed: ' + error.message;
+              }
+            });
+
+            // Configurăm coșul
+            TwoCoInlineCart.cart({
+              products: [{
+                code: 'YZC2TXJIDS',
+                quantity: 1,
+                price: 20.00
+              }],
+              billing: {
+                name: name,
+                email: email
+              }
+            });
+
+            // Deschidem checkout-ul
+            TwoCoInlineCart.checkout();
+          });
+        } catch (e) {
+          alert('Error loading 2Checkout: ' + e.message);
+          document.getElementById('notification').innerText = 'Error initializing payment system.';
+        }
+      }).fail(function(jqxhr, settings, exception) {
+        document.getElementById('notification').innerText = 'Failed to load 2Checkout script.';
+        console.error('Failed to load 2Checkout script:', exception);
+      });
     }
   </script>
 </body>
