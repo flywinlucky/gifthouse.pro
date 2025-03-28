@@ -6,6 +6,7 @@
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/generateJsonFile.js"></script>
+  <script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
 </head>
 <body>
  
@@ -42,7 +43,7 @@
         <div class="summary-details">
           <p><strong>Total Price:</strong> <span id="totalPrice">20.00$</span></p>
         </div>
-        <button class="payment-button" type="button" onclick="generateAndSendJSON()">💳 Buy And Place Order</button>
+        <button class="payment-button" type="button" onclick="initiatePayment()">💳 Buy And Place Order</button>
       </div>
     </div>
   </div>
@@ -58,6 +59,44 @@
       } else {
         emailError.style.display = 'none';
       }
+    }
+
+    const paymentDetails = {
+      sellerId: "255465911997", // Updated with your 2Checkout Merchant Code
+      publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8", // Updated with your 2Checkout Publishable Key
+      amount: 20.00,
+      currency: "USD",
+      orderId: "ORDER_ID_" + new Date().getTime(), // Unique order ID
+      billingAddr: {
+        name: "",
+        email: ""
+      }
+    };
+
+    function initiatePayment() {
+      const nameInput = document.getElementById('name').value;
+      const emailInput = document.getElementById('email').value;
+
+      if (!nameInput || !emailInput) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      paymentDetails.billingAddr.name = nameInput;
+      paymentDetails.billingAddr.email = emailInput;
+
+      TCO.loadPubKey('sandbox', function() {
+        TCO.requestToken(function(data) {
+          if (data.response.responseCode === "APPROVED") {
+            alert("Payment successful!");
+            generateAndSendJSON(); // Place the order after successful payment
+          } else {
+            alert("Payment failed: " + data.response.responseMsg);
+          }
+        }, function(error) {
+          alert("Payment error: " + error.message);
+        }, paymentDetails);
+      });
     }
   </script>
 </body>
