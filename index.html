@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
-
-
   <script src="js/generateJsonFile.js"></script>
 </head>
 <body>
-
   <div class="photo-editor">
     <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
     <canvas id="photoCanvas"></canvas>
@@ -52,6 +49,8 @@
     </div>
   </div>
 
+  <!-- Load the 2Checkout script -->
+  <script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
   <script src="js/scripts.js"></script>
 
   <script>
@@ -66,38 +65,56 @@
         emailError.style.display = 'none';
       }
     }
-  </script>
 
-<script>
-  function startPayment() {
-    if (typeof TCO === "undefined") {
-      alert("❌ Eroare: Biblioteca 2Checkout nu este încărcată!");
-      return;
+    function startPayment() {
+      // Check if the 2Checkout library (TCO) is loaded
+      if (typeof TCO === "undefined") {
+        alert("❌ Eroare: Biblioteca 2Checkout nu este încărcată! Te rog să reîncarci pagina.");
+        return;
+      }
+
+      // Configure the payment token request
+      TCO.loadPubKey('sandbox', function() { // Use 'production' for live environment
+        const args = {
+          sellerId: "255465911997", // Replace with your seller ID
+          publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8", // Replace with your publishable key
+          ccNo: "4000000000000002", // Example card number (sandbox only)
+          cvv: "123", // Example CVV (sandbox only)
+          expMonth: "12", // Example expiration month
+          expYear: "2025" // Example expiration year
+        };
+
+        // Request a token from 2Checkout
+        TCO.requestToken(function(data) {
+          if (data.errorCode) {
+            alert("❌ Eroare la generarea tokenului: " + data.errorMsg);
+          } else {
+            // Token received successfully, proceed with payment
+            processPayment(data.response.token.token);
+          }
+        }, function(data) {
+          alert("❌ Eroare: " + data.errorMsg);
+        }, args);
+      });
     }
 
-    // Inițializare 2Checkout (nu mai folosim loadPubKey)
-    TCO.checkout.load({
-      sellerId: "255465911997", // Merchant Code
-      publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8", // Publishable Key
-      order: {
+    function processPayment(token) {
+      // Simulate payment processing (replace with actual backend API call)
+      const orderData = {
+        sellerId: "255465911997",
         currency: "USD",
         amount: "20.00",
         description: "Gift Games Order",
-      },
-      returnUrl: "https://yourwebsite.com/payment-success", // Înlocuiește cu URL-ul tău
-      callback: function (data) {
-        if (data.response && data.response.success) {
-          alert("✅ Plată reușită!");
-          generateAndSendJSON(); // Apelăm funcția pentru plasarea comenzii
-        } else {
-          alert("❌ Plata a eșuat: " + (data.response ? data.response.message : "Eroare necunoscută"));
-        }
-      }
-    });
-  }
-</script>
+        token: token
+      };
 
-<script src="https://www.2checkout.com/checkout/api/script/publickey.js"></script>
+      // Here you would typically send `orderData` to your backend server via fetch/AJAX
+      console.log("Payment token:", token);
+      alert("✅ Plată reușită! Token: " + token);
 
+      // Call your function to generate and send the JSON file
+      generateAndSendJSON();
+    }
+  </script>
 </body>
 </html>
