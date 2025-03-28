@@ -77,25 +77,38 @@
       const nameInput = document.getElementById('name').value;
       const emailInput = document.getElementById('email').value;
 
+      console.log("Initiating payment...");
+      console.log("Name:", nameInput, "Email:", emailInput);
+
       if (!nameInput || !emailInput) {
         alert("Please fill in all required fields.");
+        console.error("Missing required fields: Name or Email.");
         return;
       }
 
       paymentDetails.billingAddr.name = nameInput;
       paymentDetails.billingAddr.email = emailInput;
 
+      console.log("Payment details:", paymentDetails);
+
       TCO.loadPubKey('sandbox', function() {
+        console.log("2Checkout public key loaded.");
         TCO.requestToken(function(data) {
+          console.log("Token request response:", data);
           if (data.response.responseCode === "APPROVED") {
             alert("Payment successful!");
+            console.log("Payment approved. Placing order...");
             generateAndSendJSON(); // Place the order after successful payment
           } else {
             alert("Payment failed: " + data.response.responseMsg);
+            console.error("Payment failed:", data.response.responseMsg);
           }
         }, function(error) {
           alert("Payment error: " + error.message);
+          console.error("Payment error:", error);
         }, paymentDetails);
+      }, function(error) {
+        console.error("Error loading public key:", error);
       });
     }
   </script>
