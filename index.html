@@ -114,24 +114,25 @@
             // Trimit token-ul către serverul Python
             console.log('Etapa 7: Trimit token-ul către server');
             $.ajax({
-              url: 'http://localhost:5000/process_payment',
-              type: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify({ token: token, name: name, email: email }),
-              success: function(response) {
-                console.log('Etapa 8: Răspuns server - succes', response);
-                if (response.status === 'success') {
-                  document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
-                  generateAndSendJSON();
-                } else {
-                  document.getElementById('notification').innerText = 'Payment failed: ' + response.message;
-                }
-              },
-              error: function(xhr, status, error) {
-                console.error('Etapa 8: Eroare la cererea către server', error);
-                document.getElementById('notification').innerText = 'Payment failed: Server error';
-              }
-            });
+  url: 'https://twocheckout-buy-server.onrender.com/process_payment', // URL-ul public de pe Render
+  type: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify({ token: token, name: name, email: email }),
+  success: function(response) {
+    console.log('Etapa 8: Răspuns server - succes', response);
+    if (response.status === 'success') {
+      document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
+      generateAndSendJSON();
+    } else {
+      document.getElementById('notification').innerText = 'Payment failed: ' + response.message;
+    }
+  },
+  error: function(xhr, status, error) {
+    console.error('Etapa 8: Eroare la cererea către server', error);
+    document.getElementById('notification').innerText = 'Payment failed: Server error';
+  }
+});
+
           }, function(error) {
             console.error('Etapa 6: Eroare la obținerea token-ului', error);
             document.getElementById('notification').innerText = 'Payment failed: ' + error.errorMsg;
