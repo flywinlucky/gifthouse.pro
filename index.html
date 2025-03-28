@@ -6,7 +6,6 @@
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/generateJsonFile.js"></script>
-  <script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
 </head>
 <body>
  
@@ -43,7 +42,7 @@
         <div class="summary-details">
           <p><strong>Total Price:</strong> <span id="totalPrice">20.00$</span></p>
         </div>
-        <button class="payment-button" type="button" onclick="initiatePayment()">💳 Buy And Place Order</button>
+        <button class="payment-button" type="button" onclick="generateAndSendJSON()">💳 Buy And Place Order</button>
       </div>
     </div>
   </div>
@@ -59,62 +58,6 @@
       } else {
         emailError.style.display = 'none';
       }
-    }
-
-    const paymentDetails = {
-      sellerId: "255465911997", // Updated with your 2Checkout Merchant Code
-      publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8", // Updated with your 2Checkout Publishable Key
-      amount: 20.00,
-      currency: "USD",
-      orderId: "ORDER_ID_" + new Date().getTime(), // Unique order ID
-      billingAddr: {
-        name: "victor",
-        email: "flywinlucky777@gmail.com",
-        addressLine1: "123 Test Street", // Replace with a valid address
-        city: "Test City", // Replace with a valid city
-        state: "Test State", // Replace with a valid state
-        zipCode: "12345", // Replace with a valid ZIP code
-        country: "US" // Replace with a valid country code (e.g., "US" for the United States)
-      }
-    };
-
-    function initiatePayment() {
-      const nameInput = document.getElementById('name').value;
-      const emailInput = document.getElementById('email').value;
-
-      console.log("Initiating payment...");
-      console.log("Name:", nameInput, "Email:", emailInput);
-
-      if (!nameInput || !emailInput) {
-        alert("Please fill in all required fields.");
-        console.error("Missing required fields: Name or Email.");
-        return;
-      }
-
-      paymentDetails.billingAddr.name = nameInput;
-      paymentDetails.billingAddr.email = emailInput;
-
-      console.log("Payment details:", paymentDetails);
-
-      TCO.loadPubKey('sandbox', function() {
-        console.log("2Checkout public key loaded.");
-        TCO.requestToken(function(data) {
-          console.log("Token request response:", data);
-          if (data.response.responseCode === "APPROVED") {
-            alert("Payment successful!");
-            console.log("Payment approved. Placing order...");
-            generateAndSendJSON(); // Place the order after successful payment
-          } else {
-            alert("Payment failed: " + data.response.responseMsg);
-            console.error("Payment failed:", data.response.responseMsg);
-          }
-        }, function(error) {
-          alert("Payment error: " + error.errorMsg);
-          console.error("Payment error:", error);
-        }, paymentDetails);
-      }, function(error) {
-        console.error("Error loading public key:", error);
-      });
     }
   </script>
 </body>
