@@ -68,8 +68,13 @@
       currency: "USD",
       orderId: "ORDER_ID_" + new Date().getTime(), // Unique order ID
       billingAddr: {
-        name: "",
-        email: ""
+        name: "victor",
+        email: "flywinlucky777@gmail.com",
+        addressLine1: "123 Test Street", // Replace with a valid address
+        city: "Test City", // Replace with a valid city
+        state: "Test State", // Replace with a valid state
+        zipCode: "12345", // Replace with a valid ZIP code
+        country: "US" // Replace with a valid country code (e.g., "US" for the United States)
       }
     };
 
@@ -104,7 +109,7 @@
             console.error("Payment failed:", data.response.responseMsg);
           }
         }, function(error) {
-          alert("Payment error: " + error.message);
+          alert("Payment error: " + error.errorMsg);
           console.error("Payment error:", error);
         }, paymentDetails);
       }, function(error) {
