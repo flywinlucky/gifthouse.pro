@@ -6,12 +6,11 @@
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/generateJsonFile.js"></script>
+  <!-- Adaugăm script-ul 2Checkout -->
+  <script src="https://2checkout.com/checkout/api/2co.min.js"></script>
 </head>
 <body>
- 
   <div class="photo-editor">
-    <!-- Add the overlay image -->
-
     <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
     <canvas id="photoCanvas"></canvas>
     <div class="controls">
@@ -36,13 +35,12 @@
       </select>
       <div class="notification" id="notification"></div>
       <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
-     
       <div class="order-summary">
         <h1>Payment Summary</h1>
         <div class="summary-details">
           <p><strong>Total Price:</strong> <span id="totalPrice">20.00$</span></p>
         </div>
-        <button class="payment-button" type="button" onclick="generateAndSendJSON()">💳 Buy And Place Order</button>
+        <button class="payment-button" type="button" onclick="start2CheckoutPayment()">💳 Buy And Place Order</button>
       </div>
     </div>
   </div>
@@ -58,6 +56,49 @@
       } else {
         emailError.style.display = 'none';
       }
+    }
+
+    // Configurare 2Checkout
+    function start2CheckoutPayment() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+
+      if (!name || !email || document.getElementById('emailError').style.display === 'block') {
+        alert('Please fill in all required fields with valid data.');
+        return;
+      }
+
+      // Inițializăm 2Checkout
+      TwoCoInlineCart.setup({
+        sellerId: '255465911997', // Merchant Code
+        publishableKey: '5A776A86-06E5-41C5-8607-39A54BA6F3A8', // Publishable Key
+        mode: 'inline', // Checkout inline
+        successCallback: function (response) {
+          // Plata a fost procesată cu succes
+          document.getElementById('notification').innerText = 'Payment successful! Processing your order...';
+          generateAndSendJSON(); // Apelăm funcția după succes
+        },
+        errorCallback: function (error) {
+          // Eroare la procesarea plății
+          document.getElementById('notification').innerText = 'Payment failed: ' + error.message;
+        }
+      });
+
+      // Configurăm coșul cu produsul
+      TwoCoInlineCart.cart({
+        products: [{
+          code: 'YZC2TXJIDS', // Product Code
+          quantity: 1,
+          price: 20.00 // Prețul fix de 20$
+        }],
+        billing: {
+          name: name,
+          email: email
+        }
+      });
+
+      // Deschidem checkout-ul
+      TwoCoInlineCart.checkout();
     }
   </script>
 </body>
