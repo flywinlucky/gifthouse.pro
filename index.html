@@ -6,8 +6,6 @@
   <title>Gift Games Order</title>
   <link rel="stylesheet" href="css/styles.css">
 
-  <!-- 2Checkout Inline Checkout Script -->
-  <script src="https://www.2checkout.com/checkout/api/2co.min.js"></script>
 
   <script src="js/generateJsonFile.js"></script>
 </head>
@@ -68,31 +66,38 @@
         emailError.style.display = 'none';
       }
     }
-
-    function startPayment() {
-      TCO.loadPubKey('sandbox'); // Folosește 'production' pentru Live Mode
-
-      // Deschidem fereastra de plată 2Checkout
-      TCO.checkout.load({
-        sellerId: "255465911997", // Merchant code
-        publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8", // Cheia publică de la 2Checkout
-        order: {
-          currency: "USD",
-          amount: "20.00",
-          description: "Gift Games Order",
-        },
-        returnUrl: "https://gifthouse.pro/Games/G1/?GID=031027801684577", // URL de succes (înlocuiește cu al tău)
-        callback: function (data) {
-          if (data.response.success) {
-            alert("✅ Plată reușită!");
-            generateAndSendJSON(); // Apelăm funcția pentru plasarea comenzii
-          } else {
-            alert("❌ Plata a eșuat: " + data.response.message);
-          }
-        }
-      });
-    }
   </script>
+
+<script>
+  function startPayment() {
+    if (typeof TCO === "undefined") {
+      alert("❌ Eroare: Biblioteca 2Checkout nu este încărcată!");
+      return;
+    }
+
+    // Inițializare 2Checkout (nu mai folosim loadPubKey)
+    TCO.checkout.load({
+      sellerId: "255465911997", // Merchant Code
+      publishableKey: "5A776A86-06E5-41C5-8607-39A54BA6F3A8", // Publishable Key
+      order: {
+        currency: "USD",
+        amount: "20.00",
+        description: "Gift Games Order",
+      },
+      returnUrl: "https://yourwebsite.com/payment-success", // Înlocuiește cu URL-ul tău
+      callback: function (data) {
+        if (data.response && data.response.success) {
+          alert("✅ Plată reușită!");
+          generateAndSendJSON(); // Apelăm funcția pentru plasarea comenzii
+        } else {
+          alert("❌ Plata a eșuat: " + (data.response ? data.response.message : "Eroare necunoscută"));
+        }
+      }
+    });
+  }
+</script>
+
+<script src="https://www.2checkout.com/checkout/api/script/publickey.js"></script>
 
 </body>
 </html>
