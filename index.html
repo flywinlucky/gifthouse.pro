@@ -102,8 +102,6 @@
       });
     }
 
-    renderGameMenu(); // Call this function to render the game menu
-
     function validateEmail() {
       const emailInput = document.getElementById('email');
       const emailError = document.getElementById('emailError');
@@ -204,8 +202,26 @@
       const overlayImage = document.getElementById('overlayImage');
       overlayImage.src = selectedGame.overlayImage;
 
+      // Update the URL with the selected game
+      const newUrl = `${window.location.origin}${window.location.pathname}?current-game=${gameId}`;
+      window.history.pushState({ path: newUrl }, '', newUrl);
+
       checkAllStepsCompleted();
     }
+
+    function autoSelectGameFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentGame = urlParams.get('current-game');
+      if (currentGame) {
+        const game = games.find(g => g.id === currentGame);
+        if (game) {
+          selectGame(game.id, `game${game.id}`);
+        }
+      }
+    }
+
+    renderGameMenu(); // Render the game menu
+    autoSelectGameFromURL(); // Automatically select the game based on the URL
   </script>
 </body>
 </html>
