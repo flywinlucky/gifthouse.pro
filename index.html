@@ -11,8 +11,8 @@
   <div class="photo-editor">
     <!-- Step 1: Game Selection -->
     <div class="order-form">
-      <h1>1. Selected Game</h1>
-      <select id="gameSelect" required>
+      <h1 id="step1Title">1. Selected Game</h1>
+      <select id="gameSelect" required onchange="updateStep1Status()">
         <option value="" disabled selected>Select Game</option>
         <option value="G1">G1</option>
         <option value="G2">G2</option>
@@ -22,8 +22,8 @@
 
     <!-- Step 2: Player Photo -->
     <div class="order-form">
-      <h1>2. Player Photo</h1>
-      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+      <h1 id="step2Title">2. Player Photo</h1>
+      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
       <div class="canvas-container" style="position: relative; width: 380px; height: 380px;">
         <canvas id="photoCanvas"></canvas>
         <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
@@ -41,24 +41,33 @@
 
     <!-- Step 3: Player Details -->
     <div class="order-form">
-      <h1>3. Player Details</h1>
-      <input type="text" id="name" placeholder="Name" required>
+      <h1 id="step3Title">3. Player Details</h1>
+      <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status(false)">
       <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
       <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
     </div>
 
     <!-- Step 4: Payment Details -->
     <div class="order-form">
-      <h1>4. Payment Details</h1>
+      <h1 id="step4Title">4. Payment Details</h1>
       <div class="order-summary">
         <h1>Payment</h1>
         <div class="summary-details">
           <p><strong>Total Price:</strong> <span id="totalPrice">20.00$</span></p>
         </div>
-        <button class="payment-button" type="button" onclick="generateAndSendJSON()">Place Order</button>
+        <button class="payment-button" id="placeOrderButton" type="button" onclick="placeOrder()" disabled>Place Order</button>
       </div>
     </div>
   </div>
+
+  <!-- Popup Notification -->
+  <div id="popup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <p>Your order has been placed successfully! 🎉</p>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
   <script src="js/scripts.js"></script>
   <script>
     function validateEmail() {
@@ -68,9 +77,74 @@
 
       if (emailInput.value && !emailPattern.test(emailInput.value)) {
         emailError.style.display = 'block';
+        updateStep3Status(false); // Mark step 3 as incomplete
       } else {
         emailError.style.display = 'none';
+        updateStep3Status(true); // Mark step 3 as complete
       }
+      checkAllStepsCompleted();
+    }
+
+    function updateStep1Status() {
+      const gameSelect = document.getElementById('gameSelect');
+      const step1Title = document.getElementById('step1Title');
+      if (gameSelect.value) {
+        step1Title.textContent = '1. ✅ Selected Game';
+      } else {
+        step1Title.textContent = '1. Selected Game';
+      }
+      checkAllStepsCompleted();
+    }
+
+    function updateStep2Status() {
+      const photoInput = document.getElementById('photoInput');
+      const step2Title = document.getElementById('step2Title');
+      if (photoInput.files.length > 0) {
+        step2Title.textContent = '2. ✅ Player Photo';
+      } else {
+        step2Title.textContent = '2. Player Photo';
+      }
+      checkAllStepsCompleted();
+    }
+
+    function updateStep3Status(isEmailValid) {
+      const step3Title = document.getElementById('step3Title');
+      if (isEmailValid) {
+        step3Title.textContent = '3. ✅ Player Details';
+      } else {
+        step3Title.textContent = '3. Player Details';
+      }
+      checkAllStepsCompleted();
+    }
+
+    function checkAllStepsCompleted() {
+      const gameSelect = document.getElementById('gameSelect').value;
+      const photoInput = document.getElementById('photoInput').files.length > 0;
+      const emailInput = document.getElementById('email');
+      const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+      const isEmailValid = emailPattern.test(emailInput.value);
+
+      const placeOrderButton = document.getElementById('placeOrderButton');
+      if (gameSelect && photoInput && isEmailValid) {
+        placeOrderButton.disabled = false;
+      } else {
+        placeOrderButton.disabled = true;
+      }
+    }
+
+    function placeOrder() {
+      // Show popup
+      const popup = document.getElementById('popup');
+      popup.style.display = 'block';
+
+      // Update step 4 title
+      const step4Title = document.getElementById('step4Title');
+      step4Title.textContent = '4. ✅ Payment Details';
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'none';
     }
   </script>
 </body>
