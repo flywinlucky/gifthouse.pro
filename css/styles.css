@@ -408,3 +408,7 @@ body {
 .popup-content button:hover {
   background-color: #218838;
 }
+
+.hidden {
+  display: none !important; /* Forcefully hide the element */
+}
