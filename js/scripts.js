@@ -227,3 +227,20 @@ document.getElementById('gameSelect').addEventListener('change', function () {
   const selectedGame = this.options[this.selectedIndex].text;
   document.getElementById('selectedGame').textContent = selectedGame || 'None';
 });
+
+function addGame(id, name, icon) {
+  games.push({ id, name, icon });
+  renderGameMenu(); // Re-render the game menu
+}
+
+function removeGame(id) {
+  const index = games.findIndex(game => game.id === id);
+  if (index !== -1) {
+    games.splice(index, 1);
+    renderGameMenu(); // Re-render the game menu
+  }
+}
+
+// Example usage:
+// addGame('G4', 'Game 4 (G4)', 'Resources/G4.png');
+// removeGame('G2');
