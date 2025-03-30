@@ -1,3 +1,4 @@
 /PV-Games/orders
 *.session
 *.session-journal
+.qodo

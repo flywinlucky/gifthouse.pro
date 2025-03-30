@@ -84,7 +84,6 @@ function drawImage() {
   ctx.scale(scale * (flipHorizontal ? -1 : 1), scale);
   ctx.drawImage(img, -img.width / 2, -img.height / 2);
   ctx.restore();
-  updateDebugInfo();
 
   // Ensure the overlay image is visible above the canvas
   const overlayImage = document.getElementById('overlayImage');
@@ -113,12 +112,6 @@ function resetTransformations() {
   offsetY = 0;
   flipHorizontal = false;
   drawImage();
-  updateDebugInfo();
-}
-
-function updateDebugInfo() {
-  const debugInfo = document.getElementById('debugInfo');
-  debugInfo.textContent = `Debug Info: Zoom ${scale.toFixed(2)}, Rotate ${rotation}°, Flip ${flipHorizontal ? 'On' : 'Off'}`;
 }
 
 canvas.addEventListener('mousedown', (e) => {

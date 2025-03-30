@@ -19,6 +19,7 @@ body {
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
   border-radius: 10px; /* Rounded corners */
   background-color: #f9f9f9; /* Light background color */
+  margin-bottom: 20px; /* Add spacing between steps */
 }
 .order-form input, .order-form select {
   width: 100%; /* Full width */
@@ -72,21 +73,24 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center content vertically */
+  justify-content: flex-start; /* Align steps to the top */
   margin-top: 20px;
   width: 100%;
   max-width: 400px;
-  gap: 15px;
+  gap: 20px; /* Add spacing between steps */
   padding: 10px; /* Add padding for better spacing */
   box-sizing: border-box; /* Include padding in width calculations */
   position: relative; /* Enable absolute positioning for children */
 }
 #photoCanvas {
-  width: 380px; /* Fixed width */
-  height: 380px; /* Fixed height */
+  position: absolute; /* Align with overlayImage */
+  top: 0;
+  left: 0;
+  width: 380px; /* Match overlayImage width */
+  height: 380px; /* Match overlayImage height */
   touch-action: none; /* Disable default touch gestures */
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.30); /* Add shadow */
- 
+  z-index: 1; /* Ensure it is below overlayImage */
 }
 #overlayImage {
   position: absolute;
@@ -108,14 +112,22 @@ body {
   background-color: #007BFF;
   color: white;
   border: none;
-  padding: 10px 15px;
-  font-size: 14px;
+  padding: 5px 8px; /* Smaller padding for compact buttons */
+  font-size: 12px; /* Smaller font size */
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 50%; /* Circular buttons */
+  width: 36px; /* Fixed width for uniform size */
+  height: 36px; /* Fixed height for uniform size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.3s ease;
 }
 .controls button:hover {
   background-color: #0056b3;
+}
+.controls button:active {
+  background-color: #003f7f; /* Darker color on click */
 }
 .controls button img {
   width: 24px;
@@ -124,17 +136,7 @@ body {
 .controls button:hover img {
   filter: brightness(1.2);
 }
-.debug-info {
-  font-size: 14px;
-  color: #333;
-  text-align: center;
-  margin-top: 10px;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-  background-color: #f9f9f9;
-}
+
 @media (max-width: 600px) {
   .photo-editor {
     max-width: 100%;

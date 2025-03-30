@@ -8,35 +8,48 @@
   <script src="js/generateJsonFile.js"></script>
 </head>
 <body>
- 
   <div class="photo-editor">
-    <!-- Add the overlay image -->
-
-    <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
-    <canvas id="photoCanvas"></canvas>
-    <div class="controls">
-      <button onclick="rotateImage(-10)">Rotate Left</button>
-      <button onclick="rotateImage(10)">Rotate Right</button>
-      <button onclick="zoomImage(1.1)">Zoom In</button>
-      <button onclick="zoomImage(0.9)">Zoom Out</button>
-      <button onclick="flipPhoto()">Flip Photo</button>
-      <button onclick="resetTransformations()">Reset</button>
-      <button type="button" onclick="document.getElementById('photoInput').click()">Add Image</button>
-    </div>
-    <div class="debug-info" id="debugInfo">Debug Info: </div>
+    <!-- Step 1: Game Selection -->
     <div class="order-form">
-      <h1>Make Order</h1>
-      <input type="text" id="name" placeholder="Name" required>
-      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
-      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
+      <h1>1. Selected Game</h1>
       <select id="gameSelect" required>
         <option value="" disabled selected>Select Game</option>
         <option value="G1">G1</option>
         <option value="G2">G2</option>
       </select>
       <div class="notification" id="notification"></div>
+    </div>
+
+    <!-- Step 2: Player Photo -->
+    <div class="order-form">
+      <h1>2. Player Photo</h1>
       <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
-     
+      <div class="canvas-container" style="position: relative; width: 380px; height: 380px;">
+        <canvas id="photoCanvas"></canvas>
+        <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
+      </div>
+      <div class="controls">
+        <button title="Rotate Left" onclick="rotateImage(-10)">⟲</button>
+        <button title="Rotate Right" onclick="rotateImage(10)">⟳</button>
+        <button title="Zoom In" onclick="zoomImage(1.1)">🔍+</button>
+        <button title="Zoom Out" onclick="zoomImage(0.9)">🔍-</button>
+        <button title="Flip Photo" onclick="flipPhoto()">⇋</button>
+        <button title="Reset" onclick="resetTransformations()">↺</button>
+        <button title="Add Image" type="button" onclick="document.getElementById('photoInput').click()">➕</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Player Details -->
+    <div class="order-form">
+      <h1>3. Player Details</h1>
+      <input type="text" id="name" placeholder="Name" required>
+      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
+      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
+    </div>
+
+    <!-- Step 4: Payment Details -->
+    <div class="order-form">
+      <h1>4. Payment Details</h1>
       <div class="order-summary">
         <h1>Payment</h1>
         <div class="summary-details">
