@@ -64,6 +64,11 @@ updateOverlaySize();
 // Call updateOverlaySize whenever the canvas size or position changes
 window.addEventListener('resize', updateOverlaySize);
 
+function resetOverlayImage() {
+  const overlayImage = document.getElementById('overlayImage');
+  overlayImage.src = './Resources/avatar-mask.png'; // Ensure the correct path
+}
+
 function previewPhoto() {
   const file = document.getElementById('photoInput').files[0];
   const reader = new FileReader();
