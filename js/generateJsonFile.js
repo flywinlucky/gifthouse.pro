@@ -48,7 +48,7 @@ async function generateAndSendJSON() {
       const serverResponse = await response.json();
 
       if (serverResponse.ok) {
-        showNotification('Order sent successfully with photo!', 'success');
+        // Removed success notification
       } else {
         showNotification('Error: ' + serverResponse.description, 'error');
       }
