@@ -12,6 +12,7 @@
     <!-- Step 1: Game Selection -->
     <div class="order-form">
       <h1 id="step1Title">1. Selected Game</h1>
+      <p>⚠️ Select the game you want to customize from the dropdown menu below.</p>
       <select id="gameSelect" required onchange="updateStep1Status()">
         <option value="" disabled selected>Select Game</option>
         <option value="G1">G1</option>
@@ -23,11 +24,13 @@
     <!-- Step 2: Player Photo -->
     <div class="order-form">
       <h1 id="step2Title">2. Player Photo</h1>
+      <p>⚠️ Select a photo of the person you want to customize the game for. Adjust the photo to fit the face contour below.</p>
       <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
       <div class="canvas-container" style="position: relative; width: 380px; height: 380px;">
         <canvas id="photoCanvas"></canvas>
         <img id="overlayImage" src="Resources/avatar-mask.png" alt="Overlay" />
       </div>
+      <p>⚠️ Use the tools to edit your photo.</p>
       <div class="controls">
         <button title="Rotate Left" onclick="rotateImage(-10)">⟲</button>
         <button title="Rotate Right" onclick="rotateImage(10)">⟳</button>
@@ -42,6 +45,7 @@
     <!-- Step 3: Player Details -->
     <div class="order-form">
       <h1 id="step3Title">3. Player Details</h1>
+      <p>⚠️ Enter the name and email address of the person for whom the game is being customized.</p>
       <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status(false)">
       <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
       <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
@@ -50,6 +54,7 @@
     <!-- Step 4: Payment Details -->
     <div class="order-form">
       <h1 id="step4Title">4. Payment Details</h1>
+      <p>⚠️ Review the total price and place your order to complete the customization process.</p>
       <div class="order-summary">
         <h1>Payment</h1>
         <div class="summary-details">

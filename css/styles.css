@@ -46,6 +46,17 @@ body {
 .order-form h1 {
   text-align: center;
 }
+.order-form p {
+  font-size: 14px; /* Smaller font size for explanation */
+  color: #555; /* Neutral gray color for text */
+  margin: 0px 0; /* Add spacing above and below */
+  text-align: center; /* Center-align the text */
+  line-height: 1.5; /* Improve readability */
+  background-color: #d5d5f4; /* Light background for contrast */
+  padding: 10px; /* Add padding for better spacing */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 .notification {
   display: none;
   margin-top: 10px;
