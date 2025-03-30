@@ -12,12 +12,30 @@
     <!-- Step 1: Game Selection -->
     <div class="order-form">
       <h1 id="step1Title">1. Selected Game</h1>
-      <p>⚠️ Select the game you want to customize from the dropdown menu below.</p>
-      <select id="gameSelect" required onchange="updateStep1Status()">
-        <option value="" disabled selected>Select Game</option>
-        <option value="G1">G1</option>
-        <option value="G2">G2</option>
-      </select>
+      <p>⚠️ Select the game you want to customize from the menu below.</p>
+      <div class="game-menu">
+        <div class="game-option" id="gameG1" onclick="selectGame('G1', 'gameG1')">
+          <img src="Resources/G1.png" alt="G1 Icon">
+          <span>Game 1 (G1)</span>
+        </div>
+        <div class="game-option" id="gameG2" onclick="selectGame('G2', 'gameG2')">
+          <img src="Resources/G2.png" alt="G2 Icon">
+          <span>Game 2 (G2)</span>
+        </div>
+        <div class="game-option" id="gameG2" onclick="selectGame('G2', 'gameG2')">
+          <img src="Resources/G2.png" alt="G2 Icon">
+          <span>Game 3 (G3)</span>
+        </div>
+        <div class="game-option" id="gameG2" onclick="selectGame('G2', 'gameG2')">
+          <img src="Resources/G2.png" alt="G2 Icon">
+          <span>Game 3 (G3)</span>
+        </div>
+        <div class="game-option" id="gameG2" onclick="selectGame('G2', 'gameG2')">
+          <img src="Resources/G2.png" alt="G2 Icon">
+          <span>Game 3 (G3)</span>
+        </div>
+      </div>
+      <input type="hidden" id="gameSelect" value="">
       <div class="notification" id="notification"></div>
     </div>
 
@@ -152,6 +170,25 @@
     function closePopup() {
       const popup = document.getElementById('popup');
       popup.style.display = 'none';
+    }
+
+    function selectGame(gameId, elementId) {
+      const gameSelect = document.getElementById('gameSelect');
+      gameSelect.value = gameId;
+
+      const step1Title = document.getElementById('step1Title');
+      step1Title.textContent = `1. ✅ Selected Game (${gameId})`;
+
+      // Remove the "selected" class from all game options
+      document.querySelectorAll('.game-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+
+      // Add the "selected" class to the clicked game option
+      const selectedOption = document.getElementById(elementId);
+      selectedOption.classList.add('selected');
+
+      checkAllStepsCompleted();
     }
   </script>
 </body>
