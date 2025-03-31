@@ -50,9 +50,26 @@
       <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
     </div>
 
-    <!-- Step 4: Payment Details -->
+    <!-- Step 4: Player Messages -->
     <div class="order-form">
-      <h1 id="step4Title">4. Payment Details</h1>
+      <h1 id="step4Title">4. Player Messages</h1>
+      <p>⚠️ Enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
+      <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+      
+      <div id="secondaryMessagesContainer">
+        <div class="secondary-message">
+          <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+          <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
+        </div>
+      </div>
+      <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()">➕ Add Secondary Message</button>
+      
+      <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+    </div>
+
+    <!-- Step 5: Payment Details -->
+    <div class="order-form">
+      <h1 id="step5Title">5. Payment Details</h1>
       <p>⚠️ Review the total price and place your order to complete the customization process.</p>
       <div class="order-summary">
         <h1>Payment</h1>
@@ -151,15 +168,46 @@
       checkAllStepsCompleted();
     }
 
+    function updateStep4Status() {
+      const startMessage = document.getElementById('startMessage').value;
+      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+      const finishMessage = document.getElementById('finishMessage').value;
+      const step4Title = document.getElementById('step4Title');
+
+      let allSecondaryMessagesFilled = true;
+      secondaryMessages.forEach(message => {
+        if (!message.value) {
+          allSecondaryMessagesFilled = false;
+        }
+      });
+
+      if (startMessage && allSecondaryMessagesFilled && finishMessage) {
+        step4Title.textContent = '4. ✅ Player Messages';
+      } else {
+        step4Title.textContent = '4. Player Messages';
+      }
+      checkAllStepsCompleted();
+    }
+
     function checkAllStepsCompleted() {
       const gameSelect = document.getElementById('gameSelect').value;
       const photoInput = document.getElementById('photoInput').files.length > 0;
       const emailInput = document.getElementById('email');
       const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
       const isEmailValid = emailPattern.test(emailInput.value);
+      const startMessage = document.getElementById('startMessage').value;
+      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+      const finishMessage = document.getElementById('finishMessage').value;
+
+      let allSecondaryMessagesFilled = true;
+      secondaryMessages.forEach(message => {
+        if (!message.value) {
+          allSecondaryMessagesFilled = false;
+        }
+      });
 
       const placeOrderButton = document.getElementById('placeOrderButton');
-      if (gameSelect && photoInput && isEmailValid) {
+      if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
         placeOrderButton.disabled = false;
       } else {
         placeOrderButton.disabled = true;
@@ -171,9 +219,9 @@
       const popup = document.getElementById('popup');
       popup.style.display = 'block';
 
-      // Update step 4 title
-      const step4Title = document.getElementById('step4Title');
-      step4Title.textContent = '4. ✅ Payment Details';
+      // Update step 5 title
+      const step5Title = document.getElementById('step5Title');
+      step5Title.textContent = '5. ✅ Payment Details';
 
       generateAndSendJSON();
     }
@@ -230,6 +278,51 @@
         // Set default overlay image if no game is selected
         overlayImage.src = './Resources/no-selected-gm-default-img.png';
       }
+    }
+
+    function addSecondaryMessage() {
+      const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
+      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+
+      if (secondaryMessages.length < 5) {
+        const newMessageDiv = document.createElement('div');
+        newMessageDiv.className = 'secondary-message';
+
+        const newMessageInput = document.createElement('input');
+        newMessageInput.type = 'text';
+        newMessageInput.className = 'secondaryMessage';
+        newMessageInput.placeholder = 'Secondary Message (max 50 chars)';
+        newMessageInput.maxLength = 50;
+        newMessageInput.oninput = updateStep4Status;
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'removeSecondaryMessage';
+        removeButton.textContent = '❌';
+        removeButton.onclick = () => removeSecondaryMessage(removeButton);
+
+        newMessageDiv.appendChild(newMessageInput);
+        newMessageDiv.appendChild(removeButton);
+        secondaryMessagesContainer.appendChild(newMessageDiv);
+      }
+
+      updateRemoveButtonsState();
+    }
+
+    function removeSecondaryMessage(button) {
+      const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
+      secondaryMessagesContainer.removeChild(button.parentElement);
+      updateStep4Status();
+      updateRemoveButtonsState();
+    }
+
+    function updateRemoveButtonsState() {
+      const removeButtons = document.querySelectorAll('.removeSecondaryMessage');
+      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+
+      removeButtons.forEach(button => {
+        button.disabled = secondaryMessages.length <= 1;
+      });
     }
 
     renderGameMenu(); // Render the game menu

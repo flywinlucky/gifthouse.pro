@@ -148,6 +148,61 @@ body {
   filter: brightness(1.2);
 }
 
+.secondary-message {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Add spacing between input and button */
+  margin-bottom: 10px;
+}
+
+.secondary-message input {
+  flex: 1; /* Allow input to take up available space */
+}
+
+.secondary-message button {
+  width: 24px; /* Smaller button size */
+  height: 24px; /* Smaller button size */
+  padding: 0;
+  font-size: 14px; /* Smaller font size */
+  border: none;
+  border-radius: 50%; /* Circular button */
+  background-color: #007BFF; /* Blue background */
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.secondary-message button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.secondary-message button:disabled {
+  background-color: #ccc; /* Gray background for disabled state */
+  cursor: not-allowed; /* Show not-allowed cursor */
+  color: #666; /* Dimmed text color */
+}
+
+#addSecondaryMessageButton {
+  width: auto;
+  height: 24px; /* Match height of remove button */
+  padding: 0 10px;
+  font-size: 14px; /* Smaller font size */
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745; /* Green background */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; /* Align to the left */
+}
+
+#addSecondaryMessageButton:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
 @media (max-width: 600px) {
   .photo-editor {
     max-width: 100%;
