@@ -53,18 +53,40 @@
     <!-- Step 4: Player Messages -->
     <div class="order-form">
       <h1 id="step4Title">4. Player Messages</h1>
-      <p>⚠️ Enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
-      <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+      <p>⚠️ Toggle and enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
       
+      <!-- Start Message -->
+      <div class="message-toggle">
+        <label>
+          <input type="checkbox" id="toggleStartMessage" onchange="toggleMessageInput('startMessage')">
+          Enable Start Message
+        </label>
+        <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" disabled oninput="updateStep4Status()">
+      </div>
+
+      <!-- Secondary Messages -->
       <div id="secondaryMessagesContainer">
-        <div class="secondary-message">
-          <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
-          <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
+        <div class="message-toggle">
+          <label>
+            <input type="checkbox" id="toggleSecondaryMessagesContainer" onchange="toggleMessageInput('secondaryMessagesContainer')">
+            Enable Secondary Messages
+          </label>
+          <div class="secondary-message">
+            <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()" disabled>➕ Add Secondary Message</button>
+            <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" disabled oninput="updateStep4Status()">
+            <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
+          </div>
         </div>
       </div>
-      <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()">➕ Add Secondary Message</button>
-      
-      <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+
+      <!-- Finish Message -->
+      <div class="message-toggle">
+        <label>
+          <input type="checkbox" id="toggleFinishMessage" onchange="toggleMessageInput('finishMessage')">
+          Enable Finish Message
+        </label>
+        <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" disabled oninput="updateStep4Status()">
+      </div>
     </div>
 
     <!-- Step 5: Payment Details -->
@@ -323,6 +345,21 @@
       removeButtons.forEach(button => {
         button.disabled = secondaryMessages.length <= 1;
       });
+    }
+
+    function toggleMessageInput(inputId) {
+      const inputElement = document.getElementById(inputId);
+      const toggleElement = document.getElementById(`toggle${inputId.charAt(0).toUpperCase() + inputId.slice(1)}`);
+      inputElement.disabled = !toggleElement.checked;
+
+      if (inputId === 'secondaryMessagesContainer') {
+        const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+        const addButton = document.getElementById('addSecondaryMessageButton');
+        secondaryMessages.forEach(message => {
+          message.disabled = !toggleElement.checked;
+        });
+        addButton.disabled = !toggleElement.checked;
+      }
     }
 
     renderGameMenu(); // Render the game menu

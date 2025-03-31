@@ -250,6 +250,44 @@ function removeGame(id) {
 // addGame('G4', 'Game 4 (G4)', 'Resources/G4.png');
 // removeGame('G2');
 
+function toggleMessageInput(inputId) {
+  const inputElement = document.getElementById(inputId);
+  const toggleElement = document.getElementById(`toggle${capitalizeFirstLetter(inputId)}`);
+  
+  if (!toggleElement) {
+    console.error(`Toggle element for '${inputId}' not found.`);
+    return;
+  }
+
+  const isEnabled = toggleElement.checked;
+
+  if (inputId === 'secondaryMessagesContainer') {
+    const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+    const addButton = document.getElementById('addSecondaryMessageButton');
+    secondaryMessages.forEach(input => {
+      input.disabled = !isEnabled;
+      input.style.display = isEnabled ? 'block' : 'none'; // Show or hide input
+    });
+    addButton.disabled = !isEnabled;
+    addButton.style.display = isEnabled ? 'inline-block' : 'none'; // Show or hide add button
+
+    const removeButtons = document.querySelectorAll('.removeSecondaryMessage');
+    removeButtons.forEach(button => {
+      button.disabled = !isEnabled || secondaryMessages.length <= 1;
+      button.style.display = isEnabled ? 'inline-block' : 'none'; // Show or hide remove button
+    });
+  } else {
+    inputElement.disabled = !isEnabled;
+    inputElement.style.display = isEnabled ? 'block' : 'none'; // Show or hide input
+  }
+
+  updateStep4Status();
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function addSecondaryMessage() {
   const container = document.getElementById('secondaryMessagesContainer');
   const currentMessages = container.querySelectorAll('.secondary-message').length;

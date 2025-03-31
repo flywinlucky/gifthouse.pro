@@ -183,6 +183,7 @@ body {
   background-color: #ccc; /* Gray background for disabled state */
   cursor: not-allowed; /* Show not-allowed cursor */
   color: #666; /* Dimmed text color */
+  display: none; /* Hide disabled secondary message inputs and buttons */
 }
 
 #addSecondaryMessageButton {
@@ -201,6 +202,31 @@ body {
 
 #addSecondaryMessageButton:hover {
   background-color: #218838; /* Darker green on hover */
+}
+
+.message-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.message-toggle label {
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+input[type="text"]:disabled {
+  display: none; /* Hide disabled input fields */
 }
 
 @media (max-width: 600px) {
