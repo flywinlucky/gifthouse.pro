@@ -165,8 +165,8 @@ body {
   padding: 0;
   font-size: 14px; /* Smaller font size */
   border: none;
-  border-radius: 50%; /* Circular button */
-  background-color: #007BFF; /* Blue background */
+ 
+  background-color: #cbcbcb; /* Blue background */
   color: white;
   cursor: pointer;
   display: flex;
@@ -186,7 +186,7 @@ body {
 }
 
 #addSecondaryMessageButton {
-  width: auto;
+ 
   height: 24px; /* Match height of remove button */
   padding: 0 10px;
   font-size: 14px; /* Smaller font size */
