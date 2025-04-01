@@ -1,0 +1,10 @@
+{
+  "gameName": "Racing Mania",
+  "description": "Experience the thrill of high-speed racing with stunning visuals and challenging tracks.",
+  "bannerImage": "Resources/G1-banner.jpg",
+  "screenshots": [
+    "Resources/G1-screenshot1.jpg",
+    "Resources/G1-screenshot2.jpg",
+    "Resources/G1-screenshot3.jpg"
+  ]
+}

@@ -108,6 +108,14 @@
         gameOption.id = `game${game.id}`;
         gameOption.onclick = () => selectGame(game.id, gameOption.id);
 
+        const moreInfo = document.createElement('div');
+        moreInfo.className = 'more-info';
+        moreInfo.textContent = 'ℹ️';
+        moreInfo.onclick = (event) => {
+          event.stopPropagation();
+          window.location.href = `game-info.html?game=${game.id}`;
+        };
+
         const gameIcon = document.createElement('img');
         gameIcon.src = game.icon;
         gameIcon.alt = `${game.name} Icon`;
@@ -115,6 +123,7 @@
         const gameName = document.createElement('span');
         gameName.textContent = game.name;
 
+        gameOption.appendChild(moreInfo);
         gameOption.appendChild(gameIcon);
         gameOption.appendChild(gameName);
         gameMenu.appendChild(gameOption);

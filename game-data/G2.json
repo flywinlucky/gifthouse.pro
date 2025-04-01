@@ -1,0 +1,10 @@
+{
+  "gameName": "Space Explorer",
+  "description": "Embark on a journey through the galaxy, discovering new planets and battling alien forces.",
+  "bannerImage": "Resources/G1-banner.jpg",
+  "screenshots": [
+    "Resources/G1-screenshot1.jpg",
+    "Resources/G1-screenshot2.jpg",
+    "Resources/G1-screenshot3.jpg"
+  ]
+}
