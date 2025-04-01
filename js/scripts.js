@@ -248,6 +248,7 @@ function removeGame(id) {
 
 // Example usage:
 // addGame('G4', 'Game 4 (G4)', 'Resources/G4.png');
+<<<<<<< HEAD
 // removeGame('G2');
 
 function toggleMessageInput(inputId) {
@@ -410,3 +411,6 @@ function placeOrder() {
 
   generateAndSendJSON();
 }
+=======
+// removeGame('G2');
+>>>>>>> parent of 243f2d9 (added custom messages)

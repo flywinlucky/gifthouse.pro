@@ -148,6 +148,7 @@ body {
   filter: brightness(1.2);
 }
 
+<<<<<<< HEAD
 .secondary-message {
   display: flex;
   align-items: center;
@@ -229,6 +230,8 @@ input[type="text"]:disabled {
   display: none; /* Hide disabled input fields */
 }
 
+=======
+>>>>>>> parent of 243f2d9 (added custom messages)
 @media (max-width: 600px) {
   .photo-editor {
     max-width: 100%;

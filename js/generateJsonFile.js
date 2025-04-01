@@ -6,9 +6,6 @@ async function generateAndSendJSON() {
   const canvas = document.getElementById('photoCanvas');
   const photoInput = document.getElementById('photoInput');
   const photoFile = photoInput.files[0];
-  const startMessage = document.getElementById('startMessage').value.trim();
-  const secondaryMessages = Array.from(document.querySelectorAll('.secondaryMessage')).map(input => input.value.trim());
-  const finishMessage = document.getElementById('finishMessage').value.trim();
 
   if (!name || !email || !selectedGame) {
     showNotification('Name, email, and game selection are required!', 'error');
@@ -21,14 +18,9 @@ async function generateAndSendJSON() {
   // Create the JSON object
   const orderData = {
     name: name,
-    email: email,
-    "game-name": selectedGame,
-    "player-face-image": photoFile ? photoFile.name : "N/A",
-    "messages": {
-      "start": startMessage,
-      "secondary": secondaryMessages,
-      "finish": finishMessage
-    }
+    email: email, // Replace "type: 'game'" with the email value
+    "game-name": selectedGame, // Include the selected game
+    "player-face-image": photoFile ? photoFile.name : "N/A" // Renamed from "url" to "player-face-image"
   };
 
   // Convert the canvas image to a Blob

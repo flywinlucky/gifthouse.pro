@@ -50,8 +50,9 @@
       <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
     </div>
 
-    <!-- Step 4: Player Messages -->
+    <!-- Step 4: Payment Details -->
     <div class="order-form">
+<<<<<<< HEAD
       <h1 id="step4Title">4. Player Messages</h1>
       <p>⚠️ Toggle and enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
       
@@ -92,6 +93,9 @@
     <!-- Step 5: Payment Details -->
     <div class="order-form">
       <h1 id="step5Title">5. Payment Details</h1>
+=======
+      <h1 id="step4Title">4. Payment Details</h1>
+>>>>>>> parent of 243f2d9 (added custom messages)
       <p>⚠️ Review the total price and place your order to complete the customization process.</p>
       <div class="order-summary">
         <h1>Payment</h1>
@@ -190,46 +194,15 @@
       checkAllStepsCompleted();
     }
 
-    function updateStep4Status() {
-      const startMessage = document.getElementById('startMessage').value;
-      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-      const finishMessage = document.getElementById('finishMessage').value;
-      const step4Title = document.getElementById('step4Title');
-
-      let allSecondaryMessagesFilled = true;
-      secondaryMessages.forEach(message => {
-        if (!message.value) {
-          allSecondaryMessagesFilled = false;
-        }
-      });
-
-      if (startMessage && allSecondaryMessagesFilled && finishMessage) {
-        step4Title.textContent = '4. ✅ Player Messages';
-      } else {
-        step4Title.textContent = '4. Player Messages';
-      }
-      checkAllStepsCompleted();
-    }
-
     function checkAllStepsCompleted() {
       const gameSelect = document.getElementById('gameSelect').value;
       const photoInput = document.getElementById('photoInput').files.length > 0;
       const emailInput = document.getElementById('email');
       const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
       const isEmailValid = emailPattern.test(emailInput.value);
-      const startMessage = document.getElementById('startMessage').value;
-      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-      const finishMessage = document.getElementById('finishMessage').value;
-
-      let allSecondaryMessagesFilled = true;
-      secondaryMessages.forEach(message => {
-        if (!message.value) {
-          allSecondaryMessagesFilled = false;
-        }
-      });
 
       const placeOrderButton = document.getElementById('placeOrderButton');
-      if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
+      if (gameSelect && photoInput && isEmailValid) {
         placeOrderButton.disabled = false;
       } else {
         placeOrderButton.disabled = true;
@@ -241,9 +214,9 @@
       const popup = document.getElementById('popup');
       popup.style.display = 'block';
 
-      // Update step 5 title
-      const step5Title = document.getElementById('step5Title');
-      step5Title.textContent = '5. ✅ Payment Details';
+      // Update step 4 title
+      const step4Title = document.getElementById('step4Title');
+      step4Title.textContent = '4. ✅ Payment Details';
 
       generateAndSendJSON();
     }
@@ -302,6 +275,7 @@
       }
     }
 
+<<<<<<< HEAD
     function addSecondaryMessage() {
       const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
       const secondaryMessages = document.querySelectorAll('.secondaryMessage');
@@ -362,6 +336,8 @@
       }
     }
 
+=======
+>>>>>>> parent of 243f2d9 (added custom messages)
     renderGameMenu(); // Render the game menu
     autoSelectGameFromURL(); // Automatically select the game based on the URL or set default
   </script>
