@@ -72,6 +72,41 @@
       color: #333;
       line-height: 1.5;
     }
+    .review-card {
+      display: column;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .review-card span {
+      font-size: 24px;
+    }
+    .review-card p {
+      margin: 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .reviews-section {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .reviews-section h2 {
+      font-size: 1.5rem;
+      color: #007BFF;
+    }
+    .reviews-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
   </style>
 </head>
 <body>
@@ -95,6 +130,26 @@
       <h2>Place Order</h2>
       <p>Start creating your personalized game right now by clicking the button below!</p>
       <button id="placeOrderButton" style="padding: 15px 30px; font-size: 18px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="redirectToCustomization()">Place Order</button>
+    </div>
+    <div class="reviews-section">
+      <h2>Reviews</h2>
+      <div class="reviews-container">
+        <div class="review-card">
+          <span>👤</span>
+          <p>⭐⭐⭐⭐⭐</p>
+          <p>Amazing game! Highly recommend it.</p>
+        </div>
+        <div class="review-card">
+          <span>👤</span>
+          <p>⭐⭐⭐⭐⭐</p>
+          <p>Great graphics and gameplay.</p>
+        </div>
+        <div class="review-card">
+          <span>👤</span>
+          <p>⭐⭐⭐⭐⭐</p>
+          <p>Fun and engaging experience!</p>
+        </div>
+      </div>
     </div>
   </div>
 
