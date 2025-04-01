@@ -50,52 +50,26 @@
       <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
     </div>
 
-    <!-- Step 4: Payment Details -->
+    <!-- Step 4: Player Messages -->
     <div class="order-form">
-<<<<<<< HEAD
       <h1 id="step4Title">4. Player Messages</h1>
-      <p>⚠️ Toggle and enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
+      <p>⚠️ Enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
+      <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
       
-      <!-- Start Message -->
-      <div class="message-toggle">
-        <label>
-          <input type="checkbox" id="toggleStartMessage" onchange="toggleMessageInput('startMessage')">
-          Enable Start Message
-        </label>
-        <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" disabled oninput="updateStep4Status()">
-      </div>
-
-      <!-- Secondary Messages -->
       <div id="secondaryMessagesContainer">
-        <div class="message-toggle">
-          <label>
-            <input type="checkbox" id="toggleSecondaryMessagesContainer" onchange="toggleMessageInput('secondaryMessagesContainer')">
-            Enable Secondary Messages
-          </label>
-          <div class="secondary-message">
-            <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()" disabled>➕ Add Secondary Message</button>
-            <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" disabled oninput="updateStep4Status()">
-            <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
-          </div>
+        <div class="secondary-message">
+          <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+          <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
         </div>
       </div>
-
-      <!-- Finish Message -->
-      <div class="message-toggle">
-        <label>
-          <input type="checkbox" id="toggleFinishMessage" onchange="toggleMessageInput('finishMessage')">
-          Enable Finish Message
-        </label>
-        <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" disabled oninput="updateStep4Status()">
-      </div>
+      <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()">➕ Add Secondary Message</button>
+      
+      <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
     </div>
 
     <!-- Step 5: Payment Details -->
     <div class="order-form">
       <h1 id="step5Title">5. Payment Details</h1>
-=======
-      <h1 id="step4Title">4. Payment Details</h1>
->>>>>>> parent of 243f2d9 (added custom messages)
       <p>⚠️ Review the total price and place your order to complete the customization process.</p>
       <div class="order-summary">
         <h1>Payment</h1>
@@ -194,15 +168,46 @@
       checkAllStepsCompleted();
     }
 
+    function updateStep4Status() {
+      const startMessage = document.getElementById('startMessage').value;
+      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+      const finishMessage = document.getElementById('finishMessage').value;
+      const step4Title = document.getElementById('step4Title');
+
+      let allSecondaryMessagesFilled = true;
+      secondaryMessages.forEach(message => {
+        if (!message.value) {
+          allSecondaryMessagesFilled = false;
+        }
+      });
+
+      if (startMessage && allSecondaryMessagesFilled && finishMessage) {
+        step4Title.textContent = '4. ✅ Player Messages';
+      } else {
+        step4Title.textContent = '4. Player Messages';
+      }
+      checkAllStepsCompleted();
+    }
+
     function checkAllStepsCompleted() {
       const gameSelect = document.getElementById('gameSelect').value;
       const photoInput = document.getElementById('photoInput').files.length > 0;
       const emailInput = document.getElementById('email');
       const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
       const isEmailValid = emailPattern.test(emailInput.value);
+      const startMessage = document.getElementById('startMessage').value;
+      const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+      const finishMessage = document.getElementById('finishMessage').value;
+
+      let allSecondaryMessagesFilled = true;
+      secondaryMessages.forEach(message => {
+        if (!message.value) {
+          allSecondaryMessagesFilled = false;
+        }
+      });
 
       const placeOrderButton = document.getElementById('placeOrderButton');
-      if (gameSelect && photoInput && isEmailValid) {
+      if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
         placeOrderButton.disabled = false;
       } else {
         placeOrderButton.disabled = true;
@@ -214,9 +219,9 @@
       const popup = document.getElementById('popup');
       popup.style.display = 'block';
 
-      // Update step 4 title
-      const step4Title = document.getElementById('step4Title');
-      step4Title.textContent = '4. ✅ Payment Details';
+      // Update step 5 title
+      const step5Title = document.getElementById('step5Title');
+      step5Title.textContent = '5. ✅ Payment Details';
 
       generateAndSendJSON();
     }
@@ -275,7 +280,6 @@
       }
     }
 
-<<<<<<< HEAD
     function addSecondaryMessage() {
       const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
       const secondaryMessages = document.querySelectorAll('.secondaryMessage');
@@ -321,23 +325,6 @@
       });
     }
 
-    function toggleMessageInput(inputId) {
-      const inputElement = document.getElementById(inputId);
-      const toggleElement = document.getElementById(`toggle${inputId.charAt(0).toUpperCase() + inputId.slice(1)}`);
-      inputElement.disabled = !toggleElement.checked;
-
-      if (inputId === 'secondaryMessagesContainer') {
-        const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-        const addButton = document.getElementById('addSecondaryMessageButton');
-        secondaryMessages.forEach(message => {
-          message.disabled = !toggleElement.checked;
-        });
-        addButton.disabled = !toggleElement.checked;
-      }
-    }
-
-=======
->>>>>>> parent of 243f2d9 (added custom messages)
     renderGameMenu(); // Render the game menu
     autoSelectGameFromURL(); // Automatically select the game based on the URL or set default
   </script>
