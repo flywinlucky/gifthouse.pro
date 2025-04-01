@@ -6,5 +6,11 @@
     "Resources/G1-screenshot1.jpg",
     "Resources/G1-screenshot2.jpg",
     "Resources/G1-screenshot3.jpg"
+  ],
+  "characteristics": [
+    "Platform: Web",
+    "Devices: Android, PC, iOS",
+    "Game Duration: 40 minutes",
+    "Genre: Adventure"
   ]
 }

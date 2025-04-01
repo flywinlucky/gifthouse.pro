@@ -55,6 +55,23 @@
       border-radius: 5px;
       box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
     }
+    .game-characteristics {
+      max-width: 800px;
+      text-align: center;
+    }
+    .game-characteristics h2 {
+      font-size: 1.5rem;
+      color: #007BFF;
+    }
+    .game-characteristics ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .game-characteristics li {
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -62,11 +79,23 @@
     <div class="game-banner">
       <img id="gameBanner" src="" alt="Game Banner">
     </div>
+    <button onclick="goBack()" style="padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">⬅️ Back</button>
     <div class="game-details">
       <h1 id="gameTitle">Loading...</h1>
       <p id="gameDescription">Please wait while we load the game details.</p>
     </div>
     <div class="screenshots" id="screenshotsContainer"></div>
+    <div class="game-characteristics">
+      <h2>About Game</h2>
+      <ul id="gameCharacteristics">
+        <!-- Characteristics will be dynamically loaded here -->
+      </ul>
+    </div>
+    <div class="place-order-section" style="text-align: center; margin-top: 20px;">
+      <h2>Place Order</h2>
+      <p>Start creating your personalized game right now by clicking the button below!</p>
+      <button id="placeOrderButton" style="padding: 15px 30px; font-size: 18px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="redirectToCustomization()">Place Order</button>
+    </div>
   </div>
 
   <script>
@@ -103,6 +132,17 @@
           img.alt = 'Screenshot';
           screenshotsContainer.appendChild(img);
         });
+
+        // Add game characteristics
+        const characteristics = gameData.characteristics || [];
+        const characteristicsList = document.getElementById('gameCharacteristics');
+        characteristicsList.innerHTML = ''; // Clear existing content
+        characteristics.forEach(characteristic => {
+          const listItem = document.createElement('li');
+          listItem.textContent = characteristic;
+          characteristicsList.appendChild(listItem);
+        });
+
       } catch (error) {
         document.getElementById('gameTitle').textContent = 'Error';
         document.getElementById('gameDescription').textContent = 'Failed to load game details.';
@@ -112,6 +152,21 @@
 
     // Load the game info when the page loads
     loadGameInfo();
+
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+
+    function redirectToCustomization() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const gameId = urlParams.get('game');
+      if (gameId) {
+        // Redirect to index.html with the current-game query parameter
+        window.location.href = `index.html?current-game=${encodeURIComponent(gameId)}`;
+      } else {
+        alert('Game ID is missing. Please select a game.');
+      }
+    }
   </script>
 </body>
 </html>
