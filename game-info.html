@@ -197,11 +197,11 @@
       </div>
     </div>
   </div>
-  <div class="modal" id="screenshotModal">
+  <div class="modal" id="screenshotModal" onclick="closeModal()">
     <span class="close" onclick="closeModal()">×</span>
-    <span class="prev" onclick="changeImage(-1)">❮</span>
-    <img id="modalImage" src="" alt="Screenshot Preview">
-    <span class="next" onclick="changeImage(1)">❯</span>
+    <span class="prev" onclick="event.stopPropagation(); changeImage(-1)">❮</span>
+    <img id="modalImage" src="" alt="Screenshot Preview" onclick="event.stopPropagation()">
+    <span class="next" onclick="event.stopPropagation(); changeImage(1)">❯</span>
   </div>
   <script>
     let currentImageIndex = 0;
