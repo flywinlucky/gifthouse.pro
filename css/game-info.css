@@ -1,0 +1,140 @@
+.game-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+.game-banner {
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.game-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.game-details {
+  max-width: 800px;
+  text-align: center;
+}
+.game-details h1 {
+  font-size: 2rem;
+  color: #007BFF;
+}
+.game-details p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+.screenshots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.screenshots img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+.game-characteristics {
+  max-width: 800px;
+  text-align: center;
+}
+.game-characteristics h2 {
+  font-size: 1.5rem;
+  color: #007BFF;
+}
+.game-characteristics ul {
+  list-style-type: none;
+  padding: 0;
+}
+.game-characteristics li {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+}
+.review-card {
+  display: column;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+.review-card span {
+  font-size: 24px;
+}
+.review-card p {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+.reviews-section {
+  text-align: center;
+  margin-top: 20px;
+}
+.reviews-section h2 {
+  font-size: 1.5rem;
+  color: #007BFF;
+}
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+.modal img {
+  max-width: 90%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+.modal .close, .modal .prev, .modal .next {
+  position: absolute;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  user-select: none;
+}
+.modal .close {
+  top: 10px;
+  right: 20px;
+}
+.modal .prev {
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.modal .next {
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
