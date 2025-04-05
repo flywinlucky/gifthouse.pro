@@ -1,8 +1,6 @@
 const games = [
   { id: 'G1', name: 'Game 1 (G1)', icon: 'Resources/G1.png', overlayImage: 'Resources/avatar-mask-G1.png' },
-  { id: 'G2', name: 'Game 2 (G2)', icon: 'Resources/G2.png', overlayImage: 'Resources/avatar-mask-G2.png' },
-  { id: 'G3', name: 'Game 3 (G3)', icon: 'Resources/G3.png', overlayImage: 'Resources/avatar-mask-G3.png' },
-  { id: 'G4', name: 'Game 4 (G4)', icon: 'Resources/G4.png', overlayImage: 'Resources/avatar-mask-G4.png' }
+  { id: 'G2', name: 'Game 2 (G2)', icon: 'Resources/G2.png', overlayImage: 'Resources/avatar-mask-G2.png' }
 ];
 
 function renderGameMenu() {
