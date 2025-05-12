@@ -1,0 +1,71 @@
+{
+  "project_info": {
+    "project_number": "6904937589",
+    "firebase_url": "https://rambo-2017-36964068.firebaseio.com",
+    "project_id": "rambo-2017-36964068",
+    "storage_bucket": "rambo-2017-36964068.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6904937589:android:5cb68d089e5ff8b6",
+        "android_client_info": {
+          "package_name": "nzt.metal.shooter.commando"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6904937589-a9p3m5rgro0dr7he9j5mj50f3m03mrc5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nzt.metal.shooter.commando",
+            "certificate_hash": "3aa304ff2aff898b0d39a622bf822efa7cfd1427"
+          }
+        },
+        {
+          "client_id": "6904937589-bbg28ar0l2ekg2d0gone9p7blq7nsp81.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "6904937589-rj08brjheqn2ii3m53hsaoa50ndnsbqu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nzt.metal.shooter.commando",
+            "certificate_hash": "c6fc4716f7671b5a7be6c79d4267b89a9d638e80"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFCycH9XhQI7jChcFUZlknrBd5Bjr-PBA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6904937589-bbg28ar0l2ekg2d0gone9p7blq7nsp81.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "6904937589-v5i2fn3lfopjd0ugpuhfjkjlrrvmkm62.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nzt.metal.shooter.commando",
+                "app_store_id": "1356050859"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
