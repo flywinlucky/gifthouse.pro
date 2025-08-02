@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gift Games Order</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Customize your favorite games with personalized photos and messages">
+  <meta name="keywords" content="gift games, personalized games, custom games, photo games">
+  <meta name="author" content="GiftHouse">
+  <meta name="robots" content="index, follow">
+  <title>Gift Games Order - Personalized Gaming Experience</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/generateJsonFile.js"></script>
 </head>
@@ -13,31 +17,31 @@
     <div class="order-form">
       <h1 id="step1Title">1. Selected Game</h1>
       <p>⚠️ Select the game you want to customize from the menu below.</p>
-      <div class="game-menu" id="gameMenu"></div>
+      <div class="game-menu" id="gameMenu" role="listbox" aria-label="Game selection menu"></div>
       <input type="hidden" id="gameSelect" value="">
-      <div class="notification" id="notification"></div>
+      <div class="notification" id="notification" role="alert" aria-live="polite"></div>
     </div>
 
     <!-- Step 2: Player Photo -->
     <div class="order-form">
       <h1 id="step2Title">2. Player Photo</h1>
       <p>⚠️ Select a photo of the person you want to customize the game for. Adjust the photo to fit the face contour below.</p>
-      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
+      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()" aria-label="Upload player photo">
       <div class="canvas-container" style="position: relative; width: 380px; height: 380px;">
-        <canvas id="photoCanvas"></canvas>
-        <img id="overlayImage" src="./Resources/no-selected-gm-default-img.png" alt="Overlay" />
+        <canvas id="photoCanvas" role="img" aria-label="Photo editor canvas"></canvas>
+        <img id="overlayImage" src="./Resources/no-selected-gm-default-img.png" alt="Face contour overlay" />
       </div>
       <div class="hidden" id="editToolsMessage">
         <p>⚠️ Use the tools to edit your photo.</p>
       </div>
-      <div class="controls hidden" id="controlsPanel">
-        <button title="Rotate Left" onclick="rotateImage(-10)">⟲</button>
-        <button title="Rotate Right" onclick="rotateImage(10)">⟳</button>
-        <button title="Zoom In" onclick="zoomImage(1.1)">🔍+</button>
-        <button title="Zoom Out" onclick="zoomImage(0.9)">🔍-</button>
-        <button title="Flip Photo" onclick="flipPhoto()">⇋</button>
-        <button title="Reset" onclick="resetTransformations()">↺</button>
-        <button title="Add Image" type="button" onclick="document.getElementById('photoInput').click()">➕</button>
+      <div class="controls hidden" id="controlsPanel" role="toolbar" aria-label="Photo editing tools">
+        <button title="Rotate Left" onclick="rotateImage(-10)" aria-label="Rotate photo left">⟲</button>
+        <button title="Rotate Right" onclick="rotateImage(10)" aria-label="Rotate photo right">⟳</button>
+        <button title="Zoom In" onclick="zoomImage(1.1)" aria-label="Zoom in">🔍+</button>
+        <button title="Zoom Out" onclick="zoomImage(0.9)" aria-label="Zoom out">🔍-</button>
+        <button title="Flip Photo" onclick="flipPhoto()" aria-label="Flip photo horizontally">⇋</button>
+        <button title="Reset" onclick="resetTransformations()" aria-label="Reset photo transformations">↺</button>
+        <button title="Add Image" type="button" onclick="document.getElementById('photoInput').click()" aria-label="Add new photo">➕</button>
       </div>
     </div>
 
@@ -45,26 +49,26 @@
     <div class="order-form">
       <h1 id="step3Title">3. Player Details</h1>
       <p>⚠️ Enter the name and email address of the person for whom the game is being customized.</p>
-      <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status(false)">
-      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
-      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
+      <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status(false)" aria-label="Player name" aria-required="true">
+      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()" aria-label="Player email" aria-required="true">
+      <div id="emailError" style="color: red; font-size: 14px; display: none;" role="alert" aria-live="polite">Invalid email format</div>
     </div>
 
     <!-- Step 4: Player Messages -->
     <div class="order-form">
       <h1 id="step4Title">4. Player Messages</h1>
       <p>⚠️ Enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
-      <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+      <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()" aria-label="Start message" aria-required="true">
       
-      <div id="secondaryMessagesContainer">
+      <div id="secondaryMessagesContainer" role="group" aria-label="Secondary messages">
         <div class="secondary-message">
-          <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
-          <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
+          <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()" aria-label="Secondary message" aria-required="true">
+          <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled aria-label="Remove secondary message">❌</button>
         </div>
       </div>
-      <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()">➕ Add Secondary Message</button>
+      <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()" aria-label="Add another secondary message">➕ Add Secondary Message</button>
       
-      <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+      <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()" aria-label="Finish message" aria-required="true">
     </div>
 
     <!-- Step 5: Payment Details -->
@@ -76,16 +80,16 @@
         <div class="summary-details">
           <p><strong>Total Price:</strong> <span id="totalPrice">20.00$</span></p>
         </div>
-        <button class="payment-button" id="placeOrderButton" type="button" onclick="placeOrder()" disabled>Place Order</button>
+        <button class="payment-button" id="placeOrderButton" type="button" onclick="placeOrder()" disabled aria-label="Place order">Place Order</button>
       </div>
     </div>
   </div>
 
   <!-- Popup Notification -->
-  <div id="popup" class="popup" style="display: none;">
+  <div id="popup" class="popup" style="display: none;" role="dialog" aria-labelledby="popup-title" aria-describedby="popup-description">
     <div class="popup-content">
-      <p>Your order has been placed successfully! 🎉</p>
-      <button onclick="closePopup()">OK</button>
+      <p id="popup-description">Your order has been placed successfully! 🎉</p>
+      <button onclick="closePopup()" aria-label="Close popup">OK</button>
     </div>
   </div>
 

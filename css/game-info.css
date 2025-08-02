@@ -4,7 +4,10 @@
   align-items: center;
   padding: 20px;
   gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
+
 .game-banner {
   width: 100%;
   max-width: 800px;
@@ -16,30 +19,38 @@
   border-radius: 10px;
   overflow: hidden;
 }
+
 .game-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .game-details {
   max-width: 800px;
   text-align: center;
 }
+
 .game-details h1 {
   font-size: 2rem;
   color: #007BFF;
+  margin-bottom: 15px;
 }
+
 .game-details p {
   font-size: 1rem;
   color: #333;
   line-height: 1.5;
 }
+
 .screenshots {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+  max-width: 800px;
 }
+
 .screenshots img {
   width: 150px;
   height: 100px;
@@ -47,26 +58,39 @@
   border-radius: 5px;
   box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
+.screenshots img:hover {
+  transform: scale(1.05);
+}
+
 .game-characteristics {
   max-width: 800px;
   text-align: center;
 }
+
 .game-characteristics h2 {
   font-size: 1.5rem;
   color: #007BFF;
+  margin-bottom: 15px;
 }
+
 .game-characteristics ul {
   list-style-type: none;
   padding: 0;
 }
+
 .game-characteristics li {
   font-size: 1rem;
   color: #333;
   line-height: 1.5;
+  margin-bottom: 8px;
 }
+
 .review-card {
-  display: column;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
   padding: 15px;
@@ -78,28 +102,38 @@
   margin: 0 auto;
   width: 100%;
 }
+
 .review-card span {
   font-size: 24px;
 }
+
 .review-card p {
   margin: 0;
   font-size: 16px;
   color: #333;
 }
+
 .reviews-section {
   text-align: center;
   margin-top: 20px;
+  width: 100%;
 }
+
 .reviews-section h2 {
   font-size: 1.5rem;
   color: #007BFF;
+  margin-bottom: 15px;
 }
+
 .reviews-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  max-width: 800px;
+  margin: 0 auto;
 }
+
 .modal {
   display: none;
   position: fixed;
@@ -112,29 +146,294 @@
   justify-content: center;
   align-items: center;
 }
+
 .modal img {
   max-width: 90%;
   max-height: 80%;
   border-radius: 10px;
+  object-fit: contain;
 }
+
 .modal .close, .modal .prev, .modal .next {
   position: absolute;
   color: white;
   font-size: 2rem;
   cursor: pointer;
   user-select: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
 }
+
+.modal .close:hover, .modal .prev:hover, .modal .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
 .modal .close {
-  top: 10px;
+  top: 20px;
   right: 20px;
 }
+
 .modal .prev {
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
 }
+
 .modal .next {
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* Back button styling */
+.back-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+/* Demo and Order buttons styling */
+.demo-button, .order-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 10px;
+}
+
+.demo-button:hover, .order-button:hover {
+  background-color: #218838;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-info-container {
+    padding: 15px;
+    gap: 15px;
+  }
+  
+  .game-banner {
+    height: 200px;
+  }
+  
+  .game-details h1 {
+    font-size: 1.5rem;
+  }
+  
+  .game-details p {
+    font-size: 0.9rem;
+  }
+  
+  .screenshots img {
+    width: 120px;
+    height: 80px;
+  }
+  
+  .game-characteristics h2 {
+    font-size: 1.3rem;
+  }
+  
+  .game-characteristics li {
+    font-size: 0.9rem;
+  }
+  
+  .reviews-section h2 {
+    font-size: 1.3rem;
+  }
+  
+  .review-card {
+    padding: 12px;
+  }
+  
+  .review-card p {
+    font-size: 14px;
+  }
+  
+  .modal .close, .modal .prev, .modal .next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+  
+  .demo-button, .order-button {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-info-container {
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .game-banner {
+    height: 150px;
+  }
+  
+  .game-details h1 {
+    font-size: 1.2rem;
+  }
+  
+  .game-details p {
+    font-size: 0.8rem;
+  }
+  
+  .screenshots {
+    gap: 5px;
+  }
+  
+  .screenshots img {
+    width: 100px;
+    height: 70px;
+  }
+  
+  .game-characteristics h2 {
+    font-size: 1.1rem;
+  }
+  
+  .game-characteristics li {
+    font-size: 0.8rem;
+  }
+  
+  .reviews-section h2 {
+    font-size: 1.1rem;
+  }
+  
+  .review-card {
+    padding: 10px;
+  }
+  
+  .review-card span {
+    font-size: 20px;
+  }
+  
+  .review-card p {
+    font-size: 12px;
+  }
+  
+  .modal .close, .modal .prev, .modal .next {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+  
+  .modal .close {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .modal .prev {
+    left: 10px;
+  }
+  
+  .modal .next {
+    right: 10px;
+  }
+  
+  .back-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .demo-button, .order-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .game-banner {
+    height: 120px;
+  }
+  
+  .game-details h1 {
+    font-size: 1rem;
+  }
+  
+  .game-details p {
+    font-size: 0.7rem;
+  }
+  
+  .screenshots img {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .game-characteristics h2 {
+    font-size: 1rem;
+  }
+  
+  .game-characteristics li {
+    font-size: 0.7rem;
+  }
+  
+  .reviews-section h2 {
+    font-size: 1rem;
+  }
+  
+  .review-card {
+    padding: 8px;
+  }
+  
+  .review-card span {
+    font-size: 18px;
+  }
+  
+  .review-card p {
+    font-size: 11px;
+  }
+  
+  .modal .close, .modal .prev, .modal .next {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .back-button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .demo-button, .order-button {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .screenshots img {
+    min-width: 80px;
+    min-height: 60px;
+  }
+  
+  .modal .close, .modal .prev, .modal .next {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .back-button, .demo-button, .order-button {
+    min-height: 44px;
+  }
 }

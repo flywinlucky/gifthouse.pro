@@ -4,242 +4,382 @@ const games = [
 ];
 
 function renderGameMenu() {
-  const gameMenu = document.getElementById('gameMenu');
-  gameMenu.innerHTML = ''; // Clear existing content
+  try {
+    const gameMenu = document.getElementById('gameMenu');
+    if (!gameMenu) {
+      console.error('Game menu element not found');
+      return;
+    }
 
-  games.forEach(game => {
-    const gameOption = document.createElement('div');
-    gameOption.className = 'game-option';
-    gameOption.id = `game${game.id}`;
-    gameOption.onclick = () => selectGame(game.id, gameOption.id);
+    gameMenu.innerHTML = ''; // Clear existing content
 
-    const moreInfo = document.createElement('div');
-    moreInfo.className = 'more-info';
-    moreInfo.textContent = 'ℹ️';
-    moreInfo.onclick = (event) => {
-      event.stopPropagation();
-      window.location.href = `game-info.html?game=${game.id}`;
-    };
+    games.forEach(game => {
+      const gameOption = document.createElement('div');
+      gameOption.className = 'game-option';
+      gameOption.id = `game${game.id}`;
+      gameOption.onclick = () => selectGame(game.id, gameOption.id);
 
-    const gameIcon = document.createElement('img');
-    gameIcon.src = game.icon;
-    gameIcon.alt = `${game.name} Icon`;
+      const moreInfo = document.createElement('div');
+      moreInfo.className = 'more-info';
+      moreInfo.textContent = 'ℹ️';
+      moreInfo.onclick = (event) => {
+        event.stopPropagation();
+        try {
+          window.location.href = `game-info.html?game=${game.id}`;
+        } catch (error) {
+          console.error('Error navigating to game info:', error);
+        }
+      };
 
-    const gameName = document.createElement('span');
-    gameName.textContent = game.name;
+      const gameIcon = document.createElement('img');
+      gameIcon.src = game.icon;
+      gameIcon.alt = `${game.name} Icon`;
+      gameIcon.onerror = () => {
+        console.warn(`Failed to load game icon: ${game.icon}`);
+        gameIcon.style.display = 'none';
+      };
 
-    gameOption.appendChild(moreInfo);
-    gameOption.appendChild(gameIcon);
-    gameOption.appendChild(gameName);
-    gameMenu.appendChild(gameOption);
-  });
+      const gameName = document.createElement('span');
+      gameName.textContent = game.name;
+
+      gameOption.appendChild(moreInfo);
+      gameOption.appendChild(gameIcon);
+      gameOption.appendChild(gameName);
+      gameMenu.appendChild(gameOption);
+    });
+  } catch (error) {
+    console.error('Error rendering game menu:', error);
+  }
 }
 
 function validateEmail() {
-  const emailInput = document.getElementById('email');
-  const emailError = document.getElementById('emailError');
-  const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+  try {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    
+    if (!emailInput || !emailError) {
+      console.error('Email validation elements not found');
+      return;
+    }
 
-  if (emailInput.value && !emailPattern.test(emailInput.value)) {
-    emailError.style.display = 'block';
-    updateStep3Status(false); // Mark step 3 as incomplete
-  } else {
-    emailError.style.display = 'none';
-    updateStep3Status(true); // Mark step 3 as complete
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (emailInput.value && !emailPattern.test(emailInput.value)) {
+      emailError.style.display = 'block';
+      updateStep3Status(false);
+    } else {
+      emailError.style.display = 'none';
+      updateStep3Status(true);
+    }
+    checkAllStepsCompleted();
+  } catch (error) {
+    console.error('Error validating email:', error);
   }
-  checkAllStepsCompleted();
 }
 
 function updateStep1Status() {
-  const gameSelect = document.getElementById('gameSelect');
-  const step1Title = document.getElementById('step1Title');
-  if (gameSelect.value) {
-    step1Title.textContent = '1. ✅ Selected Game';
-  } else {
-    step1Title.textContent = '1. Selected Game';
+  try {
+    const gameSelect = document.getElementById('gameSelect');
+    const step1Title = document.getElementById('step1Title');
+    
+    if (!gameSelect || !step1Title) {
+      console.error('Step 1 elements not found');
+      return;
+    }
+
+    if (gameSelect.value) {
+      step1Title.textContent = '1. ✅ Selected Game';
+    } else {
+      step1Title.textContent = '1. Selected Game';
+    }
+    checkAllStepsCompleted();
+  } catch (error) {
+    console.error('Error updating step 1 status:', error);
   }
-  checkAllStepsCompleted();
 }
 
 function updateStep2Status() {
-  const photoInput = document.getElementById('photoInput');
-  const step2Title = document.getElementById('step2Title');
-  if (photoInput.files.length > 0) {
-    step2Title.textContent = '2. ✅ Player Photo';
-  } else {
-    step2Title.textContent = '2. Player Photo';
+  try {
+    const photoInput = document.getElementById('photoInput');
+    const step2Title = document.getElementById('step2Title');
+    
+    if (!photoInput || !step2Title) {
+      console.error('Step 2 elements not found');
+      return;
+    }
+
+    if (photoInput.files.length > 0) {
+      step2Title.textContent = '2. ✅ Player Photo';
+    } else {
+      step2Title.textContent = '2. Player Photo';
+    }
+    checkAllStepsCompleted();
+  } catch (error) {
+    console.error('Error updating step 2 status:', error);
   }
-  checkAllStepsCompleted();
 }
 
 function updateStep3Status(isEmailValid) {
-  const step3Title = document.getElementById('step3Title');
-  if (isEmailValid) {
-    step3Title.textContent = '3. ✅ Player Details';
-  } else {
-    step3Title.textContent = '3. Player Details';
+  try {
+    const step3Title = document.getElementById('step3Title');
+    if (!step3Title) {
+      console.error('Step 3 title element not found');
+      return;
+    }
+
+    if (isEmailValid) {
+      step3Title.textContent = '3. ✅ Player Details';
+    } else {
+      step3Title.textContent = '3. Player Details';
+    }
+    checkAllStepsCompleted();
+  } catch (error) {
+    console.error('Error updating step 3 status:', error);
   }
-  checkAllStepsCompleted();
 }
 
 function updateStep4Status() {
-  const startMessage = document.getElementById('startMessage').value;
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-  const finishMessage = document.getElementById('finishMessage').value;
-  const step4Title = document.getElementById('step4Title');
-
-  let allSecondaryMessagesFilled = true;
-  secondaryMessages.forEach(message => {
-    if (!message.value) {
-      allSecondaryMessagesFilled = false;
+  try {
+    const startMessage = document.getElementById('startMessage')?.value?.trim();
+    const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+    const finishMessage = document.getElementById('finishMessage')?.value?.trim();
+    const step4Title = document.getElementById('step4Title');
+    
+    if (!step4Title) {
+      console.error('Step 4 title element not found');
+      return;
     }
-  });
 
-  if (startMessage && allSecondaryMessagesFilled && finishMessage) {
-    step4Title.textContent = '4. ✅ Player Messages';
-  } else {
-    step4Title.textContent = '4. Player Messages';
+    let allSecondaryMessagesFilled = true;
+    secondaryMessages.forEach(message => {
+      if (!message?.value?.trim()) {
+        allSecondaryMessagesFilled = false;
+      }
+    });
+
+    if (startMessage && allSecondaryMessagesFilled && finishMessage) {
+      step4Title.textContent = '4. ✅ Player Messages';
+    } else {
+      step4Title.textContent = '4. Player Messages';
+    }
+    checkAllStepsCompleted();
+  } catch (error) {
+    console.error('Error updating step 4 status:', error);
   }
-  checkAllStepsCompleted();
 }
 
 function checkAllStepsCompleted() {
-  const gameSelect = document.getElementById('gameSelect').value;
-  const photoInput = document.getElementById('photoInput').files.length > 0;
-  const emailInput = document.getElementById('email');
-  const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-  const isEmailValid = emailPattern.test(emailInput.value);
-  const startMessage = document.getElementById('startMessage').value;
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-  const finishMessage = document.getElementById('finishMessage').value;
+  try {
+    const gameSelect = document.getElementById('gameSelect')?.value;
+    const photoInput = document.getElementById('photoInput')?.files?.length > 0;
+    const emailInput = document.getElementById('email');
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const isEmailValid = emailPattern.test(emailInput?.value || '');
+    const startMessage = document.getElementById('startMessage')?.value?.trim();
+    const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+    const finishMessage = document.getElementById('finishMessage')?.value?.trim();
 
-  let allSecondaryMessagesFilled = true;
-  secondaryMessages.forEach(message => {
-    if (!message.value) {
-      allSecondaryMessagesFilled = false;
+    let allSecondaryMessagesFilled = true;
+    secondaryMessages.forEach(message => {
+      if (!message?.value?.trim()) {
+        allSecondaryMessagesFilled = false;
+      }
+    });
+
+    const placeOrderButton = document.getElementById('placeOrderButton');
+    if (!placeOrderButton) {
+      console.error('Place order button not found');
+      return;
     }
-  });
 
-  const placeOrderButton = document.getElementById('placeOrderButton');
-  if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
-    placeOrderButton.disabled = false;
-  } else {
-    placeOrderButton.disabled = true;
+    if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
+      placeOrderButton.disabled = false;
+    } else {
+      placeOrderButton.disabled = true;
+    }
+  } catch (error) {
+    console.error('Error checking steps completion:', error);
   }
 }
 
 function placeOrder() {
-  // Show popup
-  const popup = document.getElementById('popup');
-  popup.style.display = 'block';
+  try {
+    // Show popup
+    const popup = document.getElementById('popup');
+    if (popup) {
+      popup.style.display = 'block';
+    }
 
-  // Update step 5 title
-  const step5Title = document.getElementById('step5Title');
-  step5Title.textContent = '5. ✅ Payment Details';
+    // Update step 5 title
+    const step5Title = document.getElementById('step5Title');
+    if (step5Title) {
+      step5Title.textContent = '5. ✅ Payment Details';
+    }
 
-  generateAndSendJSON();
+    if (typeof generateAndSendJSON === 'function') {
+      generateAndSendJSON();
+    } else {
+      console.error('generateAndSendJSON function not found');
+    }
+  } catch (error) {
+    console.error('Error placing order:', error);
+  }
 }
 
 function closePopup() {
-  const popup = document.getElementById('popup');
-  popup.style.display = 'none';
+  try {
+    const popup = document.getElementById('popup');
+    if (popup) {
+      popup.style.display = 'none';
+    }
+  } catch (error) {
+    console.error('Error closing popup:', error);
+  }
 }
 
 function selectGame(gameId, elementId) {
-  const gameSelect = document.getElementById('gameSelect');
-  gameSelect.value = gameId;
+  try {
+    const gameSelect = document.getElementById('gameSelect');
+    const step1Title = document.getElementById('step1Title');
+    
+    if (!gameSelect || !step1Title) {
+      console.error('Game selection elements not found');
+      return;
+    }
 
-  const step1Title = document.getElementById('step1Title');
-  step1Title.textContent = `1. ✅ Selected Game (${gameId})`;
+    gameSelect.value = gameId;
+    step1Title.textContent = `1. ✅ Selected Game (${gameId})`;
 
-  // Remove the "selected" class from all game options
-  document.querySelectorAll('.game-option').forEach(option => {
-    option.classList.remove('selected');
-  });
+    // Remove the "selected" class from all game options
+    document.querySelectorAll('.game-option').forEach(option => {
+      option.classList.remove('selected');
+    });
 
-  // Add the "selected" class to the clicked game option
-  const selectedOption = document.getElementById(elementId);
-  selectedOption.classList.add('selected');
+    // Add the "selected" class to the clicked game option
+    const selectedOption = document.getElementById(elementId);
+    if (selectedOption) {
+      selectedOption.classList.add('selected');
+    }
 
-  // Update the overlay image based on the selected game
-  const selectedGame = games.find(game => game.id === gameId);
-  const overlayImage = document.getElementById('overlayImage');
-  overlayImage.src = selectedGame.overlayImage;
+    // Update the overlay image based on the selected game
+    const selectedGame = games.find(game => game.id === gameId);
+    const overlayImage = document.getElementById('overlayImage');
+    if (selectedGame && overlayImage) {
+      overlayImage.src = selectedGame.overlayImage;
+    }
 
-  // Update the URL with the selected game
-  const newUrl = `${window.location.origin}${window.location.pathname}?current-game=${gameId}`;
-  window.history.pushState({ path: newUrl }, '', newUrl);
+    // Update the URL with the selected game
+    try {
+      const newUrl = `${window.location.origin}${window.location.pathname}?current-game=${gameId}`;
+      window.history.pushState({ path: newUrl }, '', newUrl);
+    } catch (error) {
+      console.error('Error updating URL:', error);
+    }
 
-  const controlsPanel = document.getElementById('controlsPanel');
-  const editToolsMessage = document.getElementById('editToolsMessage');
-  controlsPanel.classList.remove('hidden'); // Show the controls panel
-  editToolsMessage.classList.remove('hidden'); // Show the edit tools message
+    const controlsPanel = document.getElementById('controlsPanel');
+    const editToolsMessage = document.getElementById('editToolsMessage');
+    
+    if (controlsPanel) controlsPanel.classList.remove('hidden');
+    if (editToolsMessage) editToolsMessage.classList.remove('hidden');
 
-  checkAllStepsCompleted();
+    checkAllStepsCompleted();
+  } catch (error) {
+    console.error('Error selecting game:', error);
+  }
 }
 
 function autoSelectGameFromURL() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const currentGame = urlParams.get('current-game');
-  const overlayImage = document.getElementById('overlayImage');
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentGame = urlParams.get('current-game');
+    const overlayImage = document.getElementById('overlayImage');
 
-  if (currentGame) {
-    const game = games.find(g => g.id === currentGame);
-    if (game) {
-      selectGame(game.id, `game${game.id}`);
+    if (currentGame) {
+      const game = games.find(g => g.id === currentGame);
+      if (game) {
+        selectGame(game.id, `game${game.id}`);
+      }
+    } else if (overlayImage) {
+      // Set default overlay image if no game is selected
+      overlayImage.src = './Resources/no-selected-gm-default-img.png';
     }
-  } else {
-    // Set default overlay image if no game is selected
-    overlayImage.src = './Resources/no-selected-gm-default-img.png';
+  } catch (error) {
+    console.error('Error auto-selecting game from URL:', error);
   }
 }
 
-document.addEventListener('DOMContentLoaded', autoSelectGameFromURL);
-
 function addSecondaryMessage() {
-  const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+  try {
+    const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
+    const secondaryMessages = document.querySelectorAll('.secondaryMessage');
 
-  if (secondaryMessages.length < 5) {
-    const newMessageDiv = document.createElement('div');
-    newMessageDiv.className = 'secondary-message';
+    if (!secondaryMessagesContainer) {
+      console.error('Secondary messages container not found');
+      return;
+    }
 
-    const newMessageInput = document.createElement('input');
-    newMessageInput.type = 'text';
-    newMessageInput.className = 'secondaryMessage';
-    newMessageInput.placeholder = 'Secondary Message (max 50 chars)';
-    newMessageInput.maxLength = 50;
-    newMessageInput.oninput = updateStep4Status;
+    if (secondaryMessages.length < 5) {
+      const newMessageDiv = document.createElement('div');
+      newMessageDiv.className = 'secondary-message';
 
-    const removeButton = document.createElement('button');
-    removeButton.type = 'button';
-    removeButton.className = 'removeSecondaryMessage';
-    removeButton.textContent = '❌';
-    removeButton.onclick = () => removeSecondaryMessage(removeButton);
+      const newMessageInput = document.createElement('input');
+      newMessageInput.type = 'text';
+      newMessageInput.className = 'secondaryMessage';
+      newMessageInput.placeholder = 'Secondary Message (max 50 chars)';
+      newMessageInput.maxLength = 50;
+      newMessageInput.oninput = updateStep4Status;
 
-    newMessageDiv.appendChild(newMessageInput);
-    newMessageDiv.appendChild(removeButton);
-    secondaryMessagesContainer.appendChild(newMessageDiv);
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'removeSecondaryMessage';
+      removeButton.textContent = '❌';
+      removeButton.onclick = () => removeSecondaryMessage(removeButton);
+
+      newMessageDiv.appendChild(newMessageInput);
+      newMessageDiv.appendChild(removeButton);
+      secondaryMessagesContainer.appendChild(newMessageDiv);
+    }
+
+    updateRemoveButtonsState();
+  } catch (error) {
+    console.error('Error adding secondary message:', error);
   }
-
-  updateRemoveButtonsState();
 }
 
 function removeSecondaryMessage(button) {
-  const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
-  secondaryMessagesContainer.removeChild(button.parentElement);
-  updateStep4Status();
-  updateRemoveButtonsState();
+  try {
+    const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
+    if (secondaryMessagesContainer && button.parentElement) {
+      secondaryMessagesContainer.removeChild(button.parentElement);
+      updateStep4Status();
+      updateRemoveButtonsState();
+    }
+  } catch (error) {
+    console.error('Error removing secondary message:', error);
+  }
 }
 
 function updateRemoveButtonsState() {
-  const removeButtons = document.querySelectorAll('.removeSecondaryMessage');
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
+  try {
+    const removeButtons = document.querySelectorAll('.removeSecondaryMessage');
+    const secondaryMessages = document.querySelectorAll('.secondaryMessage');
 
-  removeButtons.forEach(button => {
-    button.disabled = secondaryMessages.length <= 1;
-  });
+    removeButtons.forEach(button => {
+      if (button) {
+        button.disabled = secondaryMessages.length <= 1;
+      }
+    });
+  } catch (error) {
+    console.error('Error updating remove buttons state:', error);
+  }
 }
 
-renderGameMenu(); // Render the game menu
-autoSelectGameFromURL(); // Automatically select the game based on the URL or set default
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    renderGameMenu();
+    autoSelectGameFromURL();
+  } catch (error) {
+    console.error('Error initializing page:', error);
+  }
+});
