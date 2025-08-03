@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Learn more about our personalized games and place your order">
-  <meta name="keywords" content="game info, personalized games, custom games, gift games">
-  <meta name="author" content="GiftHouse">
-  <meta name="robots" content="index, follow">
-  <title>Game Info - Personalized Gaming Experience</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Info</title>
   <link rel="stylesheet" href="css/game-info.css">
 </head>
 <body>
@@ -15,20 +11,20 @@
     <div class="game-banner">
       <img id="gameBanner" src="" alt="Game Banner">
     </div>
-    <button onclick="goBack()" class="back-button" aria-label="Go back to main page">⬅️ Back</button>
+    <button onclick="goBack()" style="padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">⬅️ Back</button>
     <div class="game-details">
       <h1 id="gameTitle">Loading...</h1>
       <p id="gameDescription">Please wait while we load the game details.</p>
     </div>
-    <div class="screenshots" id="screenshotsContainer" role="region" aria-label="Game screenshots"></div>
+    <div class="screenshots" id="screenshotsContainer"></div>
     <div class="game-characteristics">
       <h2>About Game</h2>
-      <ul id="gameCharacteristics" role="list">
+      <ul id="gameCharacteristics">
         <!-- Characteristics will be dynamically loaded here -->
       </ul>
       <div style="text-align: center; margin-top: 20px;">
         <p>Want to try the game before purchasing?</p>
-        <button id="demoGameButton" class="demo-button" aria-label="Play demo game">
+        <button id="demoGameButton" style="padding: 10px 20px; font-size: 16px; background-color: #007BFF; color: white; border: none; border-radius: 5px; cursor: pointer;">
           Demo Game
         </button>
       </div>
@@ -36,34 +32,34 @@
     <div class="place-order-section" style="text-align: center; margin-top: 20px;">
       <h2>Place Order</h2>
       <p>Start creating your personalized game right now by clicking the button below!</p>
-      <button id="placeOrderButton" class="order-button" onclick="redirectToCustomization()" aria-label="Place order for personalized game">Place Order</button>
+      <button id="placeOrderButton" style="padding: 15px 30px; font-size: 18px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;" onclick="redirectToCustomization()">Place Order</button>
     </div>
     <div class="reviews-section">
       <h2>Reviews</h2>
       <div class="reviews-container">
         <div class="review-card">
-          <span role="img" aria-label="User avatar">👤</span>
-          <p role="img" aria-label="5 stars">⭐⭐⭐⭐⭐</p>
+          <span>👤</span>
+          <p>⭐⭐⭐⭐⭐</p>
           <p>Amazing game! Highly recommend it.</p>
         </div>
         <div class="review-card">
-          <span role="img" aria-label="User avatar">👤</span>
-          <p role="img" aria-label="5 stars">⭐⭐⭐⭐⭐</p>
+          <span>👤</span>
+          <p>⭐⭐⭐⭐⭐</p>
           <p>Great graphics and gameplay.</p>
         </div>
         <div class="review-card">
-          <span role="img" aria-label="User avatar">👤</span>
-          <p role="img" aria-label="5 stars">⭐⭐⭐⭐⭐</p>
+          <span>👤</span>
+          <p>⭐⭐⭐⭐⭐</p>
           <p>Fun and engaging experience!</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal" id="screenshotModal" onclick="closeModal()" role="dialog" aria-label="Screenshot preview modal">
-    <span class="close" onclick="closeModal()" role="button" aria-label="Close modal">×</span>
-    <span class="prev" onclick="event.stopPropagation(); changeImage(-1)" role="button" aria-label="Previous screenshot">❮</span>
+  <div class="modal" id="screenshotModal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">×</span>
+    <span class="prev" onclick="event.stopPropagation(); changeImage(-1)">❮</span>
     <img id="modalImage" src="" alt="Screenshot Preview" onclick="event.stopPropagation()">
-    <span class="next" onclick="event.stopPropagation(); changeImage(1)" role="button" aria-label="Next screenshot">❯</span>
+    <span class="next" onclick="event.stopPropagation(); changeImage(1)">❯</span>
   </div>
 
   <script src="js/gameinfo.js"></script>
