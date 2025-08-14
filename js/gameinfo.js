@@ -5,19 +5,29 @@ function openModal(index) {
   currentImageIndex = index;
   const modal = document.getElementById('screenshotModal');
   const modalImage = document.getElementById('modalImage');
-  modalImage.src = screenshots[currentImageIndex];
-  modal.style.display = 'flex';
+  
+  if (screenshots.length > 0 && screenshots[index]) {
+    modalImage.src = screenshots[index];
+    modal.style.display = 'flex';
+  }
 }
 
 function closeModal() {
   const modal = document.getElementById('screenshotModal');
-  modal.style.display = 'none';
+  if (modal) {
+    modal.style.display = 'none';
+  }
 }
 
 function changeImage(direction) {
+  if (screenshots.length === 0) return;
+  
   currentImageIndex = (currentImageIndex + direction + screenshots.length) % screenshots.length;
   const modalImage = document.getElementById('modalImage');
-  modalImage.src = screenshots[currentImageIndex];
+  
+  if (screenshots[currentImageIndex]) {
+    modalImage.src = screenshots[currentImageIndex];
+  }
 }
 
 async function loadGameInfo() {
@@ -28,6 +38,7 @@ async function loadGameInfo() {
   if (!gameId) {
     document.getElementById('gameTitle').textContent = 'Game Not Found';
     document.getElementById('gameDescription').textContent = 'No game ID was provided.';
+    document.getElementById('gameDescriptionText').textContent = 'No game ID was provided.';
     return;
   }
 
@@ -94,8 +105,8 @@ function redirectToCustomization() {
   const urlParams = new URLSearchParams(window.location.search);
   const gameId = urlParams.get('game');
   if (gameId) {
-    // Redirect to index.html with the current-game query parameter
-    window.location.href = `index.html?current-game=${encodeURIComponent(gameId)}`;
+    // Redirect to index.html with the game parameter to auto-select the game
+    window.location.href = `index.html?game=${encodeURIComponent(gameId)}`;
   } else {
     alert('Game ID is missing. Please select a game.');
   }

@@ -221,7 +221,7 @@ function selectGame(gameId, elementId) {
   }
 
   // Update the URL with the selected game
-  const newUrl = `${window.location.origin}${window.location.pathname}?current-game=${gameId}`;
+  const newUrl = `${window.location.origin}${window.location.pathname}?game=${gameId}`;
   window.history.pushState({ path: newUrl }, '', newUrl);
 
   updateStep1Status();
@@ -229,7 +229,7 @@ function selectGame(gameId, elementId) {
 
 function autoSelectGameFromURL() {
   const urlParams = new URLSearchParams(window.location.search);
-  const currentGame = urlParams.get('current-game');
+  const currentGame = urlParams.get('game');
   const overlayImage = document.getElementById('overlayImage');
 
   if (currentGame) {

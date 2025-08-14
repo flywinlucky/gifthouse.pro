@@ -223,6 +223,8 @@
   padding: 0;
   background: transparent;
   box-shadow: none;
+  position: relative;
+  border: none;
 }
 
 .screenshot-modal img {
@@ -230,6 +232,8 @@
   max-height: 80vh;
   border-radius: 15px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  display: block;
+  background: transparent;
 }
 
 .screenshot-modal .close,
@@ -249,6 +253,7 @@
   justify-content: center;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  z-index: 10;
 }
 
 .screenshot-modal .close:hover,
