@@ -48,16 +48,16 @@ let isDragging = false;
 let startX, startY;
 let flipHorizontal = false;
 
-canvas.width = 380;
-canvas.height = 380;
+canvas.width = 300;
+canvas.height = 300;
 
 // Adjust overlay image size and position to match canvas dimensions
 const overlayImage = document.getElementById('overlayImage');
 function updateOverlaySize() {
-  overlayImage.style.width = `${canvas.width}px`;
-  overlayImage.style.height = `${canvas.height}px`;
-  overlayImage.style.top = `${canvas.offsetTop}px`;
-  overlayImage.style.left = `${canvas.offsetLeft}px`;
+  if (overlayImage) {
+    overlayImage.style.width = `${canvas.width}px`;
+    overlayImage.style.height = `${canvas.height}px`;
+  }
 }
 updateOverlaySize();
 
@@ -66,7 +66,9 @@ window.addEventListener('resize', updateOverlaySize);
 
 function resetOverlayImage() {
   const overlayImage = document.getElementById('overlayImage');
-  overlayImage.src = './Resources/avatar-mask.png'; // Ensure the correct path
+  if (overlayImage) {
+    overlayImage.src = './Resources/avatar-mask.png'; // Ensure the correct path
+  }
 }
 
 function previewPhoto() {
@@ -92,7 +94,9 @@ function drawImage() {
 
   // Ensure the overlay image is visible above the canvas
   const overlayImage = document.getElementById('overlayImage');
-  overlayImage.style.display = 'block';
+  if (overlayImage) {
+    overlayImage.style.display = 'block';
+  }
 }
 
 function rotateImage(angle) {
@@ -119,6 +123,7 @@ function resetTransformations() {
   drawImage();
 }
 
+// Canvas event listeners
 canvas.addEventListener('mousedown', (e) => {
   isDragging = true;
   startX = e.offsetX - offsetX;
@@ -136,6 +141,7 @@ canvas.addEventListener('mousemove', (e) => {
 canvas.addEventListener('mouseup', () => (isDragging = false));
 canvas.addEventListener('mouseleave', () => (isDragging = false));
 
+// Touch events for mobile
 canvas.addEventListener('touchstart', (e) => {
   if (e.touches.length === 1) {
     isDragging = true;
@@ -157,12 +163,14 @@ canvas.addEventListener('touchmove', (e) => {
 canvas.addEventListener('touchend', () => (isDragging = false));
 canvas.addEventListener('touchcancel', () => (isDragging = false));
 
+// Mouse wheel zoom
 canvas.addEventListener('wheel', (e) => {
   e.preventDefault();
   const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
   zoomImage(zoomFactor);
 });
 
+// Pinch to zoom for mobile
 let lastTouchEnd = 0;
 let initialPinchDistance = null;
 let initialScale = scale;
@@ -223,16 +231,14 @@ canvas.addEventListener('touchend', (e) => {
 
 function showNotification(message, type) {
   const notification = document.getElementById('notification');
-  notification.textContent = message;
-  notification.className = 'notification ' + type;
-  notification.style.display = 'block';
+  if (notification) {
+    notification.textContent = message;
+    notification.className = 'notification ' + type;
+    notification.style.display = 'block';
+  }
 }
 
-document.getElementById('gameSelect').addEventListener('change', function () {
-  const selectedGame = this.options[this.selectedIndex].text;
-  document.getElementById('selectedGame').textContent = selectedGame || 'None';
-});
-
+// Game management functions
 function addGame(id, name, icon) {
   games.push({ id, name, icon });
   renderGameMenu(); // Re-render the game menu
@@ -249,48 +255,3 @@ function removeGame(id) {
 // Example usage:
 // addGame('G4', 'Game 4 (G4)', 'Resources/G4.png');
 // removeGame('G2');
-
-function updateStep4Status() {
-  const startMessage = document.getElementById('startMessage').value.trim();
-  const finishMessage = document.getElementById('finishMessage').value.trim();
-  const step4Title = document.getElementById('step4Title');
-
-  if (startMessage && finishMessage) {
-    step4Title.textContent = '4. ✅ Player Messages';
-  } else {
-    step4Title.textContent = '4. Player Messages';
-  }
-  checkAllStepsCompleted();
-}
-
-function checkAllStepsCompleted() {
-  const gameSelect = document.getElementById('gameSelect').value;
-  const photoInput = document.getElementById('photoInput').files.length > 0;
-  const nameInput = document.getElementById('name').value;
-  const emailInput = document.getElementById('email');
-  const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
-  const isEmailValid = emailPattern.test(emailInput.value);
-
-  const startMessage = document.getElementById('startMessage').value.trim();
-  const finishMessage = document.getElementById('finishMessage').value.trim();
-  const termsCheckbox = document.getElementById('termsCheckbox').checked;
-
-  const placeOrderButton = document.getElementById('placeOrderButton');
-  if (gameSelect && photoInput && nameInput && isEmailValid && startMessage && finishMessage && termsCheckbox) {
-    placeOrderButton.disabled = false;
-  } else {
-    placeOrderButton.disabled = true;
-  }
-}
-
-function placeOrder() {
-  // Show popup
-  const popup = document.getElementById('popup');
-  popup.style.display = 'block';
-
-  // Update step 5 title
-  const step5Title = document.getElementById('step5Title');
-  step5Title.textContent = '5. ✅ Order Summary';
-
-  generateAndSendJSON();
-}

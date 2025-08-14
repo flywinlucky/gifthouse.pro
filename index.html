@@ -3,83 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gift Games Order</title>
+  <title>Gifthouse.pro - Personalized Gaming Experience</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="js/generateJsonFile.js"></script>
 </head>
 <body>
-  <div class="photo-editor">
-    <!-- Step 1: Game Selection -->
-    <div class="order-form">
-      <h1 id="step1Title">1. Selected Game</h1>
-      <p>⚠️ Select the game you want to customize from the menu below.</p>
-      <div class="game-menu" id="gameMenu"></div>
-      <input type="hidden" id="gameSelect" value="">
-      <div class="notification" id="notification"></div>
-    </div>
-
-    <!-- Step 2: Player Photo -->
-    <div class="order-form">
-      <h1 id="step2Title">2. Player Photo</h1>
-      <p>⚠️ Select a photo of the person you want to customize the game for. Adjust the photo to fit the face contour below.</p>
-      <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
-      <div class="canvas-container" style="position: relative; width: 380px; height: 380px;">
-        <canvas id="photoCanvas"></canvas>
-        <img id="overlayImage" src="./Resources/no-selected-gm-default-img.png" alt="Overlay" />
-      </div>
-      <div class="hidden" id="editToolsMessage">
-        <p>⚠️ Use the tools to edit your photo.</p>
-      </div>
-      <div class="controls hidden" id="controlsPanel">
-        <button title="Rotate Left" onclick="rotateImage(-10)">⟲</button>
-        <button title="Rotate Right" onclick="rotateImage(10)">⟳</button>
-        <button title="Zoom In" onclick="zoomImage(1.1)">🔍+</button>
-        <button title="Zoom Out" onclick="zoomImage(0.9)">🔍-</button>
-        <button title="Flip Photo" onclick="flipPhoto()">⇋</button>
-        <button title="Reset" onclick="resetTransformations()">↺</button>
-        <button title="Add Image" type="button" onclick="document.getElementById('photoInput').click()">➕</button>
+  <!-- Header Section -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <h1>🎮 Gifthouse.pro</h1>
+        <p>Create Your Perfect Gaming Gift</p>
       </div>
     </div>
+  </header>
 
-    <!-- Step 3: Player Details -->
-    <div class="order-form">
-      <h1 id="step3Title">3. Player Details</h1>
-      <p>⚠️ Enter the name of the person for whom the game is being customized.</p>
-      <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status()">
-    </div>
-
-    <!-- Step 4: Player Messages -->
-    <div class="order-form">
-      <h1 id="step4Title">4. Player Messages</h1>
-      <p>⚠️ Enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
-      <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
-      
-      <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
-    </div>
-
-    <!-- Step 5: Order Summary -->
-    <div class="order-form">
-      <h1 id="step5Title">5. Order Summary</h1>
-      <p>⚠️ Review your order details and place your order to complete the customization process.</p>
-      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
-      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
-      <div class="order-summary">
-        <div class="terms-checkbox">
-          <input type="checkbox" id="termsCheckbox" onchange="updateStep5Status()">
-          <label for="termsCheckbox">Plasind comanda sunt de acord cu termenii si conditiile</label>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Transform Your Photo Into a Gaming Adventure</h1>
+        <p>Create a personalized video game where you're the hero! Upload your photo, customize your character, and get ready for an epic gaming experience.</p>
+        <div class="hero-features">
+          <div class="feature">
+            <span class="feature-icon">🎯</span>
+            <span>Choose Your Game</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">📸</span>
+            <span>Upload Your Photo</span>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🎮</span>
+            <span>Play & Enjoy</span>
+          </div>
         </div>
-        <button class="payment-button" id="placeOrderButton" type="button" onclick="placeOrder()" disabled>Place Order</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Form Section -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-step active" id="step1Indicator">
+            <div class="step-number">1</div>
+            <span>Choose Game</span>
+          </div>
+          <div class="progress-step" id="step2Indicator">
+            <div class="step-number">2</div>
+            <span>Customize</span>
+          </div>
+          <div class="progress-step" id="step3Indicator">
+            <div class="step-number">3</div>
+            <span>Order</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: Game Selection -->
+      <div class="form-step active" id="step1">
+        <div class="step-header">
+          <h2>🎮 Choose Your Game</h2>
+          <p>Select the game template you'd like to personalize</p>
+        </div>
+        
+        <div class="game-grid" id="gameMenu">
+          <!-- Games will be populated by JavaScript -->
+        </div>
+        
+        <input type="hidden" id="gameSelect" value="">
+        
+        <div class="step-navigation">
+          <button class="btn btn-primary" id="nextStep1" disabled onclick="nextStep(1)">
+            Continue to Customization
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Photo Customization -->
+      <div class="form-step" id="step2">
+        <div class="step-header">
+          <h2>📸 Customize Your Character</h2>
+          <p>Upload your photo and adjust it to fit perfectly in the game</p>
+        </div>
+        
+        <div class="customization-container">
+          <div class="photo-upload-section">
+            <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+              <div class="upload-icon">📷</div>
+              <p>Click to upload your photo</p>
+              <span class="upload-hint">JPG, PNG, or GIF up to 5MB</span>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
+          </div>
+          
+          <div class="preview-section">
+            <div class="canvas-container">
+              <canvas id="photoCanvas"></canvas>
+              <img id="overlayImage" src="./Resources/no-selected-gm-default-img.png" alt="Character Mask" />
+            </div>
+            
+            <div class="edit-controls" id="controlsPanel">
+              <h4>Edit Your Photo</h4>
+              <div class="control-buttons">
+                <button class="control-btn" title="Rotate Left" onclick="rotateImage(-10)">⟲</button>
+                <button class="control-btn" title="Rotate Right" onclick="rotateImage(10)">⟳</button>
+                <button class="control-btn" title="Zoom In" onclick="zoomImage(1.1)">🔍+</button>
+                <button class="control-btn" title="Zoom Out" onclick="zoomImage(0.9)">🔍-</button>
+                <button class="control-btn" title="Flip" onclick="flipPhoto()">⇋</button>
+                <button class="control-btn" title="Reset" onclick="resetTransformations()">↺</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-navigation">
+          <button class="btn btn-secondary" onclick="previousStep(2)">
+            <span class="btn-arrow">←</span>
+            Back to Game Selection
+          </button>
+          <button class="btn btn-primary" id="nextStep2" disabled onclick="nextStep(2)">
+            Continue to Details
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Order Details -->
+      <div class="form-step" id="step3">
+        <div class="step-header">
+          <h2>📝 Complete Your Order</h2>
+          <p>Fill in your details and place your order</p>
+        </div>
+        
+        <div class="order-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" required oninput="updateStep3Status()">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email" required oninput="validateEmail()">
+            <div id="emailError" class="error-message">Please enter a valid email address</div>
+          </div>
+          
+          <div class="form-group">
+            <label for="startMessage">Start Message</label>
+            <input type="text" id="startMessage" placeholder="Message shown at the beginning (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+            <span class="char-count">0/50</span>
+          </div>
+          
+          <div class="form-group">
+            <label for="finishMessage">Finish Message</label>
+            <input type="text" id="finishMessage" placeholder="Message shown when completing the game (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+            <span class="char-count">0/50</span>
+          </div>
+          
+          <div class="terms-section">
+            <div class="terms-checkbox">
+              <input type="checkbox" id="termsCheckbox" onchange="updateStep5Status()">
+              <label for="termsCheckbox">
+                I agree to the <a href="#" class="terms-link">Terms and Conditions</a>
+              </label>
+            </div>
+          </div>
+          
+          <div class="order-summary">
+            <div class="summary-item">
+              <span>Game Template:</span>
+              <span id="selectedGameName">Not selected</span>
+            </div>
+            <div class="summary-item">
+              <span>Total Price:</span>
+              <span class="price">FREE</span>
+            </div>
+          </div>
+          
+          <button class="btn btn-success btn-large" id="placeOrderButton" type="button" onclick="placeOrder()" disabled>
+            🎮 Place Your Order
+          </button>
+        </div>
+        
+        <div class="step-navigation">
+          <button class="btn btn-secondary" onclick="previousStep(3)">
+            <span class="btn-arrow">←</span>
+            Back to Customization
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Success Modal -->
+  <div id="popup" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="success-icon">🎉</div>
+        <h3>Order Placed Successfully!</h3>
+      </div>
+      <div class="modal-body">
+        <p>Your personalized game order has been submitted! We'll start working on it right away.</p>
+        <p>You'll receive an email confirmation shortly with your order details.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="closePopup()">Great!</button>
       </div>
     </div>
   </div>
 
-  <!-- Popup Notification -->
-  <div id="popup" class="popup" style="display: none;">
-    <div class="popup-content">
-      <p>Your order has been placed successfully! 🎉</p>
-      <button onclick="closePopup()">OK</button>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 Gifthouse.pro - Create Your Perfect Gaming Gift</p>
     </div>
-  </div>
+  </footer>
 
   <script src="js/scripts.js"></script>
   <script src="js/indexscript.js"></script>

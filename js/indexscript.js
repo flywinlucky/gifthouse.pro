@@ -3,6 +3,8 @@ const games = [
   { id: 'G2', name: 'Game 2 (G2)', icon: 'Resources/G2.png', overlayImage: 'Resources/avatar-mask-G2.png' }
 ];
 
+let currentStep = 1;
+
 function renderGameMenu() {
   const gameMenu = document.getElementById('gameMenu');
   gameMenu.innerHTML = ''; // Clear existing content
@@ -35,6 +37,55 @@ function renderGameMenu() {
   });
 }
 
+// Step Navigation Functions
+function nextStep(currentStepNumber) {
+  if (currentStepNumber === 1 && !document.getElementById('gameSelect').value) {
+    return; // Don't proceed if no game is selected
+  }
+  
+  if (currentStepNumber === 2 && !document.getElementById('photoInput').files.length) {
+    return; // Don't proceed if no photo is uploaded
+  }
+  
+  showStep(currentStepNumber + 1);
+}
+
+function previousStep(currentStepNumber) {
+  showStep(currentStepNumber - 1);
+}
+
+function showStep(stepNumber) {
+  // Hide all steps
+  document.querySelectorAll('.form-step').forEach(step => {
+    step.classList.remove('active');
+  });
+  
+  // Show the target step
+  document.getElementById(`step${stepNumber}`).classList.add('active');
+  
+  // Update progress indicators
+  updateProgressIndicators(stepNumber);
+  
+  currentStep = stepNumber;
+}
+
+function updateProgressIndicators(activeStep) {
+  // Reset all indicators
+  document.querySelectorAll('.progress-step').forEach((step, index) => {
+    step.classList.remove('active', 'completed');
+  });
+  
+  // Set active and completed states
+  for (let i = 1; i <= 3; i++) {
+    const indicator = document.getElementById(`step${i}Indicator`);
+    if (i < activeStep) {
+      indicator.classList.add('completed');
+    } else if (i === activeStep) {
+      indicator.classList.add('active');
+    }
+  }
+}
+
 function validateEmail() {
   const emailInput = document.getElementById('email');
   const emailError = document.getElementById('emailError');
@@ -52,46 +103,43 @@ function validateEmail() {
 
 function updateStep1Status() {
   const gameSelect = document.getElementById('gameSelect');
-  const step1Title = document.getElementById('step1Title');
+  const nextButton = document.getElementById('nextStep1');
   if (gameSelect.value) {
-    step1Title.textContent = '1. ✅ Selected Game';
+    nextButton.disabled = false;
   } else {
-    step1Title.textContent = '1. Selected Game';
+    nextButton.disabled = true;
   }
-  checkAllStepsCompleted();
 }
 
 function updateStep2Status() {
   const photoInput = document.getElementById('photoInput');
-  const step2Title = document.getElementById('step2Title');
+  const nextButton = document.getElementById('nextStep2');
   if (photoInput.files.length > 0) {
-    step2Title.textContent = '2. ✅ Player Photo';
+    nextButton.disabled = false;
   } else {
-    step2Title.textContent = '2. Player Photo';
+    nextButton.disabled = true;
   }
-  checkAllStepsCompleted();
 }
 
-function updateStep3Status(isNameValid) {
-  const step3Title = document.getElementById('step3Title');
-  if (isNameValid) {
-    step3Title.textContent = '3. ✅ Player Details';
-  } else {
-    step3Title.textContent = '3. Player Details';
+function updateStep3Status() {
+  const nameInput = document.getElementById('name');
+  if (nameInput.value.trim()) {
+    // Name is filled, continue validation
   }
   checkAllStepsCompleted();
 }
 
 function updateStep4Status() {
-  const startMessage = document.getElementById('startMessage').value;
-  const finishMessage = document.getElementById('finishMessage').value;
-  const step4Title = document.getElementById('step4Title');
-
-  if (startMessage && finishMessage) {
-    step4Title.textContent = '4. ✅ Player Messages';
-  } else {
-    step4Title.textContent = '4. Player Messages';
-  }
+  const startMessage = document.getElementById('startMessage');
+  const finishMessage = document.getElementById('finishMessage');
+  
+  // Update character count
+  const startCharCount = startMessage.parentElement.querySelector('.char-count');
+  const finishCharCount = finishMessage.parentElement.querySelector('.char-count');
+  
+  if (startCharCount) startCharCount.textContent = `${startMessage.value.length}/50`;
+  if (finishCharCount) finishCharCount.textContent = `${finishMessage.value.length}/50`;
+  
   checkAllStepsCompleted();
 }
 
@@ -100,12 +148,11 @@ function updateStep5Status() {
   const emailInput = document.getElementById('email');
   const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
   const isEmailValid = emailPattern.test(emailInput.value);
-  const step5Title = document.getElementById('step5Title');
   
   if (termsCheckbox.checked && isEmailValid) {
-    step5Title.textContent = '5. ✅ Order Summary';
+    // Step 5 is complete
   } else {
-    step5Title.textContent = '5. Order Summary';
+    // Step 5 is incomplete
   }
   checkAllStepsCompleted();
 }
@@ -134,9 +181,9 @@ function placeOrder() {
   const popup = document.getElementById('popup');
   popup.style.display = 'block';
 
-  // Update step 5 title
-  const step5Title = document.getElementById('step5Title');
-  step5Title.textContent = '5. ✅ Order Summary';
+  // Update progress to show completion
+  updateProgressIndicators(3);
+  document.getElementById('step3Indicator').classList.add('completed');
 
   generateAndSendJSON();
 }
@@ -150,8 +197,12 @@ function selectGame(gameId, elementId) {
   const gameSelect = document.getElementById('gameSelect');
   gameSelect.value = gameId;
 
-  const step1Title = document.getElementById('step1Title');
-  step1Title.textContent = `1. ✅ Selected Game (${gameId})`;
+  // Update selected game name in summary
+  const selectedGameName = document.getElementById('selectedGameName');
+  const selectedGame = games.find(game => game.id === gameId);
+  if (selectedGameName && selectedGame) {
+    selectedGameName.textContent = selectedGame.name;
+  }
 
   // Remove the "selected" class from all game options
   document.querySelectorAll('.game-option').forEach(option => {
@@ -163,20 +214,17 @@ function selectGame(gameId, elementId) {
   selectedOption.classList.add('selected');
 
   // Update the overlay image based on the selected game
-  const selectedGame = games.find(game => game.id === gameId);
+  const selectedGameData = games.find(game => game.id === gameId);
   const overlayImage = document.getElementById('overlayImage');
-  overlayImage.src = selectedGame.overlayImage;
+  if (overlayImage && selectedGameData) {
+    overlayImage.src = selectedGameData.overlayImage;
+  }
 
   // Update the URL with the selected game
   const newUrl = `${window.location.origin}${window.location.pathname}?current-game=${gameId}`;
   window.history.pushState({ path: newUrl }, '', newUrl);
 
-  const controlsPanel = document.getElementById('controlsPanel');
-  const editToolsMessage = document.getElementById('editToolsMessage');
-  controlsPanel.classList.remove('hidden'); // Show the controls panel
-  editToolsMessage.classList.remove('hidden'); // Show the edit tools message
-
-  checkAllStepsCompleted();
+  updateStep1Status();
 }
 
 function autoSelectGameFromURL() {
@@ -191,11 +239,20 @@ function autoSelectGameFromURL() {
     }
   } else {
     // Set default overlay image if no game is selected
-    overlayImage.src = './Resources/no-selected-gm-default-img.png';
+    if (overlayImage) {
+      overlayImage.src = './Resources/no-selected-gm-default-img.png';
+    }
   }
 }
 
-document.addEventListener('DOMContentLoaded', autoSelectGameFromURL);
-
-renderGameMenu(); // Render the game menu
-autoSelectGameFromURL(); // Automatically select the game based on the URL or set default
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+  autoSelectGameFromURL();
+  renderGameMenu();
+  updateProgressIndicators(1);
+  
+  // Add event listeners for form inputs
+  document.getElementById('name').addEventListener('input', updateStep3Status);
+  document.getElementById('startMessage').addEventListener('input', updateStep4Status);
+  document.getElementById('finishMessage').addEventListener('input', updateStep4Status);
+});
