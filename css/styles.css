@@ -106,6 +106,100 @@ body {
   font-size: 1.1rem;
 }
 
+/* Reviews Section */
+.reviews-section {
+  background: white;
+  padding: 80px 0;
+  margin-top: -40px;
+  position: relative;
+  z-index: 5;
+}
+
+.reviews-content {
+  text-align: center;
+}
+
+.reviews-content h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.reviews-content h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.review-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #f0f0f0;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #667eea;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.reviewer-avatar {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviewer-info h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.review-stars {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.review-text {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+  font-style: italic;
+}
+
 /* Main Content */
 .main-content {
   padding: 60px 0;
@@ -645,6 +739,10 @@ body {
   text-align: center;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: modalSlideIn 0.3s ease;
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
 }
 
 @keyframes modalSlideIn {
@@ -731,6 +829,19 @@ body {
   
   .hero-features {
     gap: 20px;
+  }
+  
+  .reviews-section {
+    padding: 60px 0;
+  }
+  
+  .reviews-content h2 {
+    font-size: 2rem;
+  }
+  
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
   }
   
   .main-content {

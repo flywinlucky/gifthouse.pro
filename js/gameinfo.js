@@ -43,6 +43,7 @@ async function loadGameInfo() {
     // Update the page with the game data
     document.getElementById('gameTitle').textContent = gameData.gameName;
     document.getElementById('gameDescription').textContent = gameData.description;
+    document.getElementById('gameDescriptionText').textContent = gameData.description;
     document.getElementById('gameBanner').src = gameData.bannerImage;
 
     const screenshotsContainer = document.getElementById('screenshotsContainer');
@@ -77,6 +78,7 @@ async function loadGameInfo() {
   } catch (error) {
     document.getElementById('gameTitle').textContent = 'Error';
     document.getElementById('gameDescription').textContent = 'Failed to load game details.';
+    document.getElementById('gameDescriptionText').textContent = 'Failed to load game details.';
     console.error(error);
   }
 }

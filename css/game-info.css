@@ -1,140 +1,348 @@
-.game-info-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  gap: 20px;
+/* Game Info Specific Styles */
+.game-info-main {
+  margin: -40px 20px 0;
+  border-radius: 20px 20px 0 0;
+  padding: 40px 0;
 }
+
+/* Back Section */
+.back-section {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+/* Game Banner */
 .game-banner {
+  position: relative;
   width: 100%;
-  max-width: 800px;
-  height: 300px;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+  height: 400px;
+  border-radius: 20px;
   overflow: hidden;
+  margin-bottom: 50px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
+
 .game-banner img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.game-details {
-  max-width: 800px;
+
+.banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: white;
+  padding: 60px 40px 40px;
   text-align: center;
 }
-.game-details h1 {
-  font-size: 2rem;
-  color: #007BFF;
+
+.banner-overlay h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
-.game-details p {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.5;
-}
-.screenshots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-.screenshots img {
-  width: 150px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-  box-shadow: 0 4px 9px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-}
-.game-characteristics {
-  max-width: 800px;
-  text-align: center;
-}
-.game-characteristics h2 {
-  font-size: 1.5rem;
-  color: #007BFF;
-}
-.game-characteristics ul {
-  list-style-type: none;
-  padding: 0;
-}
-.game-characteristics li {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.5;
-}
-.review-card {
-  display: column;
-  align-items: center;
-  gap: 10px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+
+.banner-overlay p {
+  font-size: 1.2rem;
+  opacity: 0.9;
   max-width: 600px;
   margin: 0 auto;
-  width: 100%;
+  line-height: 1.6;
 }
-.review-card span {
-  font-size: 24px;
+
+/* Game Details */
+.game-details {
+  margin-bottom: 60px;
 }
-.review-card p {
-  margin: 0;
-  font-size: 16px;
+
+.game-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+.game-description h2,
+.game-characteristics h2 {
+  font-size: 2rem;
+  font-weight: 600;
   color: #333;
+  margin-bottom: 25px;
+  position: relative;
 }
-.reviews-section {
-  text-align: center;
-  margin-top: 20px;
-}
-.reviews-section h2 {
-  font-size: 1.5rem;
-  color: #007BFF;
-}
-.reviews-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
+
+.game-description h2::after,
+.game-characteristics h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
   left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.game-description p {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+.game-characteristics ul {
+  list-style: none;
+  padding: 0;
+}
+
+.game-characteristics li {
+  font-size: 1.1rem;
+  color: #333;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
   align-items: center;
 }
-.modal img {
-  max-width: 90%;
-  max-height: 80%;
-  border-radius: 10px;
+
+.game-characteristics li:last-child {
+  border-bottom: none;
 }
-.modal .close, .modal .prev, .modal .next {
+
+.game-characteristics li::before {
+  content: '🎯';
+  margin-right: 15px;
+  font-size: 1.2rem;
+}
+
+/* Screenshots Section */
+.screenshots-section {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.screenshots-section h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.screenshots-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 2px;
+}
+
+.screenshots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.screenshots-grid img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.screenshots-grid img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Demo Section */
+.demo-section {
+  background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+  border-radius: 20px;
+  padding: 60px 40px;
+  margin-bottom: 60px;
+  text-align: center;
+  border: 1px solid #e8ecff;
+}
+
+.demo-content h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.demo-content p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Order Section */
+.order-section {
+  background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  border: 1px solid #d4edda;
+  margin-bottom: 40px;
+}
+
+.order-content h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.order-content p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Screenshot Modal */
+.screenshot-modal {
+  max-width: 800px;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.screenshot-modal img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 15px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.screenshot-modal .close,
+.screenshot-modal .prev,
+.screenshot-modal .next {
   position: absolute;
   color: white;
-  font-size: 2rem;
+  font-size: 2.5rem;
   cursor: pointer;
   user-select: none;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
-.modal .close {
-  top: 10px;
+
+.screenshot-modal .close:hover,
+.screenshot-modal .prev:hover,
+.screenshot-modal .next:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.screenshot-modal .close {
+  top: 20px;
   right: 20px;
 }
-.modal .prev {
+
+.screenshot-modal .prev {
   left: 20px;
   top: 50%;
   transform: translateY(-50%);
 }
-.modal .next {
+
+.screenshot-modal .next {
   right: 20px;
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-info-main {
+    margin: -20px 15px 0;
+    padding: 30px 0;
+  }
+  
+  .banner-overlay h1 {
+    font-size: 2rem;
+  }
+  
+  .banner-overlay p {
+    font-size: 1rem;
+  }
+  
+  .game-info-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .screenshots-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .demo-section,
+  .order-section {
+    padding: 40px 25px;
+  }
+  
+  .demo-content h2,
+  .order-content h2 {
+    font-size: 2rem;
+  }
+  
+  .screenshots-section h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-banner {
+    height: 300px;
+  }
+  
+  .banner-overlay {
+    padding: 40px 20px 30px;
+  }
+  
+  .banner-overlay h1 {
+    font-size: 1.8rem;
+  }
+  
+  .screenshots-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .demo-section,
+  .order-section {
+    padding: 30px 20px;
+  }
+  
+  .demo-content h2,
+  .order-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .screenshots-section h2 {
+    font-size: 1.8rem;
+  }
 }
