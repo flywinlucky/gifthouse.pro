@@ -7,7 +7,6 @@ async function generateAndSendJSON() {
   const photoInput = document.getElementById('photoInput');
   const photoFile = photoInput.files[0];
   const startMessage = document.getElementById('startMessage').value.trim();
-  const secondaryMessages = Array.from(document.querySelectorAll('.secondaryMessage')).map(input => input.value.trim());
   const finishMessage = document.getElementById('finishMessage').value.trim();
 
   if (!name || !email || !selectedGame) {
@@ -26,7 +25,6 @@ async function generateAndSendJSON() {
     "player-face-image": photoFile ? photoFile.name : "N/A",
     "messages": {
       "start": startMessage,
-      "secondary": secondaryMessages,
       "finish": finishMessage
     }
   };

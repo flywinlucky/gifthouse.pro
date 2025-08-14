@@ -250,72 +250,12 @@ function removeGame(id) {
 // addGame('G4', 'Game 4 (G4)', 'Resources/G4.png');
 // removeGame('G2');
 
-function addSecondaryMessage() {
-  const container = document.getElementById('secondaryMessagesContainer');
-  const currentMessages = container.querySelectorAll('.secondary-message').length;
-
-  if (currentMessages < 5) {
-    const newMessageDiv = document.createElement('div');
-    newMessageDiv.className = 'secondary-message';
-    newMessageDiv.innerHTML = `
-      <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
-      <button type="button" class="removeSecondaryMessage" onclick="confirmRemoveSecondaryMessage(this)">❌</button>
-    `;
-    container.appendChild(newMessageDiv);
-  }
-
-  updateRemoveButtonsState();
-}
-
-function confirmRemoveSecondaryMessage(button) {
-  const confirmation = confirm("Are you sure you want to delete this secondary message?");
-  if (confirmation) {
-    removeSecondaryMessage(button);
-  }
-}
-
-function removeSecondaryMessage(button) {
-  const container = document.getElementById('secondaryMessagesContainer');
-  button.parentElement.remove();
-  updateRemoveButtonsState();
-  updateStep4Status();
-}
-
-function updateRemoveButtonsState() {
-  const removeButtons = document.querySelectorAll('.removeSecondaryMessage');
-  const secondaryMessages = document.querySelectorAll('.secondary-message');
-
-  removeButtons.forEach(button => {
-    button.disabled = secondaryMessages.length <= 1; // Disable if only one message exists
-  });
-}
-
-// Initialize the remove button state on page load
-document.addEventListener('DOMContentLoaded', updateRemoveButtonsState);
-
-function updateAddButtonState() {
-  const container = document.getElementById('secondaryMessagesContainer');
-  const currentMessages = container.querySelectorAll('.secondary-message').length;
-  const addButton = document.getElementById('addSecondaryMessageButton');
-
-  addButton.disabled = currentMessages >= 5;
-
-  // Ensure at least one secondary message always exists
-  const removeButtons = container.querySelectorAll('.removeSecondaryMessage');
-  removeButtons.forEach(button => {
-    button.disabled = currentMessages <= 1;
-  });
-}
-
 function updateStep4Status() {
   const startMessage = document.getElementById('startMessage').value.trim();
-  const secondaryMessages = Array.from(document.querySelectorAll('.secondaryMessage')).map(input => input.value.trim());
   const finishMessage = document.getElementById('finishMessage').value.trim();
   const step4Title = document.getElementById('step4Title');
 
-  const allSecondaryMessagesFilled = secondaryMessages.every(msg => msg !== '');
-
-  if (startMessage && allSecondaryMessagesFilled && finishMessage) {
+  if (startMessage && finishMessage) {
     step4Title.textContent = '4. ✅ Player Messages';
   } else {
     step4Title.textContent = '4. Player Messages';
@@ -326,39 +266,21 @@ function updateStep4Status() {
 function checkAllStepsCompleted() {
   const gameSelect = document.getElementById('gameSelect').value;
   const photoInput = document.getElementById('photoInput').files.length > 0;
+  const nameInput = document.getElementById('name').value;
   const emailInput = document.getElementById('email');
   const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
   const isEmailValid = emailPattern.test(emailInput.value);
 
   const startMessage = document.getElementById('startMessage').value.trim();
-  const secondaryMessages = Array.from(document.querySelectorAll('.secondaryMessage')).map(input => input.value.trim());
   const finishMessage = document.getElementById('finishMessage').value.trim();
-
-  const allSecondaryMessagesFilled = secondaryMessages.every(msg => msg !== '');
+  const termsCheckbox = document.getElementById('termsCheckbox').checked;
 
   const placeOrderButton = document.getElementById('placeOrderButton');
-  if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
+  if (gameSelect && photoInput && nameInput && isEmailValid && startMessage && finishMessage && termsCheckbox) {
     placeOrderButton.disabled = false;
   } else {
     placeOrderButton.disabled = true;
   }
-}
-
-// Initialize the add button state on page load
-document.addEventListener('DOMContentLoaded', updateAddButtonState);
-
-function updateStep4Status() {
-  const startMessage = document.getElementById('startMessage').value.trim();
-  const secondaryMessage = document.getElementById('secondaryMessage').value.trim();
-  const finishMessage = document.getElementById('finishMessage').value.trim();
-  const step4Title = document.getElementById('step4Title');
-
-  if (startMessage && secondaryMessage && finishMessage) {
-    step4Title.textContent = '4. ✅ Player Messages';
-  } else {
-    step4Title.textContent = '4. Player Messages';
-  }
-  checkAllStepsCompleted();
 }
 
 function placeOrder() {
@@ -368,7 +290,7 @@ function placeOrder() {
 
   // Update step 5 title
   const step5Title = document.getElementById('step5Title');
-  step5Title.textContent = '5. ✅ Payment Details';
+  step5Title.textContent = '5. ✅ Order Summary';
 
   generateAndSendJSON();
 }

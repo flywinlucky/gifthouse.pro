@@ -42,10 +42,10 @@ function validateEmail() {
 
   if (emailInput.value && !emailPattern.test(emailInput.value)) {
     emailError.style.display = 'block';
-    updateStep3Status(false); // Mark step 3 as incomplete
+    updateStep5Status(); // Mark step 5 as incomplete
   } else {
     emailError.style.display = 'none';
-    updateStep3Status(true); // Mark step 3 as complete
+    updateStep5Status(); // Mark step 5 as complete
   }
   checkAllStepsCompleted();
 }
@@ -72,9 +72,9 @@ function updateStep2Status() {
   checkAllStepsCompleted();
 }
 
-function updateStep3Status(isEmailValid) {
+function updateStep3Status(isNameValid) {
   const step3Title = document.getElementById('step3Title');
-  if (isEmailValid) {
+  if (isNameValid) {
     step3Title.textContent = '3. ✅ Player Details';
   } else {
     step3Title.textContent = '3. Player Details';
@@ -84,18 +84,10 @@ function updateStep3Status(isEmailValid) {
 
 function updateStep4Status() {
   const startMessage = document.getElementById('startMessage').value;
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
   const finishMessage = document.getElementById('finishMessage').value;
   const step4Title = document.getElementById('step4Title');
 
-  let allSecondaryMessagesFilled = true;
-  secondaryMessages.forEach(message => {
-    if (!message.value) {
-      allSecondaryMessagesFilled = false;
-    }
-  });
-
-  if (startMessage && allSecondaryMessagesFilled && finishMessage) {
+  if (startMessage && finishMessage) {
     step4Title.textContent = '4. ✅ Player Messages';
   } else {
     step4Title.textContent = '4. Player Messages';
@@ -103,25 +95,34 @@ function updateStep4Status() {
   checkAllStepsCompleted();
 }
 
+function updateStep5Status() {
+  const termsCheckbox = document.getElementById('termsCheckbox');
+  const emailInput = document.getElementById('email');
+  const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+  const isEmailValid = emailPattern.test(emailInput.value);
+  const step5Title = document.getElementById('step5Title');
+  
+  if (termsCheckbox.checked && isEmailValid) {
+    step5Title.textContent = '5. ✅ Order Summary';
+  } else {
+    step5Title.textContent = '5. Order Summary';
+  }
+  checkAllStepsCompleted();
+}
+
 function checkAllStepsCompleted() {
   const gameSelect = document.getElementById('gameSelect').value;
   const photoInput = document.getElementById('photoInput').files.length > 0;
+  const nameInput = document.getElementById('name').value;
   const emailInput = document.getElementById('email');
   const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
   const isEmailValid = emailPattern.test(emailInput.value);
   const startMessage = document.getElementById('startMessage').value;
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
   const finishMessage = document.getElementById('finishMessage').value;
-
-  let allSecondaryMessagesFilled = true;
-  secondaryMessages.forEach(message => {
-    if (!message.value) {
-      allSecondaryMessagesFilled = false;
-    }
-  });
+  const termsCheckbox = document.getElementById('termsCheckbox').checked;
 
   const placeOrderButton = document.getElementById('placeOrderButton');
-  if (gameSelect && photoInput && isEmailValid && startMessage && allSecondaryMessagesFilled && finishMessage) {
+  if (gameSelect && photoInput && nameInput && isEmailValid && startMessage && finishMessage && termsCheckbox) {
     placeOrderButton.disabled = false;
   } else {
     placeOrderButton.disabled = true;
@@ -135,7 +136,7 @@ function placeOrder() {
 
   // Update step 5 title
   const step5Title = document.getElementById('step5Title');
-  step5Title.textContent = '5. ✅ Payment Details';
+  step5Title.textContent = '5. ✅ Order Summary';
 
   generateAndSendJSON();
 }
@@ -195,51 +196,6 @@ function autoSelectGameFromURL() {
 }
 
 document.addEventListener('DOMContentLoaded', autoSelectGameFromURL);
-
-function addSecondaryMessage() {
-  const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-
-  if (secondaryMessages.length < 5) {
-    const newMessageDiv = document.createElement('div');
-    newMessageDiv.className = 'secondary-message';
-
-    const newMessageInput = document.createElement('input');
-    newMessageInput.type = 'text';
-    newMessageInput.className = 'secondaryMessage';
-    newMessageInput.placeholder = 'Secondary Message (max 50 chars)';
-    newMessageInput.maxLength = 50;
-    newMessageInput.oninput = updateStep4Status;
-
-    const removeButton = document.createElement('button');
-    removeButton.type = 'button';
-    removeButton.className = 'removeSecondaryMessage';
-    removeButton.textContent = '❌';
-    removeButton.onclick = () => removeSecondaryMessage(removeButton);
-
-    newMessageDiv.appendChild(newMessageInput);
-    newMessageDiv.appendChild(removeButton);
-    secondaryMessagesContainer.appendChild(newMessageDiv);
-  }
-
-  updateRemoveButtonsState();
-}
-
-function removeSecondaryMessage(button) {
-  const secondaryMessagesContainer = document.getElementById('secondaryMessagesContainer');
-  secondaryMessagesContainer.removeChild(button.parentElement);
-  updateStep4Status();
-  updateRemoveButtonsState();
-}
-
-function updateRemoveButtonsState() {
-  const removeButtons = document.querySelectorAll('.removeSecondaryMessage');
-  const secondaryMessages = document.querySelectorAll('.secondaryMessage');
-
-  removeButtons.forEach(button => {
-    button.disabled = secondaryMessages.length <= 1;
-  });
-}
 
 renderGameMenu(); // Render the game menu
 autoSelectGameFromURL(); // Automatically select the game based on the URL or set default

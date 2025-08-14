@@ -44,10 +44,8 @@
     <!-- Step 3: Player Details -->
     <div class="order-form">
       <h1 id="step3Title">3. Player Details</h1>
-      <p>⚠️ Enter the name and email address of the person for whom the game is being customized.</p>
-      <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status(false)">
-      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
-      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
+      <p>⚠️ Enter the name of the person for whom the game is being customized.</p>
+      <input type="text" id="name" placeholder="Name" required oninput="updateStep3Status()">
     </div>
 
     <!-- Step 4: Player Messages -->
@@ -56,25 +54,19 @@
       <p>⚠️ Enter custom messages for the player. Each message can have a maximum of 50 characters.</p>
       <input type="text" id="startMessage" placeholder="Start Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
       
-      <div id="secondaryMessagesContainer">
-        <div class="secondary-message">
-          <input type="text" class="secondaryMessage" placeholder="Secondary Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
-          <button type="button" class="removeSecondaryMessage" onclick="removeSecondaryMessage(this)" disabled>❌</button>
-        </div>
-      </div>
-      <button type="button" id="addSecondaryMessageButton" onclick="addSecondaryMessage()">➕ Add Secondary Message</button>
-      
       <input type="text" id="finishMessage" placeholder="Finish Message (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
     </div>
 
-    <!-- Step 5: Payment Details -->
+    <!-- Step 5: Order Summary -->
     <div class="order-form">
-      <h1 id="step5Title">5. Payment Details</h1>
-      <p>⚠️ Review the total price and place your order to complete the customization process.</p>
+      <h1 id="step5Title">5. Order Summary</h1>
+      <p>⚠️ Review your order details and place your order to complete the customization process.</p>
+      <input type="email" id="email" placeholder="Email" required oninput="validateEmail()">
+      <div id="emailError" style="color: red; font-size: 14px; display: none;">Invalid email format</div>
       <div class="order-summary">
-        <h1>Payment</h1>
-        <div class="summary-details">
-          <p><strong>Total Price:</strong> <span id="totalPrice">20.00$</span></p>
+        <div class="terms-checkbox">
+          <input type="checkbox" id="termsCheckbox" onchange="updateStep5Status()">
+          <label for="termsCheckbox">Plasind comanda sunt de acord cu termenii si conditiile</label>
         </div>
         <button class="payment-button" id="placeOrderButton" type="button" onclick="placeOrder()" disabled>Place Order</button>
       </div>
