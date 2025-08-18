@@ -32,12 +32,16 @@ body {
   font-weight: 700;
   margin-bottom: 5px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+  justify-content:center;
 }
 
 .logo p {
   font-size: 1.1rem;
   font-weight: 300;
   opacity: 0.9;
+  display: flex;
+  justify-content:center;
 }
 
 /* Hero Section */
@@ -708,7 +712,7 @@ body {
 /* Step Navigation */
 .step-navigation {
   display: flex;
-  justify-content: space-between;
+ justify-content: center;
   align-items: center;
   margin-top: 40px;
   padding-top: 30px;
