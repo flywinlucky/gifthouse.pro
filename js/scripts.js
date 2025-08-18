@@ -80,7 +80,19 @@ function previewPhoto() {
   };
   if (file) {
     reader.readAsDataURL(file);
+    document.getElementById('removePhotoBtn').style.display = 'inline-block';
+    document.getElementById('uploadPhotoBtn').textContent = 'Change Photo';
   }
+}
+
+function removePhoto() {
+  // Clear canvas and reset image
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  img.src = '';
+  document.getElementById('photoInput').value = '';
+  document.getElementById('removePhotoBtn').style.display = 'none';
+  document.getElementById('uploadPhotoBtn').textContent = 'Upload Photo';
+  updateStep2Status();
 }
 
 function drawImage() {

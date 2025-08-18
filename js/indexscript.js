@@ -116,8 +116,12 @@ function updateStep2Status() {
   const nextButton = document.getElementById('nextStep2');
   if (photoInput.files.length > 0) {
     nextButton.disabled = false;
+    document.getElementById('removePhotoBtn').style.display = 'inline-block';
+    document.getElementById('uploadPhotoBtn').textContent = 'Change Photo';
   } else {
     nextButton.disabled = true;
+    document.getElementById('removePhotoBtn').style.display = 'none';
+    document.getElementById('uploadPhotoBtn').textContent = 'Upload Photo';
   }
 }
 

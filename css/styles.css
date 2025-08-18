@@ -394,7 +394,7 @@ body {
 
 /* Customization Container */
 .customization-container {
-  display: grid;
+  /*display: grid;*/
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   margin-bottom: 40px;
@@ -950,4 +950,11 @@ body {
   background: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
+}
+
+.photo-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
