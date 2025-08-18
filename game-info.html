@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Game Info - Gifthouse.pro</title>
+  <title>Detalii joc - Gifthouse.pro</title>
+
+  <!-- SEO meta tags -->
+  <meta name="description" content="Informații despre template-ul de joc: descriere, capturi de ecran și demo. Alege și personalizează jocul tău.">
+  <link rel="canonical" href="https://gifthouse.pro/game-info.html">
+  <meta name="robots" content="index,follow">
+  <link rel="alternate" href="https://gifthouse.pro/game-info.html" hreflang="ro">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Detalii joc - Gifthouse.pro">
+  <meta property="og:description" content="Informații despre template-ul de joc: descriere, capturi de ecran și demo.">
+  <meta property="og:url" content="https://gifthouse.pro/game-info.html">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/game-info.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +24,7 @@
     <div class="container">
       <div class="logo">
         <h1>🎮 Gifthouse.pro</h1>
-        <p>Create Your Perfect Gaming Gift</p>
+        <p>Creează cadoul tău de gaming</p>
       </div>
     </div>
   </header>
@@ -26,16 +36,16 @@
       <div class="back-section">
         <button onclick="goBack()" class="btn btn-secondary">
           <span class="btn-arrow">←</span>
-          Back to Order Form
+          Înapoi la formular
         </button>
       </div>
 
       <!-- Game Banner -->
       <div class="game-banner">
-        <img id="gameBanner" src="" alt="Game Banner">
+        <img id="gameBanner" src="" alt="Banner joc">
         <div class="banner-overlay">
-          <h1 id="gameTitle">Loading...</h1>
-          <p id="gameDescription">Please wait while we load the game details.</p>
+          <h1 id="gameTitle">Se încarcă...</h1>
+          <p id="gameDescription">Vă rugăm așteptați, încărcăm detaliile jocului.</p>
         </div>
       </div>
 
@@ -43,14 +53,14 @@
       <div class="game-details">
         <div class="game-info-grid">
           <div class="game-description">
-            <h2>About This Game</h2>
-            <p id="gameDescriptionText">Loading game description...</p>
+            <h2>Despre acest joc</h2>
+            <p id="gameDescriptionText">Se încarcă descrierea jocului...</p>
           </div>
           
           <div class="game-characteristics">
-            <h2>Game Features</h2>
+            <h2>Caracteristici</h2>
             <ul id="gameCharacteristics">
-              <!-- Characteristics will be dynamically loaded here -->
+              <!-- Caracteristici încărcate dinamic -->
             </ul>
           </div>
         </div>
@@ -58,19 +68,19 @@
 
       <!-- Screenshots Section -->
       <div class="screenshots-section">
-        <h2>Game Screenshots</h2>
+        <h2>Capturi de ecran</h2>
         <div class="screenshots-grid" id="screenshotsContainer">
-          <!-- Screenshots will be dynamically loaded here -->
+          <!-- Capturi încărcate dinamic -->
         </div>
       </div>
 
       <!-- Demo Section -->
       <div class="demo-section">
         <div class="demo-content">
-          <h2>Try Before You Buy</h2>
-          <p>Experience the game firsthand with our demo version</p>
+          <h2>Încearcă demo-ul</h2>
+          <p>Experimentează jocul înainte de a-l alege</p>
           <button id="demoGameButton" class="btn btn-primary btn-large">
-            🎮 Play Demo
+            🎮 Joacă demo
           </button>
         </div>
       </div>
@@ -78,10 +88,10 @@
       <!-- Order Section -->
       <div class="order-section">
         <div class="order-content">
-          <h2>Ready to Create Your Personalized Game?</h2>
-          <p>Start creating your personalized game right now by clicking the button below!</p>
+          <h2>Gata să creezi jocul personalizat?</h2>
+          <p>Începe acum procesul de personalizare făcând click pe butonul de mai jos!</p>
           <button id="placeOrderButton" class="btn btn-success btn-large" onclick="redirectToCustomization()">
-            🎯 Place Order
+            🎯 Comandă acum
           </button>
         </div>
       </div>
@@ -93,7 +103,7 @@
     <div class="modal-content screenshot-modal">
       <span class="close" onclick="closeModal()">×</span>
       <span class="prev" onclick="event.stopPropagation(); changeImage(-1)">❮</span>
-      <img id="modalImage" src="" alt="Screenshot Preview" onclick="event.stopPropagation()">
+      <img id="modalImage" src="" alt="Previzualizare captură" onclick="event.stopPropagation()">
       <span class="next" onclick="event.stopPropagation(); changeImage(1)">❯</span>
     </div>
   </div>
@@ -101,7 +111,7 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2024 Gifthouse.pro - Create Your Perfect Gaming Gift</p>
+      <p>&copy; 2024 Gifthouse.pro - Creează cadoul tău de gaming</p>
     </div>
   </footer>
 

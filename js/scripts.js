@@ -13,7 +13,7 @@ function generateJSON() {
 
   // Send the data to the Telegram bot API
   const telegramApiUrl = "https://api.telegram.org/bot7707999818:AAEuH4i7-wOCgCZ6sK_a9zvMvjOiZ67bR1M/sendMessage";
-  const message = `Name: ${name}\nEmail: ${email}`;
+  const message = `Nume: ${name}\nEmail: ${email}`;
 
   fetch(telegramApiUrl, {
     method: "POST",
@@ -28,13 +28,13 @@ function generateJSON() {
   .then(response => response.json())
   .then(serverResponse => {
     if (serverResponse.ok) {
-      showNotification('Order sent successfully!', 'success');
+      showNotification('Comanda a fost trimisă cu succes!', 'success');
     } else {
-      showNotification('Error: ' + serverResponse.description, 'error');
+      showNotification('Eroare: ' + serverResponse.description, 'error');
     }
   })
   .catch(error => {
-    showNotification('Error: ' + error.message, 'error');
+    showNotification('Eroare: ' + error.message, 'error');
   });
 }
 

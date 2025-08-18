@@ -36,9 +36,9 @@ async function loadGameInfo() {
   const gameId = urlParams.get('game');
 
   if (!gameId) {
-    document.getElementById('gameTitle').textContent = 'Game Not Found';
-    document.getElementById('gameDescription').textContent = 'No game ID was provided.';
-    document.getElementById('gameDescriptionText').textContent = 'No game ID was provided.';
+    document.getElementById('gameTitle').textContent = 'Jocul nu a fost găsit';
+    document.getElementById('gameDescription').textContent = 'Nu a fost furnizat un ID de joc.';
+    document.getElementById('gameDescriptionText').textContent = 'Nu a fost furnizat un ID de joc.';
     return;
   }
 
@@ -46,7 +46,7 @@ async function loadGameInfo() {
     // Fetch the corresponding JSON file for the selected game
     const response = await fetch(`game-data/${gameId}.json`);
     if (!response.ok) {
-      throw new Error('Game data not found');
+      throw new Error('Date joc indisponibile');
     }
 
     const gameData = await response.json();
@@ -63,7 +63,7 @@ async function loadGameInfo() {
     screenshots.forEach((screenshot, index) => {
       const img = document.createElement('img');
       img.src = screenshot;
-      img.alt = 'Screenshot';
+      img.alt = 'Captură ecran';
       img.onclick = () => openModal(index);
       screenshotsContainer.appendChild(img);
     });
@@ -87,9 +87,9 @@ async function loadGameInfo() {
     }
 
   } catch (error) {
-    document.getElementById('gameTitle').textContent = 'Error';
-    document.getElementById('gameDescription').textContent = 'Failed to load game details.';
-    document.getElementById('gameDescriptionText').textContent = 'Failed to load game details.';
+    document.getElementById('gameTitle').textContent = 'Eroare';
+    document.getElementById('gameDescription').textContent = 'Încărcarea detaliilor jocului a eșuat.';
+    document.getElementById('gameDescriptionText').textContent = 'Încărcarea detaliilor jocului a eșuat.';
     console.error(error);
   }
 }
@@ -108,6 +108,6 @@ function redirectToCustomization() {
     // Redirect to index.html with the game parameter to auto-select the game
     window.location.href = `index.html?game=${encodeURIComponent(gameId)}`;
   } else {
-    alert('Game ID is missing. Please select a game.');
+    alert('Lipsește ID-ul jocului. Vă rugăm selectați un joc.');
   }
 }

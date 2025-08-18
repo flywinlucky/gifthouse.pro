@@ -10,7 +10,7 @@ async function generateAndSendJSON() {
   const finishMessage = document.getElementById('finishMessage').value.trim();
 
   if (!name || !email || !selectedGame) {
-    showNotification('Name, email, and game selection are required!', 'error');
+    showNotification('Nume, email și selecția jocului sunt obligatorii!', 'error');
     return;
   }
 
@@ -32,7 +32,7 @@ async function generateAndSendJSON() {
   // Convert the canvas image to a Blob
   canvas.toBlob(async (blob) => {
     if (!blob) {
-      showNotification('Failed to generate image from canvas!', 'error');
+      showNotification('Nu s-a putut genera imaginea din canvas!', 'error');
       return;
     }
 
@@ -54,12 +54,12 @@ async function generateAndSendJSON() {
       const serverResponse = await response.json();
 
       if (serverResponse.ok) {
-        // Removed success notification
+        // succes (nu afișăm notificare suplimentară)
       } else {
-        showNotification('Error: ' + serverResponse.description, 'error');
+        showNotification('Eroare: ' + serverResponse.description, 'error');
       }
     } catch (error) {
-      showNotification('Error: ' + error.message, 'error');
+      showNotification('Eroare: ' + error.message, 'error');
     }
   }, "image/png");
 }

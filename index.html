@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gifthouse.pro - Personalized Gaming Experience</title>
+  <title>Gifthouse.pro - Experiență de gaming personalizată</title>
+
+  <!-- SEO meta tags -->
+  <meta name="description" content="Transformă o fotografie într-un joc video personalizat. Încarcă poza, personalizează și primește un joc unic livrat prin link.">
+  <link rel="canonical" href="https://gifthouse.pro/index.html">
+  <meta name="robots" content="index,follow">
+  <link rel="alternate" href="https://gifthouse.pro/index.html" hreflang="ro">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Gifthouse.pro - Experiență de gaming personalizată">
+  <meta property="og:description" content="Transformă o fotografie într-un joc video personalizat. Încarcă poza, personalizează și primește un joc unic livrat prin link.">
+  <meta property="og:url" content="https://gifthouse.pro/index.html">
   <link rel="stylesheet" href="css/styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="js/generateJsonFile.js"></script>
@@ -23,21 +33,21 @@
   <section class="hero">
     <div class="container">
       <div class="hero-content">
-        <h1>Transform Your Photo Into a Gaming Adventure</h1>
-        <p>Create a personalized video game where you're the hero! Upload your photo, customize your character, and get ready for an epic gaming experience.</p>
+        <h1>Transformă fotografia într-o aventură de joc</h1>
+        <p>Creează un joc personalizat în care tu ești eroul! Încarcă fotografia, personalizează personajul și pregătește-te pentru distracție.</p>
       
         <div class="hero-features">
           <div class="feature">
             <span class="feature-icon">🎯</span>
-            <span>Choose Your Game</span>
+            <span>Alege jocul</span>
           </div>
           <div class="feature">
             <span class="feature-icon">📸</span>
-            <span>Upload Your Photo</span>
+            <span>Încarcă fotografia</span>
           </div>
           <div class="feature">
             <span class="feature-icon">🎮</span>
-            <span>Play & Enjoy</span>
+            <span>Joacă & Bucură-te</span>
           </div>
         </div>
       </div>
@@ -70,8 +80,8 @@
       <!-- Step 1: Game Selection -->
       <div class="form-step active" id="step1">
         <div class="step-header">
-          <h2>🎮 Choose Your Game</h2>
-          <p>Select the game template you'd like to personalize</p>
+          <h2>🎮 Alege jocul</h2>
+          <p>Selectează template-ul de joc pe care vrei să-l personalizezi</p>
         </div>
         
         <div class="game-grid" id="gameMenu">
@@ -91,8 +101,8 @@
       <!-- Step 2: Photo Customization -->
       <div class="form-step" id="step2">
         <div class="step-header">
-          <h2>📸 Customize Your Character</h2>
-          <p>Upload your photo and adjust it to fit perfectly in the game</p>
+          <h2>📸 Personalizează-ți personajul</h2>
+          <p>Încarcă fotografia și ajusteaz-o pentru a se potrivi în joc</p>
         </div>
         
         <div class="customization-container">
@@ -108,7 +118,7 @@
             <!-- Upload / Change / Remove buttons (JS toggles content) -->
             <div id="uploadButtons" style="text-align:center; margin-top:12px;">
               <button class="btn btn-primary" id="uploadPhotoButton" type="button" onclick="changePhoto()">
-                📷 Upload Photo
+                📷 Încarcă fotografia
               </button>
             </div>
             
@@ -141,31 +151,31 @@
       <!-- Step 3: Order Details -->
       <div class="form-step" id="step3">
         <div class="step-header">
-          <h2>📝 Complete Your Order</h2>
-          <p>Fill in your details and place your order</p>
+          <h2>📝 Completează comanda</h2>
+          <p>Completează datele și plasează comanda</p>
         </div>
         
         <div class="order-form">
           <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" placeholder="Enter your full name" required oninput="updateStep3Status()">
+            <label for="name">Numele tău</label>
+            <input type="text" id="name" placeholder="Introdu numele tău complet" required oninput="updateStep3Status()">
           </div>
           
           <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="Enter your email" required oninput="validateEmail()">
-            <div id="emailError" class="error-message">Please enter a valid email address</div>
+            <label for="email">Adresă de email</label>
+            <input type="email" id="email" placeholder="Introdu email-ul" required oninput="validateEmail()">
+            <div id="emailError" class="error-message">Te rog introdu o adresă de email validă</div>
           </div>
           
           <div class="form-group">
-            <label for="startMessage">Start Message</label>
-            <input type="text" id="startMessage" placeholder="Message shown at the beginning (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+            <label for="startMessage">Mesaj de început</label>
+            <input type="text" id="startMessage" placeholder="Mesaj afișat la început (max 50 caractere)" maxlength="50" oninput="updateStep4Status()">
             <span class="char-count">0/50</span>
           </div>
           
           <div class="form-group">
-            <label for="finishMessage">Finish Message</label>
-            <input type="text" id="finishMessage" placeholder="Message shown when completing the game (max 50 chars)" maxlength="50" oninput="updateStep4Status()">
+            <label for="finishMessage">Mesaj de finalizare</label>
+            <input type="text" id="finishMessage" placeholder="Mesaj afișat la finalizarea jocului (max 50 caractere)" maxlength="50" oninput="updateStep4Status()">
             <span class="char-count">0/50</span>
           </div>
           
@@ -173,24 +183,24 @@
             <div class="terms-checkbox">
               <input type="checkbox" id="termsCheckbox" onchange="updateStep5Status()">
               <label for="termsCheckbox">
-                I agree to the <a href="#" class="terms-link">Terms and Conditions</a>
+                Sunt de acord cu <a href="terms.html" class="terms-link">Termenii și Condițiile</a>
               </label>
             </div>
           </div>
           
           <div class="order-summary">
             <div class="summary-item">
-              <span>Game Template:</span>
-              <span id="selectedGameName">Not selected</span>
+              <span>Template joc:</span>
+              <span id="selectedGameName">Neselectat</span>
             </div>
             <div class="summary-item">
-              <span>Total Price:</span>
-              <span class="price">FREE</span>
+              <span>Preț total:</span>
+              <span class="price">GRATUIT</span>
             </div>
           </div>
           
           <button class="btn btn-success btn-large" id="placeOrderButton" type="button" onclick="placeOrder()" disabled>
-            🎮 Place Your Order
+            🎮 Plasează comanda
           </button>
         </div>
         
@@ -204,19 +214,19 @@
     </div>
   </main>
 
-  <!-- Success Modal -->
+  <!-- Success Modal (tradus) -->
   <div id="popup" class="modal" style="display: none;">
     <div class="modal-content">
       <div class="modal-header">
         <div class="success-icon">🎉</div>
-        <h3>Order Placed Successfully!</h3>
+        <h3>Comanda a fost plasată!</h3>
       </div>
       <div class="modal-body">
-        <p>Your personalized game order has been submitted! We'll start working on it right away.</p>
-        <p>You'll receive an email confirmation shortly with your order details.</p>
+        <p>Comanda ta pentru jocul personalizat a fost trimisă! Lucrăm la ea imediat.</p>
+        <p>Vei primi în curând un email de confirmare cu detaliile comenzii.</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" onclick="closePopup()">Great!</button>
+        <button class="btn btn-primary" onclick="closePopup()">În regulă</button>
       </div>
     </div>
   </div>
@@ -225,7 +235,7 @@
     <section class="reviews-section">
       <div class="container">
         <div class="reviews-content">
-          <h2>What Our Players Say</h2>
+          <h2>Ce spun jucătorii noștri</h2>
           <div class="reviews-grid">
             <div class="review-card">
               <div class="review-header">
@@ -235,7 +245,7 @@
                   <p class="review-stars">⭐⭐⭐⭐⭐</p>
                 </div>
               </div>
-              <p class="review-text">This is a simple adventure game where you explore dungeons and fight monsters.</p>
+              <p class="review-text">Aceasta este o simplă aventură în care explorezi temnițe și lupți cu monștri.</p>
             </div>
             
             <div class="review-card">
@@ -246,7 +256,7 @@
                   <p class="review-stars">⭐⭐⭐⭐⭐</p>
                 </div>
               </div>
-              <p class="review-text">Amazing personalized experience! The game feels truly unique with my character.</p>
+              <p class="review-text">Experiență uimitoare personalizată! Jocul se simte cu adevărat unic cu personajul meu.</p>
             </div>
             
             <div class="review-card">
@@ -257,7 +267,7 @@
                   <p class="review-stars">⭐⭐⭐⭐⭐</p>
                 </div>
               </div>
-              <p class="review-text">Incredible graphics and smooth gameplay. Highly recommend for all ages!</p>
+              <p class="review-text">Grafica incredibilă și gameplay fluid. Recomand cu căldură pentru toate vârstele!</p>
             </div>
           </div>
         </div>
@@ -267,7 +277,7 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>&copy; 2024 Gifthouse.pro - Create Your Perfect Gaming Gift</p>
+      <p>&copy; 2024 Gifthouse.pro - Creează cadoul tău de gaming</p>
     </div>
   </footer>
 
