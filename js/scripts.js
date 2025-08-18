@@ -77,22 +77,15 @@ function previewPhoto() {
   reader.onloadend = function () {
     img.src = reader.result;
     img.onload = () => drawImage();
+    // Update upload/change/remove buttons after preview
+    updateUploadButtons();
   };
   if (file) {
     reader.readAsDataURL(file);
-    document.getElementById('removePhotoBtn').style.display = 'inline-block';
-    document.getElementById('uploadPhotoBtn').textContent = 'Change Photo';
+  } else {
+    // No file - ensure UI updates
+    updateUploadButtons();
   }
-}
-
-function removePhoto() {
-  // Clear canvas and reset image
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  img.src = '';
-  document.getElementById('photoInput').value = '';
-  document.getElementById('removePhotoBtn').style.display = 'none';
-  document.getElementById('uploadPhotoBtn').textContent = 'Upload Photo';
-  updateStep2Status();
 }
 
 function drawImage() {
@@ -262,6 +255,55 @@ function removeGame(id) {
     games.splice(index, 1);
     renderGameMenu(); // Re-render the game menu
   }
+}
+
+// New helper to toggle upload/change/remove buttons
+function updateUploadButtons() {
+  const input = document.getElementById('photoInput');
+  const container = document.getElementById('uploadButtons');
+  if (!container || !input) return;
+
+  if (input.files && input.files.length > 0) {
+    // Show Change + Remove
+    container.innerHTML = `
+      <button class="btn btn-primary" type="button" id="changePhotoButton" onclick="changePhoto()">🔁 Change Photo</button>
+      <button class="btn btn-secondary" type="button" id="removePhotoButton" style="margin-left:10px;" onclick="removePhoto()">🗑️ Remove Photo</button>
+    `;
+  } else {
+    // Show single Upload button
+    container.innerHTML = `
+      <button class="btn btn-primary" id="uploadPhotoButton" type="button" onclick="changePhoto()">
+        📷 Upload Photo
+      </button>
+    `;
+  }
+}
+
+// Called to open file selector (used for both Upload and Change)
+function changePhoto() {
+  const input = document.getElementById('photoInput');
+  if (input) {
+    input.click();
+  }
+}
+
+// Remove photo, clear input and reset canvas/overlay
+function removePhoto() {
+  const input = document.getElementById('photoInput');
+  if (input) {
+    input.value = '';
+  }
+  // Reset canvas and transformations
+  resetTransformations();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Hide overlay if desired
+  const overlayImage = document.getElementById('overlayImage');
+  if (overlayImage) {
+    overlayImage.style.display = 'block'; // keep overlay visible; change if needed
+  }
+  updateUploadButtons();
+  // Ensure step status updates
+  if (typeof updateStep2Status === 'function') updateStep2Status();
 }
 
 // Example usage:

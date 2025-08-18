@@ -114,15 +114,15 @@ function updateStep1Status() {
 function updateStep2Status() {
   const photoInput = document.getElementById('photoInput');
   const nextButton = document.getElementById('nextStep2');
-  if (photoInput.files.length > 0) {
-    nextButton.disabled = false;
-    document.getElementById('removePhotoBtn').style.display = 'inline-block';
-    document.getElementById('uploadPhotoBtn').textContent = 'Change Photo';
-  } else {
-    nextButton.disabled = true;
-    document.getElementById('removePhotoBtn').style.display = 'none';
-    document.getElementById('uploadPhotoBtn').textContent = 'Upload Photo';
+  if (photoInput && nextButton) {
+    if (photoInput.files.length > 0) {
+      nextButton.disabled = false;
+    } else {
+      nextButton.disabled = true;
+    }
   }
+  // Sync upload/change/remove buttons
+  if (typeof updateUploadButtons === 'function') updateUploadButtons();
 }
 
 function updateStep3Status() {

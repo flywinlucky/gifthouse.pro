@@ -10,14 +10,14 @@
 </head>
 <body>
   <!-- Header Section -->
-  <header class="header">
+  <!-- <header class="header">
     <div class="container">
       <div class="logo">
-        <h1>Gifthouse.pro</h1>
+        <h1>🎮 Gifthouse.pro</h1>
         <p>Create Your Perfect Gaming Gift</p>
       </div>
     </div>
-  </header>
+  </header>>-->
 
   <!-- Hero Section -->
   <section class="hero">
@@ -25,6 +25,7 @@
       <div class="hero-content">
         <h1>Transform Your Photo Into a Gaming Adventure</h1>
         <p>Create a personalized video game where you're the hero! Upload your photo, customize your character, and get ready for an epic gaming experience.</p>
+      
         <div class="hero-features">
           <div class="feature">
             <span class="feature-icon">🎯</span>
@@ -95,19 +96,20 @@
         </div>
         
         <div class="customization-container">
-          <div class="photo-upload-section">
-            <div class="upload-area" onclick="document.getElementById('photoInput').click()">
-              <div class="upload-icon">📷</div>
-              <p>Click to upload your photo</p>
-              <span class="upload-hint">JPG, PNG, or GIF up to 5MB</span>
-            </div>
-            <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
-          </div>
-          
           <div class="preview-section">
             <div class="canvas-container">
               <canvas id="photoCanvas"></canvas>
               <img id="overlayImage" src="./Resources/no-selected-gm-default-img.png" alt="Character Mask" />
+            </div>
+            
+            <!-- Hidden file input (triggered by buttons below) -->
+            <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="updateStep2Status(); previewPhoto()">
+            
+            <!-- Upload / Change / Remove buttons (JS toggles content) -->
+            <div id="uploadButtons" style="text-align:center; margin-top:12px;">
+              <button class="btn btn-primary" id="uploadPhotoButton" type="button" onclick="changePhoto()">
+                📷 Upload Photo
+              </button>
             </div>
             
             <div class="edit-controls" id="controlsPanel">

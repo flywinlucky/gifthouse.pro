@@ -32,16 +32,12 @@ body {
   font-weight: 700;
   margin-bottom: 5px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    display: flex;
-  justify-content:center;
 }
 
 .logo p {
   font-size: 1.1rem;
   font-weight: 300;
   opacity: 0.9;
-  display: flex;
-  justify-content:center;
 }
 
 /* Hero Section */
@@ -712,7 +708,7 @@ body {
 /* Step Navigation */
 .step-navigation {
   display: flex;
- justify-content: center;
+  justify-content: center;
   align-items: center;
   margin-top: 40px;
   padding-top: 30px;
@@ -954,11 +950,4 @@ body {
   background: #f8d7da;
   color: #721c24;
   border: 1px solid #f5c6cb;
-}
-
-.photo-buttons {
-  margin-top: 20px;
-  display: flex;
-  gap: 15px;
-  justify-content: center;
 }
